@@ -23,9 +23,6 @@ outputs:
   reports:
     type: Directory[]
     outputSource: runFastqc/report
-  files:
-    type: File[]
-    outputSource: fastqSeqs
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -63,5 +60,5 @@ steps:
           valueFrom: $(self.sample_id)
       fastqFileF: fastqSeqs.forward
       fastqFileR: fastqSeqs.reverse
-    scatter: [ fastqFileF ]
+    scatter: [ fastqSeqs ]
     out: [ forwardRename, reverseRename ]

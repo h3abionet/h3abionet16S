@@ -23,9 +23,6 @@ outputs:
   reports:
     type: Directory[]
     outputSource: runFastqc/report
-  files:
-    type: File[]
-    outputSource: fastqSeqs
 
 steps:
   arrayOfFilePairsToFileArray:
