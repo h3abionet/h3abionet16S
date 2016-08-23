@@ -16,12 +16,12 @@ echo $5
 
 # Sort out forward read
 fastx_renamer -Q33 -n COUNT -i $2 -o $2_tmp
-sed \"s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/\" $1_tmp > $1_renamed
+sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" $2_tmp > $2_renamed
 
 # Sort out reverse read
-fastx_renamer -Q33 -n COUNT -i $2 -o $2_tmp
-sed \"s/^\(@\|+\)\([0-9]*\)$/\1$2\2;barcodelabel=$1\/1/\" $2_tmp > $2_renamed
+fastx_renamer -Q33 -n COUNT -i $3 -o $3_tmp
+sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" $3_tmp > $3_renamed
 
-rm -f $fastq_r1_tmp $fastq_r2_tmp
-mv $1_renamed $4
-mv $2_renamed $5
+rm -f $2_tmp $3_tmp
+mv $2_renamed $4
+mv $3_renamed $5
