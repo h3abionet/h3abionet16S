@@ -6,6 +6,7 @@ class: Workflow
 requirements:
  - class: ScatterFeatureRequirement
  - class: InlineJavascriptRequirement
+ - class: StepInputExpressionRequirement
  - class: SchemaDefRequirement
    types:
     - name: FilePairs
@@ -64,5 +65,6 @@ steps:
       fastqFileR:
         source: fastqSeqs
         valueFrom: $(self.reverse)
-    scatter: [ sampleName ]
+    scatter: [ sampleName, fastqFileF, fastqFileR ]
+    scatterMethod: dotproduct
     out: [ forwardRename, reverseRename ]
