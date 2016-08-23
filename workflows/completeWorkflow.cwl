@@ -56,9 +56,13 @@ steps:
     run: uparseRenameFastQ.cwl
     in:
       sampleName:
-        - source: fastqSeqs
-          valueFrom: $(self.sample_id)
-      fastqFileF: fastqSeqs.forward
-      fastqFileR: fastqSeqs.reverse
-    scatter: [ fastqSeqs ]
+        source: fastqSeqs
+        valueFrom: $(self.sample_id)
+      fastqFileF:
+        source: fastqSeqs
+        valueFrom: $(self.forward)
+      fastqFileR:
+        source: fastqSeqs
+        valueFrom: $(self.reverse)
+    scatter: [ sampleName ]
     out: [ forwardRename, reverseRename ]
