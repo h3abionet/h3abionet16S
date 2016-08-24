@@ -19,10 +19,7 @@ requirements:
 
 inputs:
   fastqSeqs: FilePairs[]
-  fastqMaxdiffs:
-    type: int
-    inputBinding:
-      prefix: "-fastq_maxdiffs"
+  fastqMaxdiffs: int
 
 outputs:
   #reports:
