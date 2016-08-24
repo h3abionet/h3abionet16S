@@ -16,7 +16,7 @@ inputs:
     inputBinding:
       position: 3
 
-baseCommand: [ rename_fastq_headers ]
+baseCommand: [ rename_fastq_headers.sh ]
 
 arguments:
   - valueFrom: forward.fastq
