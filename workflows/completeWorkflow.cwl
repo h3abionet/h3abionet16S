@@ -21,9 +21,12 @@ inputs:
   fastqSeqs: FilePairs[]
 
 outputs:
-  reports:
-    type: Directory[]
-    outputSource: runFastqc/report
+  #reports:
+  #  type: Directory[]
+  #  outputSource: runFastqc/report
+  mergedFastQs:
+     type: File[]
+     outputSource: merge/mergedFastQ
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -68,3 +71,12 @@ steps:
     scatter: [ sampleName, fastqFileF, fastqFileR ]
     scatterMethod: dotproduct
     out: [ forwardRename, reverseRename ]
+
+  merge:
+    run: uparseFastqMerge.cwl
+    in:
+      fastqFileF: uparseRename/forwardRename
+      fastqFileR: uparseRename/reverseRename
+    scatter: [ fastqFileF, fastqFileR ]
+    scatterMethod: dotproduct
+    out: [ mergedFastQ ]
