@@ -11,7 +11,11 @@ inputs:
     type: File
     inputBinding:
       prefix: "-reverse"
-baseCommand: [ usearch8, "-fastq_maxdiffs", "25", "-fastqout", mergedFastQ.fastq ]
+  fastqMaxdiffs:
+    type: int
+    inputBinding:
+      prefix: "-fastq_maxdiffs"
+baseCommand: [ usearch8, "-fastqout", mergedFastQ.fastq ]
 
 outputs:
   mergedFastQ:
