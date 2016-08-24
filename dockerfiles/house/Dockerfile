@@ -17,7 +17,7 @@ WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget unzip bzip2 apt-utils
+RUN apt-get install -y wget unzip bzip2 apt-utils imagemagick
 
 # Install house and helper scripts
 
