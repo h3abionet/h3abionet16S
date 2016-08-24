@@ -19,6 +19,10 @@ requirements:
 
 inputs:
   fastqSeqs: FilePairs[]
+  fastqMaxdiffs:
+    type: int
+    inputBinding:
+      prefix: "-fastq_maxdiffs"
 
 outputs:
   #reports:
@@ -77,6 +81,7 @@ steps:
     in:
       fastqFileF: uparseRename/forwardRename
       fastqFileR: uparseRename/reverseRename
+      fastqMaxdiffs: fastqMaxdiffs
     scatter: [ fastqFileF, fastqFileR ]
     scatterMethod: dotproduct
     out: [ mergedFastQ ]
