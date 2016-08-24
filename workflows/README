@@ -1,0 +1,5 @@
+# find your copy of dog_stool_samples
+LOCALDATA=/absolute/path/to/dog_stool_samples_parent_folde \
+  sed -i 's=/home/shakun/CloudHackathon/=../$LOCALDATA/=g' input.yml
+mkdir -p cache
+cwltool --cachedir cache completeWorkflow.cwl input.yml 
