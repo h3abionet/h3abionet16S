@@ -9,10 +9,10 @@ fastqMaxdiffs: 3
 fastqSeqs:
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog10_R1.fastq
+     path: dog_stool_samples/Dog10_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog10_R2.fastq
+     path: dog_stool_samples/Dog10_R2.fastq
    sample_id: Dog10
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTAA
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -21,10 +21,10 @@ fastqSeqs:
    treatment: 4
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog15_R1.fastq
+     path: dog_stool_samples/Dog15_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog15_R2.fastq
+     path: dog_stool_samples/Dog15_R2.fastq
    sample_id: Dog15
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTAC
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -33,10 +33,10 @@ fastqSeqs:
    treatment: 1
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog16_R1.fastq
+     path: dog_stool_samples/Dog16_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog16_R2.fastq
+     path: dog_stool_samples/Dog16_R2.fastq
    sample_id: Dog16
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTAG
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -45,10 +45,10 @@ fastqSeqs:
    treatment: 4
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog17_R1.fastq
+     path: dog_stool_samples/Dog17_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog17_R2.fastq
+     path: dog_stool_samples/Dog17_R2.fastq
    sample_id: Dog17
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTAT
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -57,10 +57,10 @@ fastqSeqs:
    treatment: 0
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog1_R1.fastq
+     path: dog_stool_samples/Dog1_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog1_R2.fastq
+     path: dog_stool_samples/Dog1_R2.fastq
    sample_id: Dog1
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTCA
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -69,10 +69,10 @@ fastqSeqs:
    treatment: 2
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog22_R1.fastq
+     path: dog_stool_samples/Dog22_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog22_R2.fastq
+     path: dog_stool_samples/Dog22_R2.fastq
    sample_id: Dog22
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTCC
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -81,10 +81,10 @@ fastqSeqs:
    treatment: 3
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog23_R1.fastq
+     path: dog_stool_samples/Dog23_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog23_R2.fastq
+     path: dog_stool_samples/Dog23_R2.fastq
    sample_id: Dog23
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTCG
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -93,10 +93,10 @@ fastqSeqs:
    treatment: 1
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog24_R1.fastq
+     path: dog_stool_samples/Dog24_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog24_R2.fastq
+     path: dog_stool_samples/Dog24_R2.fastq
    sample_id: Dog24
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTAT
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -105,10 +105,10 @@ fastqSeqs:
    treatment: 2
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog29_R1.fastq
+     path: dog_stool_samples/Dog29_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog29_R2.fastq
+     path: dog_stool_samples/Dog29_R2.fastq
    sample_id: Dog29
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTGA
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -117,10 +117,10 @@ fastqSeqs:
    treatment: 0
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog2_R1.fastq
+     path: dog_stool_samples/Dog2_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog2_R2.fastq
+     path: dog_stool_samples/Dog2_R2.fastq
    sample_id: Dog2
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTGC
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -129,10 +129,10 @@ fastqSeqs:
    treatment: 3
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog30_R1.fastq
+     path: dog_stool_samples/Dog30_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog30_R2.fastq
+     path: dog_stool_samples/Dog30_R2.fastq
    sample_id: Dog30
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTGG
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -141,10 +141,10 @@ fastqSeqs:
    treatment: 2
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog31_R1.fastq
+     path: dog_stool_samples/Dog31_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog31_R2.fastq
+     path: dog_stool_samples/Dog31_R2.fastq
    sample_id: Dog31
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTGT
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -153,10 +153,10 @@ fastqSeqs:
    treatment: 1
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog3_R1.fastq
+     path: dog_stool_samples/Dog3_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog3_R2.fastq
+     path: dog_stool_samples/Dog3_R2.fastq
    sample_id: Dog3
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTTA
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -165,10 +165,10 @@ fastqSeqs:
    treatment: 3
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog8_R1.fastq
+     path: dog_stool_samples/Dog8_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog8_R2.fastq
+     path: dog_stool_samples/Dog8_R2.fastq
    sample_id: Dog8
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTTC
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
@@ -177,10 +177,10 @@ fastqSeqs:
    treatment: 4
  - forward:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog9_R1.fastq
+     path: dog_stool_samples/Dog9_R1.fastq
    reverse:
      class: File
-     path: /home/shakun/CloudHackathon/dog_stool_samples/Dog9_R2.fastq
+     path: dog_stool_samples/Dog9_R2.fastq
    sample_id: Dog9
    barcode_sequence: NNNNNGTGCCAGCMGCCGCGGTTG
    linker_primer_sequence: NNNNNGGACTACHVGGGTWTCTAAT
