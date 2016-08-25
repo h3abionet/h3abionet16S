@@ -1,5 +1,14 @@
 fastqMaxdiffs: 3
 fastqMaxEe: 0.1
+chimDBFasta: "../helpers/gold.fa"
+strandInfo: plus
+otuRadiusPct: 3.0
+minSize: 2
+otuTable: "OTU table"
+otusRepsetFasta: "../../helpers/rep_set/97_otus.fasta"
+otusTaxFasta: "../../helpers/97_otu_taxonomy.txt"
+method: uclust
+confVal: 0.5
 
 # ( echo "fastqSeqs:"; awk ' NR>1 { print " - forward:\n     class: File\n
 # path: " $2 "\n   reverse:\n     class: File\n     path: " $3 "\n   sample_id:
