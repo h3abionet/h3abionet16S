@@ -7,6 +7,7 @@ requirements:
     dockerPull: longyee/usearch
 
 inputs:
+  sampleName: string
   fastqFileF:
     type: File
     inputBinding:
@@ -19,11 +20,11 @@ inputs:
     type: int
     inputBinding:
       prefix: "-fastq_maxdiffs"
-#baseCommand: [ usearch8, "-fastqout", mergedFastQ.fastq ]
-baseCommand: [ "-fastqout", mergedFastQ.fastq ]
+#baseCommand: [ usearch8, "-fastqout", $(inputs.sampleName)_merged.fastq ]
+baseCommand: [ "-fastqout", $(inputs.sampleName)_merged.fastq ]
 
 outputs:
   mergedFastQ:
     type: File
     outputBinding:
-      glob: mergedFastQ.fastq
+      glob: $(inputs.sampleName)_merged.fastq
