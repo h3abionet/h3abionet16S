@@ -22,4 +22,4 @@ outputs:
 
 
 
-#usearch7 -cluster_otus $outDir/filtered_all.uniques.sorted.fa -otu_radius_pct 3.0 -otus $outDir/otus_raw.fa
+#usearch8 -cluster_otus filtered_sorted.fasta -otu_radius_pct 3.0 -otus otus_raw.fa
