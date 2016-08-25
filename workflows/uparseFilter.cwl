@@ -7,7 +7,7 @@ inputs:
     type: File
     inputBinding:
       prefix: "-fastq_filter"
-  fastqMaxee:
+  fastqMaxEe:
     type: float
     inputBinding:
       prefix: "-fastq_maxee"
