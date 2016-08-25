@@ -38,11 +38,12 @@ steps:
       outputs:
         pairWithMetadata: "readPair.yml#FilePair"
       expression: >
-        ${ var ret;
-           ret["forward"] = inputs.forward;
-           ret["reverse"] = inputs.reverse;
-           ret["sample_id] = inputs.sample_id;
-           return: { "pairWithMetadata": ret } }
+        ${
+        var ret = {} ;
+        ret["forward"] = inputs.forward;
+        ret["reverse"] = inputs.reverse;
+        ret["sample_id"] = inputs.sample_id;
+        return { "pairWithMetadata": ret } ; }
     in:
       forward: uparseRenameSimple/forwardRename
       reverse: uparseRenameSimple/reverseRename
