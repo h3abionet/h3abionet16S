@@ -4,8 +4,7 @@ class: CommandLineTool
 
 requirements:
   - class: DockerRequirement
-    #dockerPull: longyee/house
-    dockerPull: mepstein/house
+    dockerPull: longyee/house
 
 inputs:
   sampleName:
