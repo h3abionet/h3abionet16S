@@ -15,13 +15,15 @@ echo $5
 # fastx_toolkit needs to be setup in PATH
 
 # Sort out forward read
-fastx_renamer -Q33 -n COUNT -i $2 -o $2_tmp
-sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" $2_tmp > $2_renamed
+basename=`basename $2`
+fastx_renamer -Q33 -n COUNT -i $2 -o /tmp/${basename}_tmp
+sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" /tmp/${basename}_tmp > /tmp/${basename}_renamed
+rm -f /tmp/${basename}_tmp
+mv /tmp/${basename}_renamed $4
 
 # Sort out reverse read
-fastx_renamer -Q33 -n COUNT -i $3 -o $3_tmp
-sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" $3_tmp > $3_renamed
-
-rm -f $2_tmp $3_tmp
-mv $2_renamed $4
-mv $3_renamed $5
+basename=`basename $3`
+fastx_renamer -Q33 -n COUNT -i $3 -o /tmp/${basename}_tmp
+sed "s/^\(@\|+\)\([0-9]*\)$/\1$1\2;barcodelabel=$1\/1/" /tmp/${basename}_tmp > /tmp/${basename}_renamed
+rm -f /tmp/${basename}_tmp
+mv /tmp/${basename}_renamed $5
