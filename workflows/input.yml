@@ -1,10 +1,25 @@
+# For UPARSE merge
 fastqMaxdiffs: 3
+
+# For UPARSE filter
 fastqMaxEe: 0.1
+
+# For UPARSE sort
+minSize: 2
+
+# For UPARSE chimera detection
 chimDBFasta: "../helpers/gold.fa"
 strandInfo: plus
+
+# For UPARSE OTU picking
 otuRadiusPct: 3.0
-minSize: 2
+otuPercentageIdentity: 0.97
+usearchGlobalStrand: both
+
+# For OTU table to BIOM 
 otuTable: "OTU table"
+
+# For QIIME assign taxonomy
 otusRepsetFasta: "../../helpers/rep_set/97_otus.fasta"
 otusTaxFasta: "../../helpers/97_otu_taxonomy.txt"
 method: uclust

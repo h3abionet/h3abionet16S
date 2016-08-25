@@ -19,12 +19,8 @@ inputs:
     type: string
     inputBinding:
       position: 4
-  ucTabbedFile:
-    type: File
-    inputBinding:
-      position: 5
 
-baseCommand: [ uparse_global_search_workaround.sh, derep.fasta]
+baseCommand: [ uparse_global_search_workaround.sh, otus.mapped.uc ]
 
 outputs:
   ucTabbedFile:
