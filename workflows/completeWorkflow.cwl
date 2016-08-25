@@ -20,6 +20,7 @@ requirements:
 inputs:
   fastqSeqs: FilePairs[]
   fastqMaxdiffs: int
+  fastqMaxEe: float 
 
 outputs:
   #reports:
@@ -76,9 +77,21 @@ steps:
   merge:
     run: uparseFastqMerge.cwl
     in:
+      sampleName:
+        source: fastqSeqs
+        valueFrom: $(self.sample_id)
       fastqFileF: uparseRename/forwardRename
       fastqFileR: uparseRename/reverseRename
       fastqMaxdiffs: fastqMaxdiffs
     scatter: [ fastqFileF, fastqFileR ]
     scatterMethod: dotproduct
     out: [ mergedFastQ ]
+
+  filter:
+    run: uparseFilter.cwl
+    in:
+      fastqFile: merge/mergedFastQ
+      fastqMaxEe: fastqMaxEe
+    scatter: [ fastqFile ]
+    scatterMethod: dotproduct
+    out: [ filteredFasta ]
