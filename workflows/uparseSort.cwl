@@ -11,14 +11,13 @@ inputs:
     type: int
     inputBinding:
       prefix: "-minsize"
-baseCommand: [ usearch8,  filtered_sorted.fasta ]
+baseCommand: [ usearch8,  "-fastaout", filtered_sorted.fasta ]
 
 outputs:
   filteredSortedFasta:
     type: File
     outputBinding:
       glob: filtered_sorted.fasta
-
 
 
 
