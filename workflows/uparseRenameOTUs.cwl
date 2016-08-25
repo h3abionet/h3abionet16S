@@ -7,18 +7,17 @@ inputs:
     type: File
     inputBinding:
       position: 1
-  prefix:
-    type: string
-    inputBinding:
-      position: 2
 
 baseCommand: [ fasta_number.py ]
+
+arguments:
+  - valueFrom: "OTU_"
+    position: 2
 
 stdout: renamed.fasta
 
 outputs:
   renamedFasta:
     type: stdout
-
 
 #fasta_number.py $outDir/otus_chimOUT.fa OTU_ > $outDir/otus_repsetOUT.fa
