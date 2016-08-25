@@ -1,4 +1,5 @@
 fastqMaxdiffs: 3
+fastqMaxEe: 0.1
 
 # ( echo "fastqSeqs:"; awk ' NR>1 { print " - forward:\n     class: File\n
 # path: " $2 "\n   reverse:\n     class: File\n     path: " $3 "\n   sample_id:
