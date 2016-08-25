@@ -1,0 +1,9 @@
+class: SchemaDefRequirement
+types:
+ - name: FilePair
+   type: record
+   fields:
+     - name: forward
+       type: File
+     - name: reverse
+       type: File
