@@ -10,11 +10,11 @@ minSize: 2
 # For UPARSE chimera detection
 chimDBFasta: "../helpers/gold.fa"
 strandInfo: plus
+otuRadiusPct: 3.0
 
 # For UPARSE OTU picking
-otuRadiusPct: 3.0
 otuPercentageIdentity: 0.97
-usearchGlobalStrand: both
+usearchGlobalStrand: plus 
 
 # For OTU table to BIOM 
 otuTable: "OTU table"
