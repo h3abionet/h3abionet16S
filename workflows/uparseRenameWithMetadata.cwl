@@ -12,7 +12,7 @@ inputs:
 outputs:
   renamedPair:
     type: "readPair.yml#FilePair"
-    outputSource: packageRenamedFastqs/pairWithMetadata         
+    outputSource: packageRenamedFastqs/pairWithMetadata
 
 steps:
   uparseRenameSimple:

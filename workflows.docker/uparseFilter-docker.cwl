@@ -2,6 +2,10 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/usearch
+
 inputs:
   fastqFile:
     type: File
@@ -12,7 +16,8 @@ inputs:
     inputBinding:
       prefix: "-fastq_maxee"
 
-baseCommand: [ usearch8, "-fastaout", filtered_1.fasta ]
+#baseCommand: [ usearch8, "-fastaout", filtered_1.fasta ]
+baseCommand: [ "-fastaout", filtered_1.fasta ]
 
 outputs:
   filteredFasta:

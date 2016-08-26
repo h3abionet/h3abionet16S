@@ -2,6 +2,10 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/usearch
+
 inputs:
   filteredFastaFile:
     type: File
@@ -12,7 +16,8 @@ inputs:
     inputBinding:
       prefix: "-minsize"
 
-baseCommand: [ usearch8,  "-fastaout", filtered_sorted.fasta ]
+#baseCommand: [ usearch8,  "-fastaout", filtered_sorted.fasta ]
+baseCommand: [ "-fastaout", filtered_sorted.fasta ]
 
 outputs:
   filteredSortedFasta:

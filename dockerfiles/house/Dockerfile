@@ -32,5 +32,17 @@ RUN mv fasta-splitter.pl /usr/local/bin/
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/rename_fastq_headers.sh
 RUN chmod +x rename_fastq_headers.sh
 RUN mv rename_fastq_headers.sh /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_derep_workaround.sh
+RUN chmod +x uparse_derep_workaround.sh
+RUN mv uparse_derep_workaround.sh /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
+RUN chmod +x concat_fasta.sh
+RUN mv concat_fasta.sh /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_global_search_workaround.sh
+RUN chmod +x uparse_global_search_workaround.sh
+RUN mv uparse_global_search_workaround.sh /usr/local/bin/
 ##################### INSTALLATION END #####################
 

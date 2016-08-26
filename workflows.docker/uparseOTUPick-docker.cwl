@@ -2,6 +2,10 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/usearch
+
 inputs:
   filteredSortedFasta:
     type: File
@@ -12,7 +16,8 @@ inputs:
     inputBinding:
       prefix: "-otu_radius_pct"
 
-baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
+#baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
+baseCommand: [ "-otus", otus_raw.fasta ]
 
 outputs:
   filteredSortedFasta:

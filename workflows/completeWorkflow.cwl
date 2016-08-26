@@ -16,7 +16,7 @@ inputs:
       type: array
       items: "readPair.yml#FilePair"
   fastqMaxdiffs: int
-  fastqMaxEe: float 
+  fastqMaxEe: float
 
 outputs:
   #reports:

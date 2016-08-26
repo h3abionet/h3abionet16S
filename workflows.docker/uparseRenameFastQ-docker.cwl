@@ -23,17 +23,17 @@ inputs:
 baseCommand: [ rename_fastq_headers.sh ]
 
 arguments:
-  - valueFrom: forward.fastq
+  - valueFrom: $(inputs.sampleName)_forward_rename.fastq
     position: 4
-  - valueFrom: reverse.fastq
+  - valueFrom: $(inputs.sampleName)_reverse_rename.fastq
     position: 5
 
 outputs:
   forwardRename:
     type: File
     outputBinding:
-      glob: forward.fastq
+      glob: $(inputs.sampleName)_forward_rename.fastq
   reverseRename:
     type: File
     outputBinding:
-      glob: reverse.fastq
+      glob: $(inputs.sampleName)_reverse_rename.fastq

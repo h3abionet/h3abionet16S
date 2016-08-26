@@ -2,12 +2,16 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/usearch
+
 inputs:
   otusRawFasta:
     type: File
     inputBinding:
       prefix: "-uchime_ref"
-  chimDBFasta:
+  goldFasta:
     type: File
     inputBinding:
       prefix: "-db"
@@ -16,7 +20,8 @@ inputs:
     inputBinding:
       prefix: "-strand"
 
-baseCommand: [ usearch8,  "-nonchimeras", otus_chimOUT.fasta ]
+#baseCommand: [ usearch8,  "-nonchimeras", otus_chimOUT.fasta ]
+baseCommand: [ "-nonchimeras", otus_chimOUT.fasta ]
 
 outputs:
   chimeraOutFasta:
@@ -24,4 +29,4 @@ outputs:
     outputBinding:
       glob: otus_chimOUT.fasta
 
-#usearch8 -uchime_ref $outDir/otus_raw.fa -db /scratch/DB/bio/qiime/uchime/gold.fa -nonchimeras otus_chimOUT.fa -strand plus
+#usearch8 -uchime_ref $outDir/otus_raw.fa -db /scratch/DB/bio/qiime/uchime/gold.fa -nonchimeras $outDir/otus_chimOUT.fa -strand plus

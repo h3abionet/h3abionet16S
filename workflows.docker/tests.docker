@@ -1,0 +1,42 @@
+
+#fastqc-docker.cwl input-fastqc.yml
+#Dog10_R1_fastqc/
+#Dog10_R1_fastqc.html
+#Dog10_R1_fastqc.zip (binary)
+
+#uparseRenameFastQ-docker.cwl input-uparseRenameFastQ.yml
+#Dog10_forward_rename.fastq
+#Dog10_reverse_rename.fastq
+
+#uparseFastqMerge-docker.cwl input-uparseFastqMerge.yml
+# must be sorted first
+#Dog10_merged.fastq
+
+#uparseFilter-docker.cwl input-uparseFilter.yml
+# must be sorted first
+#filtered_1.fasta
+
+uparseDerepWorkAround-docker.cwl input-uparseDerepWorkAround.yml
+
+#uparseSort-docker.cwl input-uparseSort.yml
+
+#uparseOTUPick-docker.cwl input-uparseOTUPick.yml
+
+#uparseChimera_check-docker.cwl input-uparseChimera_check.yml
+
+#uparseRenameOTUs-docker.cwl input-uparseRenameOTUs.yml
+
+#concatFasta-docker.cwl input-concatFasta.yml
+
+#uparseGlobalSearchWorkAround-docker.cwl input-uparseGlobalSearchWorkAround.yml
+
+#uparseOtuToTab-docker.cwl input-uparseOtuToTab.yml
+
+#qiimeOtusTxt2Biom-docker.cwl ../workflows.docker/input-qiimeOtusTxt2Biom.yml
+
+#qiimeAssignTaxonomy-docker.cwl ../workflows.docker/input-qiimeAssignTaxonomy.yml
+
+#qiimeAddMetadata-docker.cwl ../workflows.docker/input-qiimeAddMetadata.yml
+
+#completeWorkflow-docker.cwl input.yml
+

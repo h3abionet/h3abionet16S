@@ -8,7 +8,7 @@ inputs:
     inputBinding:
       position: 1
 
-baseCommand: [ fastqc, "--outdir", . , "--extract"]
+baseCommand: [ fastqc, "--outdir", . , "--extract" ]
 
 outputs:
   zippedFile:
