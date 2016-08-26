@@ -362,7 +362,7 @@ func listProviders() {
 
 func sendMail(to string, title string, body string) {
 	from := "yourname@gmail.com"
-	pass := "i have know idea"
+	pass := "i have no idea"
 
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
