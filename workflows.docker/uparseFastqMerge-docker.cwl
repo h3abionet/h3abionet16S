@@ -20,8 +20,15 @@ inputs:
     type: int
     inputBinding:
       prefix: "-fastq_maxdiffs"
+
 #baseCommand: [ usearch8, "-fastqout", $(inputs.sampleName)_merged.fastq ]
-baseCommand: [ "-fastqout", $(inputs.sampleName)_merged.fastq ]
+#baseCommand: [ "-fastqout", $(inputs.sampleName)_merged.fastq ]
+#baseCommand: [ usearch8 ]
+baseCommand: [ ]
+
+arguments:
+  - valueFrom: $(inputs.sampleName)_merged.fastq
+    prefix: "-fastqout"
 
 outputs:
   mergedFastQ:
