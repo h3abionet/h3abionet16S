@@ -17,7 +17,7 @@ sudo apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
 # Executing the Docker Command Without Sudo 
 sudo usermod -aG docker $(whoami)
 
- If the VM is running on OpenStack 
+# If the VM is running on OpenStack 
 # Ref: https://rahulait.wordpress.com/2016/02/28/modifying-default-mtu-for-docker-containers/
 #sudo cp /lib/systemd/system/docker.service /etc/systemd/system/docker.service
 sed '12s/$/ --mtu=1450/' /lib/systemd/system/docker.service | sudo tee /etc/systemd/system/docker.service
