@@ -7,7 +7,7 @@
 
 mkdir split
 
-fasta-splitter.pl -n-parts-total 100 -out-dir $2 $1
+fasta-splitter.pl -n-parts-total 100 -out-dir split $1
 for i in $(ls split/*.fa);
   do usearch8 -usearch_global $i -db $3 -id $4 -strand $5 -uc split/$i.map.uc;
 done 
