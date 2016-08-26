@@ -1,6 +1,6 @@
-# rdna: a tool for 16S rRNA diversity analysis
+Homepage: [h3abionet16S](http://h3abionet.github.io/h3abionet16S/)
 
-[h3abionet16S](http://h3abionet.github.io/h3abionet16S/)
+# rdna: a tool for 16S rRNA diversity analysis
 
 rdna is a flexible tool that allows you to choose a cloud provider, create virtual machines, upload data/workflow/licenses and run it. rdna is written in Go and published as a single binary, you should be able to download it and run it without any dependences.
  
