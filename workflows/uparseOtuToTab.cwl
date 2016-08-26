@@ -12,7 +12,7 @@ inputs:
     inputBinding:
       position: 2
 
-baseCommand: [python ]
+baseCommand: [ python ]
 
 stdout: otus_table.tab.txt
 

@@ -7,19 +7,16 @@ requirements:
  - class: ScatterFeatureRequirement
  - class: InlineJavascriptRequirement
  - class: StepInputExpressionRequirement
- - class: SchemaDefRequirement
-   types:
-    - name: FilePairs
-      type: record
-      fields:
-        - name: forward
-          type: File
-        - name: reverse
-          type: File
+ - class: SubworkflowFeatureRequirement
+ - $import: readPair.yml
 
 inputs:
-  fastqSeqs: FilePairs[]
+  fastqSeqs:
+    type:
+      type: array
+      items: "readPair.yml#FilePair"
   fastqMaxdiffs: int
+  fastqMaxEe: float
 
 outputs:
   #reports:
@@ -34,7 +31,10 @@ steps:
     run:
       class: ExpressionTool
       inputs:
-        arrayOfFilePairs: FilePairs[]
+        arrayOfFilePairs:
+          type:
+            type: array
+            items: "readPair.yml#FilePair"
       outputs:
         pairByPairs: File[]
       expression: >
@@ -58,27 +58,34 @@ steps:
     out: [ report ]
 
   uparseRename:
+    run: uparseRenameWithMetadata-docker.cwl
+    in:
+      onePair: fastqSeqs
+    scatter: onePair
+    out: [ renamedPair ]
+
+  merge:
     run: uparseRenameFastQ-docker.cwl
     in:
       sampleName:
-        source: fastqSeqs
+        source: uparseRename/renamedPair
         valueFrom: $(self.sample_id)
       fastqFileF:
-        source: fastqSeqs
+        source: uparseRename/renamedPair
         valueFrom: $(self.forward)
       fastqFileR:
-        source: fastqSeqs
+        source: uparseRename/renamedPair
         valueFrom: $(self.reverse)
+      fastqMaxdiffs: fastqMaxdiffs
     scatter: [ sampleName, fastqFileF, fastqFileR ]
     scatterMethod: dotproduct
-    out: [ forwardRename, reverseRename ]
-
-  merge:
-    run: uparseFastqMerge-docker.cwl
-    in:
-      fastqFileF: uparseRename/forwardRename
-      fastqFileR: uparseRename/reverseRename
-      fastqMaxdiffs: fastqMaxdiffs
-    scatter: [ fastqFileF, fastqFileR ]
-    scatterMethod: dotproduct
     out: [ mergedFastQ ]
+
+  filter:
+    run: uparseFilter-docker.cwl
+    in:
+      fastqFile: merge/mergedFastQ
+      fastqMaxEe: fastqMaxEe
+    scatter: [ fastqFile ]
+    scatterMethod: dotproduct
+    out: [ filteredFasta ]
