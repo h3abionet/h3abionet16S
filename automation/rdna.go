@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"encoding/csv"
 	"fmt"
-	"os"
-	"os/exec"
 	"io/ioutil"
 	"net/smtp"
+	"os"
+	"os/exec"
 
 	"golang.org/x/crypto/ssh"
 
@@ -15,11 +15,10 @@ import (
 
 	"github.com/rackspace/gophercloud"
 	"github.com/rackspace/gophercloud/openstack"
+	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/floatingip"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/servers"
-	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/floatingip"
 	"github.com/rackspace/gophercloud/pagination"
-
 )
 
 const (
@@ -49,7 +48,7 @@ const (
 )
 
 var (
-    PublicIP = "141.142.209.51"
+	PublicIP = "141.142.209.51"
 )
 
 type Plan struct {
@@ -119,17 +118,17 @@ func createServer() {
 	}
 	//fmt.Println(server)
 
-    associateOpts := floatingip.AssociateOpts{
-        ServerID:   sid,
-        FloatingIP: PublicIP,
-    }
+	associateOpts := floatingip.AssociateOpts{
+		ServerID:   sid,
+		FloatingIP: PublicIP,
+	}
 
-    err = floatingip.AssociateInstance(client, associateOpts).ExtractErr()
+	err = floatingip.AssociateInstance(client, associateOpts).ExtractErr()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-    //floatingIp, err := floatingip.Get(client, fip.ID).Extract()
+	//floatingIp, err := floatingip.Get(client, fip.ID).Extract()
 }
 
 func listServers() {
@@ -235,13 +234,13 @@ func terminateServers() {
 
 func installTools() {
 	printLine()
-    uploadFiles()
+	uploadFiles()
 
 	printLine()
 	dest := "ubuntu@" + PublicIP + ":/tmp"
 	sshCopy("rdna.sh", dest)
 
-    fmt.Println("Installing all the necessary software and tools ...")
+	fmt.Println("Installing all the necessary software and tools ...")
 	cmd := "sh /tmp/rdna.sh"
 	sshRun(PublicIP, cmd)
 	printLine()
@@ -261,14 +260,16 @@ func uploadFiles() {
 // Workflow
 ///////////////////////////////////////////////////////////////////////////////
 
-func testWorkflow() {
+func installWorkflow() {
+	dest := "ubuntu@" + PublicIP + ":/~"
+	sshCopy("run.sh", dest)
+
+	cmd := "sh ~/run.sh"
+	sshRun(PublicIP, cmd)
 }
 
-func installWorkflow() {
-	dest := "ubuntu@" + PublicIP + ":/tmp"
-	sshCopy("rdna.sh", dest)
-
-	cmd := "sh /tmp/rdna.sh"
+func runWorkflow() {
+	cmd := "sh ~/run.sh"
 	sshRun(PublicIP, cmd)
 }
 
@@ -416,8 +417,8 @@ func main() {
 		case "workflow":
 			if os.Args[2] == "install" {
 				installWorkflow()
-			} else if os.Args[2] == "test" {
-				testWorkflow()
+			} else if os.Args[2] == "run" {
+				runWorkflow()
 			}
 		default:
 			fmt.Printf("%q is not valid option.\n", os.Args[1])
