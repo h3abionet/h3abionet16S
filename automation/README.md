@@ -74,7 +74,7 @@ $ ./rdna server list
 +------------------+--------+----------------------+----------------+
 ```
 
-### Provision a server
+### Create a server
 
 Then we can create a server/vm/instance in the cloud:
 
