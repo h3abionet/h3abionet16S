@@ -12,7 +12,7 @@ inputs:
     inputBinding:
       position: 2
   otuPercentageIdentity:
-    type: string
+    type: float
     inputBinding:
       position: 3
   usearchGlobalStrand:
@@ -20,7 +20,7 @@ inputs:
     inputBinding:
       position: 4
 
-baseCommand: [ uparse_global_search_workaround.sh, otus.mapped.uc ]
+baseCommand: [ uparse_global_search_workaround.sh ]
 
 outputs:
   ucTabbedFile:
@@ -28,3 +28,10 @@ outputs:
     outputBinding:
       glob: otus.mapped.uc
 
+#cwltool uparseGlobalSearchWorkAround.cwl
+#--fastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta
+#--otuFastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/67_otus.fasta
+#--otuPercentageIdentity 0.97 --usearchGlobalStrand plus
+
+#uparse_global_search_workaround.sh /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta
+#/home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/67_otus.fasta 0.97 plus
