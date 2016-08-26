@@ -1,19 +1,9 @@
 # rdna: a tool for 16S rRNA diversity analysis
 
-Gophercloud is a flexible SDK that allows you to consume and work with OpenStack
-clouds in a simple and idiomatic way using golang. Many services are supported,
-including Compute, Block Storage, Object Storage, Networking, and Identity.
-Each service API is backed with getting started guides, code samples, reference
-documentation, unit tests and acceptance tests.
+[h3abionet16S](http://h3abionet.github.io/h3abionet16S/)
 
 rdna is a flexible tool that allows you to choose a cloud provider, create virtual machines, upload data/workflow/licenses and run it. rdna is written in Go and published as a single binary, you should be able to download it and run it without any dependences.
  
-## Useful links
-
-* [Gophercloud homepage](http://gophercloud.io)
-* [Reference documentation](http://godoc.org/github.com/rackspace/gophercloud)
-* [Getting started guides](http://gophercloud.io/docs)
-* [Effective Go](https://golang.org/doc/effective_go.html)
 
 ## How to install
 
