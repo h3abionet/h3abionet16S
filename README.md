@@ -130,7 +130,4 @@ developing Bioinformatics capacity within Africa.
 
 Engaging the community and lowering barriers for contributors is something we
 care a lot about. If you're not sure how you can get involved, feel free to 
-submit an issue to our [bug tracker](/issues) or [H3ABioNet](http://www.h3abionet.org/).
-
-If you're struggling with something or have spotted a potential bug, feel free
-to submit an issue to our [bug tracker](/issues).
+contact [H3ABioNet](http://www.h3abionet.org/).
