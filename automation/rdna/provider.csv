@@ -1,0 +1,25 @@
+Name,vCPU,Memory (GiB),Instance Storage (GB),I/O EBS Opt.,VPC,On-Demand Hourly Cost,Reserved Effective Hourly Cost (Savings %),Provider
+t2.micro,1,1,--,Low,Yes,$0.000,$0.000 (0%),Amazon EC2
+m4.xlarge,4,16,--,High,Yes,$0.239,$0.089 (63%),Amazon EC2
+m4.2xlarge,8,32,--,High,Yes,$0.479,$0.179 (63%),Amazon EC2
+m4.4xlarge,16,64,--,High,Yes,$0.958,$0.357 (63%),Amazon EC2
+m4.10xlarge,40,160,--,10 Gigabit,Yes,$2.394,$0.893 (63%),Amazon EC2
+c4.2xlarge,8,15,--,High,Yes,$0.419,$0.163 (61%),Amazon EC2
+c4.4xlarge,16,30,--,High,Yes,$0.838,$0.327 (61%),Amazon EC2
+c4.8xlarge,36,60,--,10 Gigabit,Yes,$1.675,$0.653 (61%),Amazon EC2
+r3.large,2,15,SSD 1 x  32,Moderate,--,$0.166,$0.058 (65%),Amazon EC2
+r3.xlarge,4,30,SSD 1 x  80,Moderate,Yes,$0.333,$0.117 (65%),Amazon EC2
+r3.2xlarge,8,61,SSD 1 x 160,High,Yes,$0.665,$0.233 (65%),Amazon EC2
+r3.4xlarge,16,122,SSD 1 x 320,High,Yes,$1.330,$0.467 (65%),Amazon EC2
+r3.8xlarge,32,244,SSD 2 x 320,10 Gigabit,--,$2.660,$0.933 (65%),Amazon EC2
+i2.xlarge,4,30,SSD 1 x 800,Moderate,Yes,$0.853,$0.212 (75%),Amazon EC2
+i2.2xlarge,8,61,SSD 2 x 800,High,Yes,$1.705,$0.423 (75%),Amazon EC2
+i2.4xlarge,16,122,SSD 4 x 800,High,Yes,$3.410,$0.845 (75%),Amazon EC2
+i2.8xlarge,32,244,SSD 8 x 800,10 Gigabit,--,$6.820,$1.690 (75%),Amazon EC2
+vm16,4,16,SAS 1 x 100,10 Gigabit,--,$0.040,$0.002 (0%),SANBI
+vm32,8,32,SAS 1 x 200,10 Gigabit,--,$0.080,$0.002 (0%),SANBI
+vm64,16,64,SAS 1 x 400,10 Gigabit,--,$0.160,$0.002 (0%),SANBI
+vm128,32,128,SAS 1 x 800,10 Gigabit,--,$0.320,$0.002 (0%),SANBI
+m1.large,4,8,SAS 1 x 80,10 Gigabit,--,$0.0,$0.0 (0%),University of Illinois
+m1.xlarge,8,16,SAS 1 x 160,10 Gigabit,--,$0.0,$0.0 (0%),University of Illinois
+local,8,16,SAS 1 x 200,10 Gigabit,--,$0.0,$0.0 (0%),Local machine
