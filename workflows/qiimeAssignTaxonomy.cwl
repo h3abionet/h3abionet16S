@@ -23,6 +23,7 @@ inputs:
     type: float
     inputBinding:
       prefix: "-c"
+
 baseCommand: [ assign_taxonomy.py,  "-o", tax ]
 
 outputs:

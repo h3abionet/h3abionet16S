@@ -14,9 +14,7 @@ inputs:
       separate: false
     default: "OTU table"
 
-
 baseCommand: [ biom, convert, "-o", otus_table.biom, "--to-json" ]
-
 
 outputs:
   otusTableBiom:

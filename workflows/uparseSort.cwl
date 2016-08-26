@@ -11,6 +11,7 @@ inputs:
     type: int
     inputBinding:
       prefix: "-minsize"
+
 baseCommand: [ usearch8,  "-fastaout", filtered_sorted.fasta ]
 
 outputs:

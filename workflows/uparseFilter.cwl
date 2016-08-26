@@ -11,6 +11,7 @@ inputs:
     type: float
     inputBinding:
       prefix: "-fastq_maxee"
+
 baseCommand: [ usearch8, "-fastaout", filtered_1.fasta ]
 
 outputs:

@@ -15,6 +15,7 @@ inputs:
     type: string
     inputBinding:
       prefix: "-strand"
+
 baseCommand: [ usearch8,  "-nonchimeras", otus_chimOUT.fasta ]
 
 outputs:

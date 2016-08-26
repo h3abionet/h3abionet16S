@@ -12,7 +12,7 @@ inputs:
     inputBinding:
       position: 2
   otuPercentageIdentity:
-    type: string 
+    type: string
     inputBinding:
       position: 3
   usearchGlobalStrand:

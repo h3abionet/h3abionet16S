@@ -11,6 +11,7 @@ inputs:
     type: float
     inputBinding:
       prefix: "-otu_radius_pct"
+
 baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
 
 outputs:
