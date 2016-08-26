@@ -11,8 +11,11 @@ if [ ! -d split ];
 fi
 
 fasta-splitter.pl -n-parts-total 100 -out-dir split $1
-for i in $(ls split/*.fasta);
-  do usearch8 -usearch_global $i -db $2 -id $3 -strand $4 -uc split/$i.map.uc;
+
+cd split
+
+for i in $(ls *.fasta);
+  do usearch8 -usearch_global $i -db $2 -id $3 -strand $4 -uc $i.map.uc;
 done 
 
-cat split/*.map.uc > otus.mapped.uc
+cat *.map.uc > otus.mapped.uc
