@@ -6,7 +6,7 @@
 
 **workflows** - CWL workflows for running the 16S pipeline on a VM setup with the necessary software. Still in development.
 
-![workflow](/h3abionet16S_CWL_workflow.png?raw=true "CWL workflow")
+![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/h3abionet16S_CWL_workflow.png "CWL workflow")
 
 **workflows-docker** - CWL workflows for the 16S pipeline to run on the Docker containers. Still in development.
 
