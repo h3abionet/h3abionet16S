@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 my $cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows";
-my $docker_cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows.docker";
+my $docker_cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows-docker";
 my $tests_file = "$docker_cwl_dir/tests";
 my $docker_tests_file = "$docker_cwl_dir/tests.docker";
 

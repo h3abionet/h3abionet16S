@@ -32,11 +32,11 @@ uparseDerepWorkAround-docker.cwl input-uparseDerepWorkAround.yml
 
 #uparseOtuToTab-docker.cwl input-uparseOtuToTab.yml
 
-#qiimeOtusTxt2Biom-docker.cwl ../workflows.docker/input-qiimeOtusTxt2Biom.yml
+#qiimeOtusTxt2Biom-docker.cwl input-qiimeOtusTxt2Biom.yml
 
-#qiimeAssignTaxonomy-docker.cwl ../workflows.docker/input-qiimeAssignTaxonomy.yml
+#qiimeAssignTaxonomy-docker.cwl input-qiimeAssignTaxonomy.yml
 
-#qiimeAddMetadata-docker.cwl ../workflows.docker/input-qiimeAddMetadata.yml
+#qiimeAddMetadata-docker.cwl input-qiimeAddMetadata.yml
 
 #completeWorkflow-docker.cwl input.yml
 
