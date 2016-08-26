@@ -7,8 +7,9 @@ rdna is a flexible tool that allows you to choose a cloud provider, create virtu
 
 
 ```bash
-$ wget https://github.com/h3abionet/h3abionet16S/blob/master/rdna.gz
-$ gunzip rdna.gz
+$ wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/rdna.tar.gz
+$ tar zxvf rdna.tar.gz
+$ cd rdna
 $ chmod +x rdna
 $ ./rdna
 usage: rdna server|workflow
