@@ -5,10 +5,13 @@
 # $3 = percentage identity (float e.g. 0.97)
 # $4 = strand (string e.g. plus)
 
-mkdir split
+if [ ! -d split ];
+ then
+   mkdir split
+fi
 
 fasta-splitter.pl -n-parts-total 100 -out-dir split $1
-for i in $(ls split/*.fa);
+for i in $(ls split/*.fasta);
   do usearch8 -usearch_global $i -db $3 -id $4 -strand $5 -uc split/$i.map.uc;
 done 
 
