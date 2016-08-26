@@ -7,6 +7,11 @@ inputs:
     type: File
     inputBinding:
       prefix: "-i"
+  msaAlignMethod:
+    type: string
+    inputBinding:
+      prefix: "-m"
+    default: pynast
   otusAlignFasta:
     type: File
     inputBinding:
@@ -21,5 +26,5 @@ outputs:
 
 
 
-#align_seqs.py -i ../../test/sample_otus/rep_set/61_otus.fasta -o rep_set_align
+#align_seqs.py -m muscle -i ../../test/sample_otus/rep_set/61_otus.fasta -o rep_set_align
 # -t ../../test/sample_otus/rep_set_aligned/61_otus.fasta
