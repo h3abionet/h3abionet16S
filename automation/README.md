@@ -1,26 +1,14 @@
 # rdna: a tool for 16S rRNA diversity analysis
 
-Gophercloud is a flexible SDK that allows you to consume and work with OpenStack
-clouds in a simple and idiomatic way using golang. Many services are supported,
-including Compute, Block Storage, Object Storage, Networking, and Identity.
-Each service API is backed with getting started guides, code samples, reference
-documentation, unit tests and acceptance tests.
-
 rdna is a flexible tool that allows you to choose a cloud provider, create virtual machines, upload data/workflow/licenses and run it. rdna is written in Go and published as a single binary, you should be able to download it and run it without any dependences.
  
-## Useful links
-
-* [Gophercloud homepage](http://gophercloud.io)
-* [Reference documentation](http://godoc.org/github.com/rackspace/gophercloud)
-* [Getting started guides](http://gophercloud.io/docs)
-* [Effective Go](https://golang.org/doc/effective_go.html)
-
 ## How to install
 
 
 ```bash
 $ wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/automation/rdna.tar.gz
-$ gunzip rdna.gz
+$ tar zxvf rdna.tar.gz
+$ cd rdna
 $ chmod +x rdna
 $ ./rdna
 usage: rdna server|workflow
@@ -73,16 +61,16 @@ $ ./rdna server list
 +------------------+--------+----------------------+----------------+
 |  INSTANCE NAME   | STATUS |       CREATED        |   PUBLIC IP    |
 +------------------+--------+----------------------+----------------+
-| h3abionet16sDemo | ACTIVE | 2016-08-25T16:23:24Z | 141.142.209.51 |
-| node4            | ACTIVE | 2016-08-25T07:45:12Z | 141.142.209.50 |
-| node3            | ACTIVE | 2016-08-25T07:44:57Z | 141.142.209.5  |
-| node2            | ACTIVE | 2016-08-25T07:44:42Z | 141.142.209.3  |
-| node1            | ACTIVE | 2016-08-25T07:44:27Z | 141.142.209.49 |
-| node0            | ACTIVE | 2016-08-25T07:44:12Z | 141.142.209.33 |
-| manager1         | ACTIVE | 2016-08-25T07:43:57Z | 141.142.209.48 |
-| manager0         | ACTIVE | 2016-08-25T07:43:42Z | 141.142.209.34 |
-| consul0          | ACTIVE | 2016-08-25T07:43:12Z | 141.142.209.32 |
-| h3abionet16S     | ACTIVE | 2016-08-24T08:09:54Z | 141.142.209.30 |
+| h3abionet16sDemo | ACTIVE | 2016-08-25T16:23:24Z | 151.151.151.51 |
+| node4            | ACTIVE | 2016-08-25T07:45:12Z | 151.151.151.50 |
+| node3            | ACTIVE | 2016-08-25T07:44:57Z | 151.151.151.5  |
+| node2            | ACTIVE | 2016-08-25T07:44:42Z | 151.151.151.3  |
+| node1            | ACTIVE | 2016-08-25T07:44:27Z | 151.151.151.49 |
+| node0            | ACTIVE | 2016-08-25T07:44:12Z | 151.151.151.33 |
+| manager1         | ACTIVE | 2016-08-25T07:43:57Z | 151.151.151.48 |
+| manager0         | ACTIVE | 2016-08-25T07:43:42Z | 151.151.151.34 |
+| consul0          | ACTIVE | 2016-08-25T07:43:12Z | 151.151.151.32 |
+| h3abionet16S     | ACTIVE | 2016-08-24T08:09:54Z | 151.151.151.30 |
 +------------------+--------+----------------------+----------------+
 ```
 
@@ -130,7 +118,4 @@ developing Bioinformatics capacity within Africa.
 
 Engaging the community and lowering barriers for contributors is something we
 care a lot about. If you're not sure how you can get involved, feel free to 
-submit an issue to our [bug tracker](/issues) or [H3ABioNet](http://www.h3abionet.org/).
-
-If you're struggling with something or have spotted a potential bug, feel free
-to submit an issue to our [bug tracker](/issues).
+submit an issue or [H3ABioNet](http://www.h3abionet.org/).
