@@ -21,7 +21,6 @@ RUN apt-get install -y wget
 
 # Install USEARCH
 # Ref: http://www.drive5.com/usearch/manual/install.html
-RUN wget ftp://ftp.sanbi.ac.za/usearch8.1.1861_i86linux32
 RUN mv usearch8.1.1861_i86linux32 /usr/local/bin/
 RUN chmod +x /usr/local/bin/usearch8.1.1861_i86linux32
 RUN ln -s /usr/local/bin/usearch8.1.1861_i86linux32 /usr/local/bin/usearch8
