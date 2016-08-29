@@ -16,13 +16,19 @@
 # must be sorted first
 #filtered_1.fasta
 
-uparseDerepWorkAround.cwl ../workflows-docker/input-uparseDerepWorkAround.yml
+#---
+
+#uparseDerepWorkAround.cwl ../workflows-docker/input-uparseDerepWorkAround.yml
+# had to make some changes to cwl
+#derep.fasta
 
 #uparseSort.cwl ../workflows-docker/input-uparseSort.yml
+#filtered_sorted.fasta
 
 #uparseOTUPick.cwl ../workflows-docker/input-uparseOTUPick.yml
+#otus_raw.fasta
 
-#uparseChimera_check.cwl ../workflows-docker/input-uparseChimera_check.yml
+uparseChimeraCheck.cwl ../workflows-docker/input-uparseChimeraCheck.yml
 
 #uparseRenameOTUs.cwl ../workflows-docker/input-uparseRenameOTUs.yml
 
