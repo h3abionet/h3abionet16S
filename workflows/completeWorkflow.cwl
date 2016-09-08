@@ -17,14 +17,28 @@ inputs:
       items: "readPair.yml#FilePair"
   fastqMaxdiffs: int
   fastqMaxEe: float
+  minSize: int
 
 outputs:
   #reports:
   #  type: Directory[]
   #  outputSource: runFastqc/report
-  mergedFastQs:
-     type: File[]
-     outputSource: merge/mergedFastQ
+ 
+ # mergedFastQs:
+ #    type: File[]
+ #    outputSource: merge/mergedFastQ
+
+  filteredFastaFiles:
+    type: File[]
+    outputSource: filter/filteredFasta
+
+  derepFastaFile:
+    type: File
+    outputSource: derep/derepFasta
+
+  sortedFastaFile:
+    type: File
+    outputSource: sort/sortedFasta
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -89,3 +103,22 @@ steps:
     scatter: [ fastqFile ]
     scatterMethod: dotproduct
     out: [ filteredFasta ]
+
+  # add strip primer step here 
+  
+  # add truncate length step here
+
+  derep:
+    run: uparseDerepWorkAround.cwl
+    in:
+      fastaFiles: filter/filteredFasta
+    out:  [ derepFasta ]
+
+  sort:
+    run: uparseSort.cwl
+    in: 
+      fastaFile: derep/derepFasta
+      minSize: minSize
+    out: [ sortedFasta ]
+
+
