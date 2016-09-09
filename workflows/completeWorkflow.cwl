@@ -18,6 +18,9 @@ inputs:
   fastqMaxdiffs: int
   fastqMaxEe: float
   minSize: int
+  otuRadiusPct: float
+  chimeraFastaDb: File
+  strandInfo: string
 
 outputs:
   #reports:
@@ -39,6 +42,14 @@ outputs:
   sortedFastaFile:
     type: File
     outputSource: sort/sortedFasta
+  
+  otuFastaFile:
+    type: File
+    outputSource: otuPick/otuFasta
+
+  noChimeraFastaFile:
+    type: File
+    outputSource: chimeraCheck/chimeraCleanFasta  
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -121,4 +132,17 @@ steps:
       minSize: minSize
     out: [ sortedFasta ]
 
+  otuPick:
+    run: uparseOTUPick.cwl
+    in:
+      fastaFile: sort/sortedFasta
+      otuRadiusPct: otuRadiusPct
+    out: [ otuFasta ]
 
+  chimeraCheck:
+    run: uparseChimeraCheck.cwl
+    in:
+      fastaFile: otuPick/otuFasta
+      chimeraFastaDb: chimeraFastaDb
+      strandInfo: strandInfo
+    out: [ chimeraCleanFasta  ] 

@@ -7,14 +7,18 @@ fastqMaxEe: 0.1
 # For UPARSE sort
 minSize: 2
 
-# For UPARSE chimera detection
-chimDBFasta: "../helpers/gold.fa"
-strandInfo: plus
+# For UPARSE OTU picking
 otuRadiusPct: 3.0
 
-# For UPARSE OTU picking
 otuPercentageIdentity: 0.97
 usearchGlobalStrand: plus 
+
+# For UPARSE chimera detection
+chimeraFastaDb:
+ class: File
+ path: gold.fa
+
+strandInfo: plus
 
 # For OTU table to BIOM 
 otuTable: "OTU table"
