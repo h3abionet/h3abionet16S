@@ -4,7 +4,7 @@
 
 **docker** - docker build files for QC, UPARSE and QIIME setup
 
-**workflows** - CWL workflows for running the 16S pipeline on a VM setup with the necessary software. Still in development.
+**workflows** - CWL workflows for running the 16S pipeline on a VM setup with the necessary software. Still in development. The most recent version of the workflow can be accessed here: https://docs.google.com/drawings/d/160ga3XOvv4CqfWoYnGtFU4JDFbhKBbEDKXKmEgFpfvo
 
 ![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/h3abionet16S_CWL_workflow.png "CWL workflow")
 
