@@ -10,15 +10,15 @@ minSize: 2
 # For UPARSE OTU picking
 otuRadiusPct: 3.0
 
-otuPercentageIdentity: 0.97
-usearchGlobalStrand: plus 
-
 # For UPARSE chimera detection
 chimeraFastaDb:
  class: File
  path: gold.fa
-
 strandInfo: plus
+
+# For UPARSE underep (global-search)
+otuPercentageIdentity: 0.97
+usearchGlobalStrand: plus 
 
 # For OTU table to BIOM 
 otuTable: "OTU table"
