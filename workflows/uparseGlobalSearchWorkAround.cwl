@@ -23,7 +23,7 @@ inputs:
 baseCommand: [ uparse_global_search_workaround.sh ]
 
 outputs:
-  ucTabbedFile:
+  ucTabbed:
     type: File
     outputBinding:
       glob: otus.mapped.uc
