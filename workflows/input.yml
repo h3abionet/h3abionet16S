@@ -12,8 +12,8 @@ otuRadiusPct: 3.0
 
 # For UPARSE chimera detection
 chimeraFastaDb:
- class: File
- path: gold.fa
+  class: File
+  path: gold.fa
 strandInfo: plus
 
 # For UPARSE underep (global-search)
@@ -21,13 +21,17 @@ otuPercentageIdentity: 0.97
 usearchGlobalStrand: plus 
 
 # For OTU table to BIOM 
-otuTable: "OTU table"
+otuTableType: "OTU table"
 
 # For QIIME assign taxonomy
-otusRepsetFasta: "../../helpers/rep_set/97_otus.fasta"
-otusTaxFasta: "../../helpers/97_otu_taxonomy.txt"
-method: uclust
-confVal: 0.5
+otuRepsetFasta:
+  class: File
+  path: 97_otus.fasta
+otuRepsetTax: 
+  class: File
+  path: 97_otu_taxonomy.txt
+assignTaxonomyMethod: uclust
+assignTaxonomyConfVal: 0.5
 
 # ( echo "fastqSeqs:"; awk ' NR>1 { print " - forward:\n     class: File\n
 # path: " $2 "\n   reverse:\n     class: File\n     path: " $3 "\n   sample_id:

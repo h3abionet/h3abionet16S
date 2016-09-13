@@ -3,24 +3,23 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  otusTableTabTxt:
+  otuTable:
     type: File
     inputBinding:
       prefix: "-i"
-  otuTable:
+  otuTableType:
     type: string
     inputBinding:
       prefix: "--table-type="
       separate: false
     default: "OTU table"
 
-baseCommand: [ biom, convert, "-o", otus_table.biom, "--to-json" ]
+baseCommand: [ biom, convert, "-o", otus.biom, "--to-json" ]
 
 outputs:
-  otusTableBiom:
+  otuBiom:
     type: File
     outputBinding:
-      glob: otus_table.biom
-
+      glob: otus.biom
 
 #biom convert -i ../../test/other_otus.txt -o otus_table.biom --table-type="OTU table" --to-json
