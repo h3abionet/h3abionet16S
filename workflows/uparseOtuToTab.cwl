@@ -10,7 +10,7 @@ inputs:
 
 baseCommand: [ uc2otutab.py ]
 
-stdout: otu.table
+stdout: otus.table
 
 outputs:
   otuTable:

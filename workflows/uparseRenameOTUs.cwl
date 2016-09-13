@@ -14,7 +14,7 @@ arguments:
   - valueFrom: "OTU_"
     position: 2
 
-stdout: renamedOTU.fasta
+stdout: otus_renamed.fasta
 
 outputs:
   renamedFasta:

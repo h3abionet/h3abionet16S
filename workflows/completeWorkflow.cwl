@@ -23,15 +23,24 @@ inputs:
   strandInfo: string
   otuPercentageIdentity: float 
   usearchGlobalStrand: string
+  otuTableType: string
+  otuRepsetFasta: File
+  otuRepsetTax: File
+  assignTaxonomyMethod: string
+  assignTaxonomyConfVal: float
 
 outputs:
-  #reports:
-  #  type: Directory[]
-  #  outputSource: runFastqc/report
+  reports:
+    type: Directory[]
+    outputSource: runFastqc/report
+
+  renamedFastqFile:
+    type: "readPair.yml#FilePair[]"
+    outputSource: uparseRename/renamedPair 
  
- # mergedFastQs:
- #    type: File[]
- #    outputSource: merge/mergedFastQ
+  mergedFastQs:
+     type: File[]
+     outputSource: merge/mergedFastQ
 
   filteredFastaFiles:
     type: File[]
@@ -68,6 +77,14 @@ outputs:
   otuTableFile:
     type: File
     outputSource: uparseUCtoTab/otuTable 
+
+  otuBiomFile:
+    type: File
+    outputSource: otuTableToBiom/otuBiom
+
+  otuTaxonomyFile:
+    type: File 
+    outputSource: assignTaxonomy/otuTaxonomy 
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -191,4 +208,19 @@ steps:
     in:
       ucTabbed: underep/ucTabbed
     out: [ otuTable ]
-      
+    
+  otuTableToBiom:
+    run: qiimeOtusTxt2Biom.cwl
+    in:
+      otuTable: uparseUCtoTab/otuTable
+    out: [ otuBiom ]
+  
+  assignTaxonomy:
+    run: qiimeAssignTaxonomy.cwl
+    in:
+      otuFasta: renameOTU/renamedFasta
+      otuRepsetFasta: otuRepsetFasta
+      otuRepsetTax: otuRepsetTax
+      assignTaxonomyMethod: assignTaxonomyMethod
+      assignTaxonomyConfVal: assignTaxonomyConfVal
+    out: [ otuTaxonomy ]   
