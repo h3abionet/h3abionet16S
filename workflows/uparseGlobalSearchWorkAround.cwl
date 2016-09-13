@@ -26,7 +26,7 @@ outputs:
   ucTabbed:
     type: File
     outputBinding:
-      glob: otus.mapped.uc
+      glob: otus.uc
 
 #cwltool uparseGlobalSearchWorkAround.cwl
 #--fastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta
