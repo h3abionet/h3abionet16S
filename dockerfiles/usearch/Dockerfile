@@ -26,8 +26,10 @@ RUN chmod +x /usr/local/bin/usearch8.1.1861_i86linux32
 RUN ln -s /usr/local/bin/usearch8.1.1861_i86linux32 /usr/local/bin/usearch8
 
 # Install scripts
-RUN wget http://drive5.com/python/python_scripts.tar.gz
-RUN tar zxvf python_scripts.tar.gz -C /usr/local/bin/
+RUN wget http://drive5.com/python/python_scripts.tar.gz \
+    && tar zxvf python_scripts.tar.gz -C /usr/local/bin/
+RUN head -n 1 /usr/local/bin/uc2otutab.py | if grep -q "\#\!\/usr\/bin\/python"; then echo "found"; else echo "#"'!'"/usr/bin/python" | cat - /usr/local/bin/uc2otutab.py > /tmp/uc2otutab.py.tmp; chmod +x /tmp/uc2otutab.py.tmp; sudo mv /tmp/uc2otutab.py.tmp /usr/local/bin/uc2otutab.py; fi
+
 ##################### INSTALLATION END #####################
 
 ENTRYPOINT ["/usr/local/bin/usearch8.1.1861_i86linux32"]
