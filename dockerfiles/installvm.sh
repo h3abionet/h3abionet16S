@@ -52,6 +52,7 @@ sudo apt-get install nodejs
 
 wget http://drive5.com/python/python_scripts.tar.gz
 sudo tar zxvf python_scripts.tar.gz -C /usr/local/bin/
+head -n 1 /usr/local/bin/uc2otutab.py | if grep -q "\#\!\/usr\/bin\/python"; then echo "found"; else echo "#"'!'"/usr/bin/python" | cat - /usr/local/bin/uc2otutab.py > /tmp/uc2otutab.py.tmp; chmod +x /tmp/uc2otutab.py.tmp; sudo mv /tmp/uc2otutab.py.tmp /usr/local/bin/uc2otutab.py; fi
 
 # in house scripts
 wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/rename_fastq_headers.sh

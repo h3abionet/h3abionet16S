@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  fasta:
+  fastaFile:
     type: File
     inputBinding:
       position: 1
@@ -14,7 +14,7 @@ arguments:
   - valueFrom: "OTU_"
     position: 2
 
-stdout: renamed.fasta
+stdout: renamedOTU.fasta
 
 outputs:
   renamedFasta:

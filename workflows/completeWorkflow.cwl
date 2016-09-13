@@ -21,6 +21,8 @@ inputs:
   otuRadiusPct: float
   chimeraFastaDb: File
   strandInfo: string
+  otuPercentageIdentity: float 
+  usearchGlobalStrand: string
 
 outputs:
   #reports:
@@ -50,6 +52,22 @@ outputs:
   noChimeraFastaFile:
     type: File
     outputSource: chimeraCheck/chimeraCleanFasta  
+  
+  renamedOTUFastaFile:
+    type: File
+    outputSource: renameOTU/renamedFasta 
+
+  concatFastaFile:
+    type: File
+    outputSource: concatFasta/concatFasta
+  
+  ucTabbedFile:
+    type: File
+    outputSource: underep/ucTabbed
+
+  otuTableFile:
+    type: File
+    outputSource: uparseUCtoTab/otuTable 
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -145,4 +163,32 @@ steps:
       fastaFile: otuPick/otuFasta
       chimeraFastaDb: chimeraFastaDb
       strandInfo: strandInfo
-    out: [ chimeraCleanFasta  ] 
+    out: [ chimeraCleanFasta ] 
+
+  renameOTU:
+    run: uparseRenameOTUs.cwl
+    in:
+      fastaFile: chimeraCheck/chimeraCleanFasta 
+    out: [ renamedFasta ]
+
+  concatFasta:
+    run: concatFasta.cwl
+    in:
+     fastaFiles: filter/filteredFasta
+    out: [ concatFasta ]
+
+  underep:
+    run: uparseGlobalSearchWorkAround.cwl
+    in:
+      fastaFile: concatFasta/concatFasta
+      otuFastaFile: renameOTU/renamedFasta
+      otuPercentageIdentity: otuPercentageIdentity
+      usearchGlobalStrand: usearchGlobalStrand
+    out: [ ucTabbed ]
+
+  uparseUCtoTab:
+    run: uparseOtuToTab.cwl
+    in:
+      ucTabbed: underep/ucTabbed
+    out: [ otuTable ]
+      
