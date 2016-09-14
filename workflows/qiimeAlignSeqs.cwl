@@ -3,26 +3,26 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  otusRepsetFasta:
+  otuFasta:
     type: File
     inputBinding:
       prefix: "-i"
-  msaAlignMethod:
+  alignmentMethod:
     type: string
     inputBinding:
       prefix: "-m"
     default: pynast
-  otusAlignFasta:
+  otuRepsetAlignmentTemplateFasta:
     type: File
     inputBinding:
       prefix: "-t"
-baseCommand: [ align_seqs.py, "-o", rep_set_align ]
+baseCommand: [ align_seqs.py, "-o", otus.align ]
 
 outputs:
-  repSetAlign:
-    type: Directory
+  otuAlignedFasta:
+    type: File 
     outputBinding:
-      glob: .
+      glob: otus.align/otus_renamed_aligned.fasta 
 
 
 
