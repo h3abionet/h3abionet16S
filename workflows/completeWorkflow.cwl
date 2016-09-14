@@ -28,6 +28,8 @@ inputs:
   otuRepsetTax: File
   assignTaxonomyMethod: string
   assignTaxonomyConfVal: float
+  otuRepsetAlignmentTemplateFasta: File
+  alignmentMethod: string
 
 outputs:
   reports:
@@ -85,6 +87,14 @@ outputs:
   otuTaxonomyFile:
     type: File 
     outputSource: assignTaxonomy/otuTaxonomy 
+
+  otuBiomTaxonomyFile:
+    type: File
+    outputSource: addTaxonomyToBiom/otuBiom
+
+  otuAlignedFastaFile:
+    type: File 
+    outputSource: align/otuAlignedFasta
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -223,4 +233,19 @@ steps:
       otuRepsetTax: otuRepsetTax
       assignTaxonomyMethod: assignTaxonomyMethod
       assignTaxonomyConfVal: assignTaxonomyConfVal
-    out: [ otuTaxonomy ]   
+    out: [ otuTaxonomy ] 
+
+  addTaxonomyToBiom:
+    run: qiimeAddMetadata.cwl
+    in:
+      otuBiom: otuTableToBiom/otuBiom
+      otuTaxonomy: assignTaxonomy/otuTaxonomy
+    out: [ otuBiom ]
+
+  align:
+    run: qiimeAlignSeqs.cwl
+    in:
+      otuFasta: renameOTU/renamedFasta
+      alignmentMethod: alignmentMethod
+      otuRepsetAlignmentTemplateFasta: otuRepsetAlignmentTemplateFasta
+    out: [ otuAlignedFasta ]
