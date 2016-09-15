@@ -8,12 +8,12 @@ inputs:
     inputBinding:
       prefix: "-i"
       
-baseCommand: [ biom, summarize-table, "--observations","-o", otus.summary.observations ]
+baseCommand: [ biom, summarize-table, "--qualitative","-o", otus.summary.qualitative ]
 
 outputs:
   otuSummary:
     type: File
     outputBinding:
-      glob: otus.summary.observations
+      glob: otus.summary.qualitative
 
 # biom summarize-table -i otus_table.tax.biom -o otus_table.tax.biom.summary
