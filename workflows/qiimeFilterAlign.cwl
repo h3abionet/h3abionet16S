@@ -3,17 +3,17 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  otusRepsetAlignedFasta:
+  otuFasta:
     type: File
     inputBinding:
       prefix: "-i"
 baseCommand: [ filter_alignment.py, "-o", filtered_alignment ]
 
 outputs:
-  filteredAligned:
-    type: Directory
+  otuFilteredAlignmentFasta:
+    type: File 
     outputBinding:
-      glob: .
+      glob: filtered_alignment/otus_renamed_aligned_pfiltered.fasta 
 
 
 #filter_alignment.py -i rep_set_align/61_otus_aligned.fasta -o filtered_alignment

@@ -96,6 +96,22 @@ outputs:
     type: File 
     outputSource: align/otuAlignedFasta
 
+  otuFilteredAlignmentFastaFile:
+    type: File
+    outputSource: filterAlignment/otuFilteredAlignmentFasta
+
+  otuTreeFile:
+    type: File
+    outputSource: makePhylogeny/otuTree
+
+  otuSummaryeObservationsFile:
+    type: File
+    outputSource: createSummaryObservations/otuSummary
+
+  otuSummaryQualitativeFile:
+    type: File
+    outputSource: createSummaryQualitative/otuSummary
+
 steps:
   arrayOfFilePairsToFileArray:
     run:
@@ -249,3 +265,27 @@ steps:
       alignmentMethod: alignmentMethod
       otuRepsetAlignmentTemplateFasta: otuRepsetAlignmentTemplateFasta
     out: [ otuAlignedFasta ]
+
+  filterAlignment:
+    run: qiimeFilterAlign.cwl
+    in:
+      otuFasta: align/otuAlignedFasta
+    out: [ otuFilteredAlignmentFasta ]  
+
+  makePhylogeny:
+    run: qiimeMakePhylogeny.cwl
+    in:
+      otuFasta: filterAlignment/otuFilteredAlignmentFasta
+    out: [ otuTree ]
+ 
+  createSummaryObservations:
+    run: qiimeSummaryObservations.cwl
+    in:
+      otuBiom: addTaxonomyToBiom/otuBiom
+    out: [ otuSummary ]
+
+  createSummaryQualitative:
+    run: qiimeSummaryQualitative.cwl
+    in:
+      otuBiom: addTaxonomyToBiom/otuBiom
+    out: [ otuSummary ]
