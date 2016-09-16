@@ -7,23 +7,23 @@ requirements:
     dockerPull: longyee/qiime
 
 inputs:
-  otusInputFasta:
+  otuFasta:
     type: File
     inputBinding:
       prefix: "-i"
-  otusRepsetFasta:
+  otuRepsetFasta:
     type: File
     inputBinding:
       prefix: "-r"
-  otusTaxFasta:
+  otuRepsetTax:
     type: File
     inputBinding:
       prefix: "-t"
-  method:
+  assignTaxonomyMethod:
     type: string
     inputBinding:
       prefix: "-m"
-  confVal:
+  assignTaxonomyConfVal:
     type: float
     inputBinding:
       prefix: "-c"
@@ -31,11 +31,10 @@ inputs:
 baseCommand: [ assign_taxonomy.py,  "-o", tax ]
 
 outputs:
-  taxOut:
-    type: Directory
+  otuTaxonomy:
+    type: File
     outputBinding:
-      glob: .
-
+      glob: "tax/*.txt"
 
 #assign_taxonomy.py -i ../../test/other_seqs.fna -o tax -r ../../helpers/rep_set/97_otus.fasta
 #-t ../../helpers/97_otu_taxonomy.txt -m uclust -c 0.5

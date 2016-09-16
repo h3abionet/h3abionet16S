@@ -1,10 +1,13 @@
 
-#fastqc-docker.cwl input-fastqc.yml
+#? local: arrayOfFilePairsToFileArray
+
+fastqc-docker.cwl input-fastqc.yml
 #Dog10_R1_fastqc/
 #Dog10_R1_fastqc.html
 #Dog10_R1_fastqc.zip (binary)
 
 #uparseRenameFastQ-docker.cwl input-uparseRenameFastQ.yml
+#? uparseRenameWithMetadata-docker.cwl
 #Dog10_forward_rename.fastq
 #Dog10_reverse_rename.fastq
 
@@ -28,7 +31,7 @@
 #uparseOTUPick-docker.cwl input-uparseOTUPick.yml
 #otus_raw.fasta
 
-uparseChimeraCheck-docker.cwl input-uparseChimeraCheck.yml
+#uparseChimeraCheck-docker.cwl input-uparseChimeraCheck.yml
 
 #uparseRenameOTUs-docker.cwl input-uparseRenameOTUs.yml
 
@@ -43,6 +46,16 @@ uparseChimeraCheck-docker.cwl input-uparseChimeraCheck.yml
 #qiimeAssignTaxonomy-docker.cwl input-qiimeAssignTaxonomy.yml
 
 #qiimeAddMetadata-docker.cwl input-qiimeAddMetadata.yml
+
+#qiimeAlignSeqs-docker.cwl
+
+#qiimeFilterAlign-docker.cwl
+
+#qiimeMakePhylogeny-docker.cwl
+
+#qiimeSummaryObservations-docker.cwl
+
+#qiimeSummaryQualitative-docker.cwl
 
 #completeWorkflow-docker.cwl input.yml
 

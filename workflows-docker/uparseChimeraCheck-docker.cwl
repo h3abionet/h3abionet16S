@@ -7,11 +7,11 @@ requirements:
     dockerPull: longyee/usearch
 
 inputs:
-  otusRawFasta:
+  fastaFile:
     type: File
     inputBinding:
       prefix: "-uchime_ref"
-  chimDBFasta:
+  chimeraFastaDb:
     type: File
     inputBinding:
       prefix: "-db"
@@ -20,13 +20,13 @@ inputs:
     inputBinding:
       prefix: "-strand"
 
-#baseCommand: [ usearch8,  "-nonchimeras", otus_chimOUT.fasta ]
-baseCommand: [ "-nonchimeras", otus_chimOUT.fasta ]
+#baseCommand: [ usearch8,  "-nonchimeras", no_chimera.fasta ]
+baseCommand: [ "-nonchimeras", no_chimera.fasta ]
 
 outputs:
-  chimeraOutFasta:
+  chimeraCleanFasta:
     type: File
     outputBinding:
-      glob: otus_chimOUT.fasta
+      glob: no_chimera.fasta
 
 #usearch8 -uchime_ref $outDir/otus_raw.fa -db /scratch/DB/bio/qiime/uchime/gold.fa -nonchimeras otus_chimOUT.fa -strand plus

@@ -23,10 +23,10 @@ inputs:
 baseCommand: [ uparse_global_search_workaround.sh ]
 
 outputs:
-  ucTabbedFile:
+  ucTabbed:
     type: File
     outputBinding:
-      glob: otus.mapped.uc
+      glob: otus.uc
 
 #cwltool uparseGlobalSearchWorkAround.cwl
 #--fastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta

@@ -1,12 +1,34 @@
 #!/usr/bin/perl
 
+
 use strict;
 use warnings;
 
-my $cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows";
-my $docker_cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows-docker";
+
+use Cwd qw(abs_path getcwd);
+use File::Basename;
+
+
+my $run_dir = dirname($0);
+my $this_dir;
+if ($run_dir =~ m|^/|) {
+    $this_dir = $run_dir;
+}
+else {
+    my $cwd = getcwd();
+    $this_dir = abs_path("$cwd/$run_dir");
+}
+
+
+#my $cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows";
+#my $docker_cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows-docker";
+#my $cwl_dir = "$ENV{'HOME'}/h3africa/h3abionet16S/workflows";
+#my $docker_cwl_dir = "$ENV{'HOME'}/h3africa/h3abionet16S/workflows-docker";
+my $docker_cwl_dir = $this_dir;
+my $cwl_dir = abs_path("$this_dir/../workflows");
 my $tests_file = "$docker_cwl_dir/tests";
 my $docker_tests_file = "$docker_cwl_dir/tests.docker";
+
 
 my @tests = &ReadTests($tests_file);
 my $num_tests = @tests;

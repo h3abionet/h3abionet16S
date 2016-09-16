@@ -12,11 +12,10 @@ inputs:
     inputBinding:
       position: 1
 
-baseCommand: [ concat_fasta.sh, concat.fasta ]
+baseCommand: [ concat_fasta.sh ]
 
 outputs:
-  singleFastaFile:
+  concatFasta:
     type: File
     outputBinding:
-      glob: fastaFile
-
+      glob: concat.fasta
