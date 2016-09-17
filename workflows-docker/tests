@@ -1,13 +1,13 @@
 
 #? local: arrayOfFilePairsToFileArray
 
-fastqc.cwl ../workflows-docker/input-fastqc.yml
+#fastqc.cwl ../workflows-docker/input-fastqc.yml
 #Dog10_R1_fastqc/
 #Dog10_R1_fastqc.html
 #Dog10_R1_fastqc.zip (binary)
 
 #uparseRenameFastQ.cwl ../workflows-docker/input-uparseRenameFastQ.yml
-#? uparseRenameWithMetadata.cwl
+#uparseRenameWithMetadata.cwl ../workflows-docker/input-uparseRenameWithMetadata.yml
 #Dog10_forward_rename.fastq
 #Dog10_reverse_rename.fastq
 
@@ -17,7 +17,7 @@ fastqc.cwl ../workflows-docker/input-fastqc.yml
 
 #uparseFilter.cwl ../workflows-docker/input-uparseFilter.yml
 # must be sorted first
-#filtered_1.fasta
+#filtered.fasta
 
 #---
 
@@ -26,12 +26,14 @@ fastqc.cwl ../workflows-docker/input-fastqc.yml
 #derep.fasta
 
 #uparseSort.cwl ../workflows-docker/input-uparseSort.yml
-#filtered_sorted.fasta
+#sorted.fasta
 
 #uparseOTUPick.cwl ../workflows-docker/input-uparseOTUPick.yml
 #otus_raw.fasta
 
-#uparseChimeraCheck.cwl ../workflows-docker/input-uparseChimeraCheck.yml
+#---
+
+uparseChimeraCheck.cwl ../workflows-docker/input-uparseChimeraCheck.yml
 
 #uparseRenameOTUs.cwl ../workflows-docker/input-uparseRenameOTUs.yml
 

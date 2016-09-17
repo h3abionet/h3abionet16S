@@ -16,7 +16,7 @@ outputs:
 
 steps:
   uparseRenameSimple:
-    run: uparseRenameFastQ.cwl
+    run: uparseRenameFastQ-docker.cwl
     in:
       sampleName:
         source: onePair

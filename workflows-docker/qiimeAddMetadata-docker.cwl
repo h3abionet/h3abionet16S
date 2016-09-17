@@ -16,7 +16,7 @@ inputs:
     inputBinding:
       prefix: "--observation-metadata-fp"
 
-baseCommand: [ biom ,add-metadata,  "-o", otus.tax.biom, "--observation-header", "OTUID,taxonomy,confidence",
+baseCommand: [ biom, add-metadata,  "-o", otus.tax.biom, "--observation-header", "OTUID,taxonomy,confidence",
               "--sc-separated", "taxonomy", "--float-fields", "confidence", "--output-as-json" ]
 
 outputs:

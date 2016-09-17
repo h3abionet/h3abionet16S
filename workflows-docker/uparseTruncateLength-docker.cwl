@@ -2,6 +2,10 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/house
+
 inputs:
   inputFasta:
     type: File

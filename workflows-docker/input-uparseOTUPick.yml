@@ -1,4 +1,4 @@
-filteredSortedFasta:
+fastaFile:
     class: File
-    path: inputs/filtered_sorted.fasta
+    path: inputs/sorted.fasta
 otuRadiusPct: 3.0
