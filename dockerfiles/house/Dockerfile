@@ -48,5 +48,17 @@ RUN mv uparse_global_search_workaround.sh /usr/local/bin/
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/fasta_number.py
 RUN chmod +x fasta_number.py
 RUN mv fasta_number.py /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/die.py
+# This is a library, so this is not needed
+#RUN chmod +x die.py
+RUN mv die.py /usr/local/bin/
+
+# Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
 ##################### INSTALLATION END #####################
 
