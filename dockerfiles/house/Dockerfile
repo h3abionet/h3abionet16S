@@ -45,10 +45,21 @@ RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers
 RUN chmod +x fasta_number.py
 RUN mv fasta_number.py /usr/local/bin/
 
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uc2otutab.py
+RUN chmod +x uc2otutab.py
+RUN mv uc2otutab.py /usr/local/bin/
+
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/die.py
-# This is a library, so this is not needed
-#RUN chmod +x die.py
 RUN mv die.py /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/fasta.py
+RUN mv fasta.py /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/progress.py
+RUN mv progress.py /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uc.py
+RUN mv uc.py /usr/local/bin/
 
 # Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
