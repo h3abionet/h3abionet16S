@@ -1,4 +1,4 @@
 fastqFile:
-    class: File
-    path: inputs/Dog10_merged.fastq
+  class: File
+  path: inputs/Dog10_merged.fastq
 fastqMaxEe: 0.1

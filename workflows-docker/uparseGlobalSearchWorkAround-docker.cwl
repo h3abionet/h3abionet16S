@@ -4,7 +4,7 @@ class: CommandLineTool
 
 requirements:
   - class: DockerRequirement
-    dockerPull: longyee/house
+    dockerPull: longyee/usearch
 
 inputs:
   fastaFile:

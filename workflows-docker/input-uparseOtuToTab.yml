@@ -1,1 +1,3 @@
-otusMappedOUTFasta:
+ucTabbed:
+  class: File
+  path: inputs/otus.uc

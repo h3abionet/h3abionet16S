@@ -17,7 +17,8 @@ inputs:
       prefix: "-fastq_maxee"
 
 #baseCommand: [ usearch8, "-fastaout", filtered.fasta ]
-baseCommand: [ "-fastaout", filtered.fasta ]
+#baseCommand: [ "-fastaout", filtered.fasta ]
+baseCommand: [ usearch8, "-fastaout", filtered.fasta ]
 
 outputs:
   filteredFasta:

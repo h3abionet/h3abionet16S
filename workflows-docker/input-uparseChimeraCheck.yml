@@ -1,3 +1,7 @@
 chimeraFastaDb:
-otusRawFasta:
+  class: File
+  path: inputs/gold.fa
+fastaFile:
+  class: File
+  path: inputs/otus_raw.fasta
 strandInfo: plus

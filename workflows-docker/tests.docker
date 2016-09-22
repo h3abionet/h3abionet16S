@@ -19,6 +19,8 @@
 # must be sorted first
 #filtered.fasta
 
+#---
+
 #uparseDerepWorkAround-docker.cwl input-uparseDerepWorkAround.yml
 # had to make some changes to cwl
 #derep.fasta
@@ -29,19 +31,25 @@
 #uparseOTUPick-docker.cwl input-uparseOTUPick.yml
 #otus_raw.fasta
 
-#---
-
-uparseChimeraCheck-docker.cwl input-uparseChimeraCheck.yml
+#uparseChimeraCheck-docker.cwl input-uparseChimeraCheck.yml
+#no_chimera.fasta
 
 #uparseRenameOTUs-docker.cwl input-uparseRenameOTUs.yml
+#otus_renamed.fasta
 
 #concatFasta-docker.cwl input-concatFasta.yml
+#concat.fasta
 
 #uparseGlobalSearchWorkAround-docker.cwl input-uparseGlobalSearchWorkAround.yml
+# must be sorted first
+#otus.uc
 
 #uparseOtuToTab-docker.cwl input-uparseOtuToTab.yml
+#otus.table
 
-#qiimeOtusTxt2Biom-docker.cwl input-qiimeOtusTxt2Biom.yml
+#---
+
+qiimeOtusTxt2Biom-docker.cwl input-qiimeOtusTxt2Biom.yml
 
 #qiimeAssignTaxonomy-docker.cwl input-qiimeAssignTaxonomy.yml
 
