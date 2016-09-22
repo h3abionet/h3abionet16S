@@ -17,18 +17,19 @@ WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget bzip2
+RUN apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
 
 # Install QIIME
 # Ref: http://qiime.org/install/install.html
-RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN printf "\n yes" | bash Miniconda3-latest-Linux-x86_64.sh
-#RUN echo "export PATH=/root/miniconda3/bin:$PATH" >> /root/.bashrc
-ENV PATH=/root/miniconda3/bin:$PATH
-RUN printf "y" | /root/miniconda3/bin/conda create -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
-RUN /root/miniconda3/bin/conda install psutil
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN source activate qiime1
+# Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
+RUN /opt/conda/bin/conda create -y -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
+RUN /opt/conda/bin/conda install psutil
+ENV PATH /opt/conda/envs/qiime1/bin:$PATH
 ##################### INSTALLATION END #####################
 
-ENTRYPOINT ["print_qiime_config.py"]
+#ENTRYPOINT ["print_qiime_config.py"]
