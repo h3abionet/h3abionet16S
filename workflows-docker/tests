@@ -38,7 +38,7 @@
 #otus_renamed.fasta
 
 #concatFasta.cwl ../workflows-docker/input-concatFasta.yml
-#concat.fasta.cwl
+#concat.fasta
 
 #uparseGlobalSearchWorkAround.cwl ../workflows-docker/input-uparseGlobalSearchWorkAround.yml
 # must be sorted first
@@ -47,23 +47,33 @@
 #uparseOtuToTab.cwl ../workflows-docker/input-uparseOtuToTab.yml
 #otus.table
 
-#---
-
-qiimeOtusTxt2Biom.cwl ../workflows-docker/input-qiimeOtusTxt2Biom.yml
+#qiimeOtusTxt2Biom.cwl ../workflows-docker/input-qiimeOtusTxt2Biom.yml
+# has timestamp in it
+#otus.biom
 
 #qiimeAssignTaxonomy.cwl ../workflows-docker/input-qiimeAssignTaxonomy.yml
+#otus_renamed_tax_assignments.txt
 
 #qiimeAddMetadata.cwl ../workflows-docker/input-qiimeAddMetadata.yml
+# has timestamp in it
+#otus.tax.biom
 
-#qiimeAlignSeqs.cwl
+#qiimeAlignSeqs.cwl ../workflows-docker/input-qiimeAlignSeqs.yml
+#otus_renamed_aligned.fasta
 
-#qiimeFilterAlign.cwl
+#qiimeFilterAlign.cwl ../workflows-docker/input-qiimeFilterAlign.yml
+#otus_renamed_aligned_pfiltered.fasta
 
-#qiimeMakePhylogeny.cwl
+#qiimeMakePhylogeny.cwl ../workflows-docker/input-qiimeMakePhylogeny.yml
+#otus.tre
 
-#qiimeSummaryObservations.cwl
+#qiimeSummaryObservations.cwl ../workflows-docker/input-qiimeSummaryObservations.yml
+#otus.summary.observations
 
-#qiimeSummaryQualitative.cwl
+#qiimeSummaryQualitative.cwl ../workflows-docker/input-qiimeSummaryQualitative.yml
+#otus.summary.qualitative
+
+#---
 
 #completeWorkflow.cwl ../workflows-docker/input.yml
 

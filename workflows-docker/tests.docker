@@ -47,23 +47,33 @@
 #uparseOtuToTab-docker.cwl input-uparseOtuToTab.yml
 #otus.table
 
-#---
-
-qiimeOtusTxt2Biom-docker.cwl input-qiimeOtusTxt2Biom.yml
+#qiimeOtusTxt2Biom-docker.cwl input-qiimeOtusTxt2Biom.yml
+# has timestamp in it
+#otus.biom
 
 #qiimeAssignTaxonomy-docker.cwl input-qiimeAssignTaxonomy.yml
+#otus_renamed_tax_assignments.txt
 
 #qiimeAddMetadata-docker.cwl input-qiimeAddMetadata.yml
+# has timestamp in it
+#otus.tax.biom
 
-#qiimeAlignSeqs-docker.cwl
+#qiimeAlignSeqs-docker.cwl input-qiimeAlignSeqs.yml
+#otus_renamed_aligned.fasta
 
-#qiimeFilterAlign-docker.cwl
+#qiimeFilterAlign-docker.cwl input-qiimeFilterAlign.yml
+#otus_renamed_aligned_pfiltered.fasta
 
-#qiimeMakePhylogeny-docker.cwl
+#qiimeMakePhylogeny-docker.cwl input-qiimeMakePhylogeny.yml
+#otus.tre
 
-#qiimeSummaryObservations-docker.cwl
+#qiimeSummaryObservations-docker.cwl input-qiimeSummaryObservations.yml
+#otus.summary.observations
 
-#qiimeSummaryQualitative-docker.cwl
+#qiimeSummaryQualitative-docker.cwl input-qiimeSummaryQualitative.yml
+#otus.summary.qualitative
+
+#---
 
 #completeWorkflow-docker.cwl input.yml
 

@@ -1,2 +1,6 @@
-otusTableBiom:
-taxAssignedTxt:
+otuBiom:
+  class: File
+  path: inputs/otus.biom
+otuTaxonomy:
+  class: File
+  path: inputs/otus_renamed_tax_assignments.txt
