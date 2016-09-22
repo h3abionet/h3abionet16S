@@ -3,17 +3,17 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  otusTaxBiom:
+  otuBiom:
     type: File
     inputBinding:
       prefix: "-i"
-baseCommand: [ biom, summarize-table, "-o", otus_table.tax.biom.summary ]
+      
+baseCommand: [ biom, summarize-table, "--observations","-o", otus.summary.observations ]
 
 outputs:
-  otusTabTaxSummary:
+  otuSummary:
     type: File
     outputBinding:
-      glob: otus_table.tax.biom.summary
-
+      glob: otus.summary.observations
 
 # biom summarize-table -i otus_table.tax.biom -o otus_table.tax.biom.summary

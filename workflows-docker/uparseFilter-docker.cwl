@@ -16,11 +16,12 @@ inputs:
     inputBinding:
       prefix: "-fastq_maxee"
 
-#baseCommand: [ usearch8, "-fastaout", filtered_1.fasta ]
-baseCommand: [ "-fastaout", filtered_1.fasta ]
+#baseCommand: [ usearch8, "-fastaout", filtered.fasta ]
+#baseCommand: [ "-fastaout", filtered.fasta ]
+baseCommand: [ usearch8, "-fastaout", filtered.fasta ]
 
 outputs:
   filteredFasta:
     type: File
     outputBinding:
-      glob: filtered_1.fasta
+      glob: filtered.fasta

@@ -52,7 +52,26 @@ sudo apt-get install nodejs
 
 wget http://drive5.com/python/python_scripts.tar.gz
 sudo tar zxvf python_scripts.tar.gz -C /usr/local/bin/
+head -n 1 /usr/local/bin/uc2otutab.py | if grep -q "\#\!\/usr\/bin\/python"; then echo "found"; else echo "#"'!'"/usr/bin/python" | cat - /usr/local/bin/uc2otutab.py > /tmp/uc2otutab.py.tmp; chmod +x /tmp/uc2otutab.py.tmp; sudo mv /tmp/uc2otutab.py.tmp /usr/local/bin/uc2otutab.py; fi
 
+# in house scripts
+wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/rename_fastq_headers.sh
+chmod +x rename_fastq_headers.sh
+mv rename_fastq_headers.sh /usr/local/bin/
+
+wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_derep_workaround.sh
+chmod +x uparse_derep_workaround.sh
+mv uparse_derep_workaround.sh /usr/local/bin/
+
+wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
+chmod +x concat_fasta.sh
+mv concat_fasta.sh /usr/local/bin/
+
+wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_global_search_workaround.sh
+chmod +x uparse_global_search_workaround.sh
+mv uparse_global_search_workaround.sh /usr/local/bin/
+
+# Remove downloaded archives
 rm fasta-splitter-0.2.4.zip
 rm fastqc_v0.11.5.zip
 rm fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2

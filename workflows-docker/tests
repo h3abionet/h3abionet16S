@@ -1,10 +1,13 @@
 
+#? local: arrayOfFilePairsToFileArray
+
 #fastqc.cwl ../workflows-docker/input-fastqc.yml
 #Dog10_R1_fastqc/
 #Dog10_R1_fastqc.html
 #Dog10_R1_fastqc.zip (binary)
 
 #uparseRenameFastQ.cwl ../workflows-docker/input-uparseRenameFastQ.yml
+#uparseRenameWithMetadata.cwl ../workflows-docker/input-uparseRenameWithMetadata.yml
 #Dog10_forward_rename.fastq
 #Dog10_reverse_rename.fastq
 
@@ -14,7 +17,7 @@
 
 #uparseFilter.cwl ../workflows-docker/input-uparseFilter.yml
 # must be sorted first
-#filtered_1.fasta
+#filtered.fasta
 
 #---
 
@@ -23,26 +26,54 @@
 #derep.fasta
 
 #uparseSort.cwl ../workflows-docker/input-uparseSort.yml
-#filtered_sorted.fasta
+#sorted.fasta
 
 #uparseOTUPick.cwl ../workflows-docker/input-uparseOTUPick.yml
 #otus_raw.fasta
 
-uparseChimeraCheck.cwl ../workflows-docker/input-uparseChimeraCheck.yml
+#uparseChimeraCheck.cwl ../workflows-docker/input-uparseChimeraCheck.yml
+#no_chimera.fasta
 
 #uparseRenameOTUs.cwl ../workflows-docker/input-uparseRenameOTUs.yml
+#otus_renamed.fasta
 
 #concatFasta.cwl ../workflows-docker/input-concatFasta.yml
+#concat.fasta
 
 #uparseGlobalSearchWorkAround.cwl ../workflows-docker/input-uparseGlobalSearchWorkAround.yml
+# must be sorted first
+#otus.uc
 
 #uparseOtuToTab.cwl ../workflows-docker/input-uparseOtuToTab.yml
+#otus.table
 
 #qiimeOtusTxt2Biom.cwl ../workflows-docker/input-qiimeOtusTxt2Biom.yml
+# has timestamp in it
+#otus.biom
 
 #qiimeAssignTaxonomy.cwl ../workflows-docker/input-qiimeAssignTaxonomy.yml
+#otus_renamed_tax_assignments.txt
 
 #qiimeAddMetadata.cwl ../workflows-docker/input-qiimeAddMetadata.yml
+# has timestamp in it
+#otus.tax.biom
+
+#qiimeAlignSeqs.cwl ../workflows-docker/input-qiimeAlignSeqs.yml
+#otus_renamed_aligned.fasta
+
+#qiimeFilterAlign.cwl ../workflows-docker/input-qiimeFilterAlign.yml
+#otus_renamed_aligned_pfiltered.fasta
+
+#qiimeMakePhylogeny.cwl ../workflows-docker/input-qiimeMakePhylogeny.yml
+#otus.tre
+
+#qiimeSummaryObservations.cwl ../workflows-docker/input-qiimeSummaryObservations.yml
+#otus.summary.observations
+
+#qiimeSummaryQualitative.cwl ../workflows-docker/input-qiimeSummaryQualitative.yml
+#otus.summary.qualitative
+
+#---
 
 #completeWorkflow.cwl ../workflows-docker/input.yml
 

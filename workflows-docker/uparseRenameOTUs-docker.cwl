@@ -2,8 +2,12 @@
 cwlVersion: v1.0
 class: CommandLineTool
 
+requirements:
+  - class: DockerRequirement
+    dockerPull: longyee/house
+
 inputs:
-  fasta:
+  fastaFile:
     type: File
     inputBinding:
       position: 1
@@ -14,7 +18,7 @@ arguments:
   - valueFrom: "OTU_"
     position: 2
 
-stdout: renamed.fasta
+stdout: otus_renamed.fasta
 
 outputs:
   renamedFasta:

@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  filteredFastaFile:
+  fastaFile:
     type: File
     inputBinding:
       prefix: "-sortbysize"
@@ -12,14 +12,12 @@ inputs:
     inputBinding:
       prefix: "-minsize"
 
-baseCommand: [ usearch8,  "-fastaout", filtered_sorted.fasta ]
+baseCommand: [ usearch8,  "-fastaout", sorted.fasta ]
 
 outputs:
-  filteredSortedFasta:
+  sortedFasta:
     type: File
     outputBinding:
-      glob: filtered_sorted.fasta
-
-
+      glob: sorted.fasta
 
 #usearch8 -sortbysize filtered_1.fasta -fastaout filtered_sorted.fasta -minsize 2

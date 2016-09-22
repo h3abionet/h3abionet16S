@@ -1,3 +1,3 @@
 fastaFiles:
-    - class: File
-      path: inputs/filtered_1.fasta
+  - class: File
+    path: inputs/filtered.fasta

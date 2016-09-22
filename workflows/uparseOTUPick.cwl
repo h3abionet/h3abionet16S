@@ -3,7 +3,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  filteredSortedFasta:
+  fastaFile:
     type: File
     inputBinding:
       prefix: "-cluster_otus"
@@ -15,12 +15,9 @@ inputs:
 baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
 
 outputs:
-  filteredSortedFasta:
+  otuFasta:
     type: File
     outputBinding:
       glob: otus_raw.fasta
-
-
-
 
 #usearch8 -cluster_otus filtered_sorted.fasta -otu_radius_pct 3.0 -otus otus_raw.fa

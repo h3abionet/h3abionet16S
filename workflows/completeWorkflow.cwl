@@ -17,14 +17,100 @@ inputs:
       items: "readPair.yml#FilePair"
   fastqMaxdiffs: int
   fastqMaxEe: float
+  minSize: int
+  otuRadiusPct: float
+  chimeraFastaDb: File
+  strandInfo: string
+  otuPercentageIdentity: float 
+  usearchGlobalStrand: string
+  otuTableType: string
+  otuRepsetFasta: File
+  otuRepsetTax: File
+  assignTaxonomyMethod: string
+  assignTaxonomyConfVal: float
+  otuRepsetAlignmentTemplateFasta: File
+  alignmentMethod: string
 
 outputs:
-  #reports:
-  #  type: Directory[]
-  #  outputSource: runFastqc/report
+  reports:
+    type: Directory[]
+    outputSource: runFastqc/report
+
+  renamedFastqFile:
+    type: "readPair.yml#FilePair[]"
+    outputSource: uparseRename/renamedPair 
+ 
   mergedFastQs:
      type: File[]
      outputSource: merge/mergedFastQ
+
+  filteredFastaFiles:
+    type: File[]
+    outputSource: filter/filteredFasta
+
+  derepFastaFile:
+    type: File
+    outputSource: derep/derepFasta
+
+  sortedFastaFile:
+    type: File
+    outputSource: sort/sortedFasta
+  
+  otuFastaFile:
+    type: File
+    outputSource: otuPick/otuFasta
+
+  noChimeraFastaFile:
+    type: File
+    outputSource: chimeraCheck/chimeraCleanFasta  
+  
+  renamedOTUFastaFile:
+    type: File
+    outputSource: renameOTU/renamedFasta 
+
+  concatFastaFile:
+    type: File
+    outputSource: concatFasta/concatFasta
+  
+  ucTabbedFile:
+    type: File
+    outputSource: underep/ucTabbed
+
+  otuTableFile:
+    type: File
+    outputSource: uparseUCtoTab/otuTable 
+
+  otuBiomFile:
+    type: File
+    outputSource: otuTableToBiom/otuBiom
+
+  otuTaxonomyFile:
+    type: File 
+    outputSource: assignTaxonomy/otuTaxonomy 
+
+  otuBiomTaxonomyFile:
+    type: File
+    outputSource: addTaxonomyToBiom/otuBiom
+
+  otuAlignedFastaFile:
+    type: File 
+    outputSource: align/otuAlignedFasta
+
+  otuFilteredAlignmentFastaFile:
+    type: File
+    outputSource: filterAlignment/otuFilteredAlignmentFasta
+
+  otuTreeFile:
+    type: File
+    outputSource: makePhylogeny/otuTree
+
+  otuSummaryeObservationsFile:
+    type: File
+    outputSource: createSummaryObservations/otuSummary
+
+  otuSummaryQualitativeFile:
+    type: File
+    outputSource: createSummaryQualitative/otuSummary
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -89,3 +175,117 @@ steps:
     scatter: [ fastqFile ]
     scatterMethod: dotproduct
     out: [ filteredFasta ]
+
+  # add strip primer step here 
+  
+  # add truncate length step here
+
+  derep:
+    run: uparseDerepWorkAround.cwl
+    in:
+      fastaFiles: filter/filteredFasta
+    out:  [ derepFasta ]
+
+  sort:
+    run: uparseSort.cwl
+    in: 
+      fastaFile: derep/derepFasta
+      minSize: minSize
+    out: [ sortedFasta ]
+
+  otuPick:
+    run: uparseOTUPick.cwl
+    in:
+      fastaFile: sort/sortedFasta
+      otuRadiusPct: otuRadiusPct
+    out: [ otuFasta ]
+
+  chimeraCheck:
+    run: uparseChimeraCheck.cwl
+    in:
+      fastaFile: otuPick/otuFasta
+      chimeraFastaDb: chimeraFastaDb
+      strandInfo: strandInfo
+    out: [ chimeraCleanFasta ] 
+
+  renameOTU:
+    run: uparseRenameOTUs.cwl
+    in:
+      fastaFile: chimeraCheck/chimeraCleanFasta 
+    out: [ renamedFasta ]
+
+  concatFasta:
+    run: concatFasta.cwl
+    in:
+     fastaFiles: filter/filteredFasta
+    out: [ concatFasta ]
+
+  underep:
+    run: uparseGlobalSearchWorkAround.cwl
+    in:
+      fastaFile: concatFasta/concatFasta
+      otuFastaFile: renameOTU/renamedFasta
+      otuPercentageIdentity: otuPercentageIdentity
+      usearchGlobalStrand: usearchGlobalStrand
+    out: [ ucTabbed ]
+
+  uparseUCtoTab:
+    run: uparseOtuToTab.cwl
+    in:
+      ucTabbed: underep/ucTabbed
+    out: [ otuTable ]
+    
+  otuTableToBiom:
+    run: qiimeOtusTxt2Biom.cwl
+    in:
+      otuTable: uparseUCtoTab/otuTable
+    out: [ otuBiom ]
+  
+  assignTaxonomy:
+    run: qiimeAssignTaxonomy.cwl
+    in:
+      otuFasta: renameOTU/renamedFasta
+      otuRepsetFasta: otuRepsetFasta
+      otuRepsetTax: otuRepsetTax
+      assignTaxonomyMethod: assignTaxonomyMethod
+      assignTaxonomyConfVal: assignTaxonomyConfVal
+    out: [ otuTaxonomy ] 
+
+  addTaxonomyToBiom:
+    run: qiimeAddMetadata.cwl
+    in:
+      otuBiom: otuTableToBiom/otuBiom
+      otuTaxonomy: assignTaxonomy/otuTaxonomy
+    out: [ otuBiom ]
+
+  align:
+    run: qiimeAlignSeqs.cwl
+    in:
+      otuFasta: renameOTU/renamedFasta
+      alignmentMethod: alignmentMethod
+      otuRepsetAlignmentTemplateFasta: otuRepsetAlignmentTemplateFasta
+    out: [ otuAlignedFasta ]
+
+  filterAlignment:
+    run: qiimeFilterAlign.cwl
+    in:
+      otuFasta: align/otuAlignedFasta
+    out: [ otuFilteredAlignmentFasta ]  
+
+  makePhylogeny:
+    run: qiimeMakePhylogeny.cwl
+    in:
+      otuFasta: filterAlignment/otuFilteredAlignmentFasta
+    out: [ otuTree ]
+ 
+  createSummaryObservations:
+    run: qiimeSummaryObservations.cwl
+    in:
+      otuBiom: addTaxonomyToBiom/otuBiom
+    out: [ otuSummary ]
+
+  createSummaryQualitative:
+    run: qiimeSummaryQualitative.cwl
+    in:
+      otuBiom: addTaxonomyToBiom/otuBiom
+    out: [ otuSummary ]

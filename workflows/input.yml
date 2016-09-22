@@ -7,23 +7,37 @@ fastqMaxEe: 0.1
 # For UPARSE sort
 minSize: 2
 
-# For UPARSE chimera detection
-chimDBFasta: "../helpers/gold.fa"
-strandInfo: plus
+# For UPARSE OTU picking
 otuRadiusPct: 3.0
 
-# For UPARSE OTU picking
+# For UPARSE chimera detection
+chimeraFastaDb:
+  class: File
+  path: gold.fa
+strandInfo: plus
+
+# For UPARSE underep (global-search)
 otuPercentageIdentity: 0.97
 usearchGlobalStrand: plus 
 
 # For OTU table to BIOM 
-otuTable: "OTU table"
+otuTableType: "OTU table"
 
 # For QIIME assign taxonomy
-otusRepsetFasta: "../../helpers/rep_set/97_otus.fasta"
-otusTaxFasta: "../../helpers/97_otu_taxonomy.txt"
-method: uclust
-confVal: 0.5
+otuRepsetFasta:
+  class: File
+  path: 97_otus.fasta
+otuRepsetTax: 
+  class: File
+  path: 97_otu_taxonomy.txt
+assignTaxonomyMethod: uclust
+assignTaxonomyConfVal: 0.5
+
+# For QIIME alignment
+otuRepsetAlignmentTemplateFasta:
+  class: File
+  path: 85_otus.pynast.fasta
+alignmentMethod: pynast
 
 # ( echo "fastqSeqs:"; awk ' NR>1 { print " - forward:\n     class: File\n
 # path: " $2 "\n   reverse:\n     class: File\n     path: " $3 "\n   sample_id:
