@@ -23,8 +23,8 @@ RUN apt-get install -y wget unzip bzip2 apt-utils imagemagick
 
 RUN wget http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2
 RUN tar jxvf fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2  -C /usr/local/
-RUN wget http://kirill-kryukov.com/study/tools/fasta-splitter/files/fasta-splitter-0.2.4.zip
 
+RUN wget http://kirill-kryukov.com/study/tools/fasta-splitter/files/fasta-splitter-0.2.4.zip
 RUN unzip fasta-splitter-0.2.4.zip
 RUN chmod +x fasta-splitter.pl
 RUN mv fasta-splitter.pl /usr/local/bin/
@@ -40,10 +40,6 @@ RUN mv uparse_derep_workaround.sh /usr/local/bin/
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
 RUN chmod +x concat_fasta.sh
 RUN mv concat_fasta.sh /usr/local/bin/
-
-RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_global_search_workaround.sh
-RUN chmod +x uparse_global_search_workaround.sh
-RUN mv uparse_global_search_workaround.sh /usr/local/bin/
 
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/fasta_number.py
 RUN chmod +x fasta_number.py

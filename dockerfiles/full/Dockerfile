@@ -34,8 +34,10 @@ RUN ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
 
 # Install USEARCH
 # Ref: http://www.drive5.com/usearch/manual/install.html
-ADD usearch8.1.1861_i86linux32 /usr/local/bin/
+#ADD usearch8.1.1861_i86linux32 /usr/local/bin/
+COPY usearch8.1.1861_i86linux32 /usr/local/bin/
 RUN chmod +x /usr/local/bin/usearch8.1.1861_i86linux32
+RUN ln -s /usr/local/bin/usearch8.1.1861_i86linux32 /usr/local/bin/usearch8
 
 # Install QIIME
 # Ref: http://qiime.org/install/install.html
