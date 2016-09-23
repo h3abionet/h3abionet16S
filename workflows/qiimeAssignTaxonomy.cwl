@@ -28,10 +28,9 @@ baseCommand: [ assign_taxonomy.py,  "-o", tax ]
 
 outputs:
   otuTaxonomy:
-    type: File 
+    type: File
     outputBinding:
-      glob: "tax/*.txt" 
-
+      glob: "tax/*.txt"
 
 #assign_taxonomy.py -i ../../test/other_seqs.fna -o tax -r ../../helpers/rep_set/97_otus.fasta
 #-t ../../helpers/97_otu_taxonomy.txt -m uclust -c 0.5

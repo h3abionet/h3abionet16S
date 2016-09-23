@@ -29,4 +29,3 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.sampleName)_merged.fastq
-    
