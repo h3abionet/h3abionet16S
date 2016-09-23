@@ -32,6 +32,6 @@ RUN chmod +x /opt/FastQC/fastqc
 RUN ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
 ##################### INSTALLATION END #####################
 
-ENTRYPOINT ["/usr/local/bin/fastqc"]
+#ENTRYPOINT ["/usr/local/bin/fastqc"]
 
-CMD ["--help"]
+#CMD ["--help"]
