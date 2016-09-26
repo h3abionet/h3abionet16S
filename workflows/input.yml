@@ -18,16 +18,16 @@ strandInfo: plus
 
 # For UPARSE underep (global-search)
 otuPercentageIdentity: 0.97
-usearchGlobalStrand: plus 
+usearchGlobalStrand: plus
 
-# For OTU table to BIOM 
+# For OTU table to BIOM
 otuTableType: "OTU table"
 
 # For QIIME assign taxonomy
 otuRepsetFasta:
   class: File
   path: 97_otus.fasta
-otuRepsetTax: 
+otuRepsetTax:
   class: File
   path: 97_otu_taxonomy.txt
 assignTaxonomyMethod: uclust

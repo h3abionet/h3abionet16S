@@ -21,7 +21,7 @@ inputs:
   otuRadiusPct: float
   chimeraFastaDb: File
   strandInfo: string
-  otuPercentageIdentity: float 
+  otuPercentageIdentity: float
   usearchGlobalStrand: string
   otuTableType: string
   otuRepsetFasta: File
@@ -38,8 +38,8 @@ outputs:
 
   renamedFastqFile:
     type: "readPair.yml#FilePair[]"
-    outputSource: uparseRename/renamedPair 
- 
+    outputSource: uparseRename/renamedPair
+
   mergedFastQs:
      type: File[]
      outputSource: merge/mergedFastQ
@@ -55,45 +55,45 @@ outputs:
   sortedFastaFile:
     type: File
     outputSource: sort/sortedFasta
-  
+
   otuFastaFile:
     type: File
     outputSource: otuPick/otuFasta
 
   noChimeraFastaFile:
     type: File
-    outputSource: chimeraCheck/chimeraCleanFasta  
-  
+    outputSource: chimeraCheck/chimeraCleanFasta
+
   renamedOTUFastaFile:
     type: File
-    outputSource: renameOTU/renamedFasta 
+    outputSource: renameOTU/renamedFasta
 
   concatFastaFile:
     type: File
     outputSource: concatFasta/concatFasta
-  
+
   ucTabbedFile:
     type: File
     outputSource: underep/ucTabbed
 
   otuTableFile:
     type: File
-    outputSource: uparseUCtoTab/otuTable 
+    outputSource: uparseUCtoTab/otuTable
 
   otuBiomFile:
     type: File
     outputSource: otuTableToBiom/otuBiom
 
   otuTaxonomyFile:
-    type: File 
-    outputSource: assignTaxonomy/otuTaxonomy 
+    type: File
+    outputSource: assignTaxonomy/otuTaxonomy
 
   otuBiomTaxonomyFile:
     type: File
     outputSource: addTaxonomyToBiom/otuBiom
 
   otuAlignedFastaFile:
-    type: File 
+    type: File
     outputSource: align/otuAlignedFasta
 
   otuFilteredAlignmentFastaFile:
@@ -176,8 +176,8 @@ steps:
     scatterMethod: dotproduct
     out: [ filteredFasta ]
 
-  # add strip primer step here 
-  
+  # add strip primer step here
+
   # add truncate length step here
 
   derep:
@@ -188,7 +188,7 @@ steps:
 
   sort:
     run: uparseSort.cwl
-    in: 
+    in:
       fastaFile: derep/derepFasta
       minSize: minSize
     out: [ sortedFasta ]
@@ -206,12 +206,12 @@ steps:
       fastaFile: otuPick/otuFasta
       chimeraFastaDb: chimeraFastaDb
       strandInfo: strandInfo
-    out: [ chimeraCleanFasta ] 
+    out: [ chimeraCleanFasta ]
 
   renameOTU:
     run: uparseRenameOTUs.cwl
     in:
-      fastaFile: chimeraCheck/chimeraCleanFasta 
+      fastaFile: chimeraCheck/chimeraCleanFasta
     out: [ renamedFasta ]
 
   concatFasta:
@@ -234,13 +234,13 @@ steps:
     in:
       ucTabbed: underep/ucTabbed
     out: [ otuTable ]
-    
+
   otuTableToBiom:
     run: qiimeOtusTxt2Biom.cwl
     in:
       otuTable: uparseUCtoTab/otuTable
     out: [ otuBiom ]
-  
+
   assignTaxonomy:
     run: qiimeAssignTaxonomy.cwl
     in:
@@ -249,7 +249,7 @@ steps:
       otuRepsetTax: otuRepsetTax
       assignTaxonomyMethod: assignTaxonomyMethod
       assignTaxonomyConfVal: assignTaxonomyConfVal
-    out: [ otuTaxonomy ] 
+    out: [ otuTaxonomy ]
 
   addTaxonomyToBiom:
     run: qiimeAddMetadata.cwl
@@ -270,14 +270,14 @@ steps:
     run: qiimeFilterAlign.cwl
     in:
       otuFasta: align/otuAlignedFasta
-    out: [ otuFilteredAlignmentFasta ]  
+    out: [ otuFilteredAlignmentFasta ]
 
   makePhylogeny:
     run: qiimeMakePhylogeny.cwl
     in:
       otuFasta: filterAlignment/otuFilteredAlignmentFasta
     out: [ otuTree ]
- 
+
   createSummaryObservations:
     run: qiimeSummaryObservations.cwl
     in:

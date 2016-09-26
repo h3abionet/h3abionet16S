@@ -7,7 +7,7 @@ inputs:
     type: File
     inputBinding:
       prefix: "-i"
-      
+
 baseCommand: [ biom, summarize-table, "--observations","-o", otus.summary.observations ]
 
 outputs:
