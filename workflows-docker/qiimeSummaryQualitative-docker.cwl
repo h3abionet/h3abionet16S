@@ -11,7 +11,7 @@ inputs:
     type: File
     inputBinding:
       prefix: "-i"
-      
+
 baseCommand: [ biom, summarize-table, "--qualitative","-o", otus.summary.qualitative ]
 
 outputs:

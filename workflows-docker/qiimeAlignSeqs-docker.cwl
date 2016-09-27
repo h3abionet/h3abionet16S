@@ -24,9 +24,9 @@ baseCommand: [ align_seqs.py, "-o", otus.align ]
 
 outputs:
   otuAlignedFasta:
-    type: File 
+    type: File
     outputBinding:
-      glob: otus.align/otus_renamed_aligned.fasta 
+      glob: otus.align/otus_renamed_aligned.fasta
 
 
 
