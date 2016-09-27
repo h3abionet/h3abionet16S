@@ -36,7 +36,7 @@ if ($opts{'d'}) {
 
 if ($cwl_only and $docker_cwl_only) {
     die "Can't specify both -c/cwl_only and -d/docker_cwl_only\n";
-} 
+}
 
 
 #my $cwl_dir = "$ENV{'HOME'}/h3abionet16S/workflows";
@@ -46,7 +46,7 @@ if ($cwl_only and $docker_cwl_only) {
 my $docker_cwl_dir = $this_dir;
 my $cwl_dir = abs_path("$this_dir/../workflows");
 my $tests_file = "$docker_cwl_dir/tests";
-my $docker_tests_file = "$docker_cwl_dir/tests.docker";
+my $docker_tests_file = "$docker_cwl_dir/tests-docker";
 
 
 my @tests = &ReadTests($tests_file);
@@ -115,6 +115,7 @@ sub ReadTests {
         next if /^#/;
         push(@tests, $_);
     }
+
     close($fh);
 
     return @tests;
