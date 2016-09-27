@@ -17,7 +17,7 @@ WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget unzip sudo libfile-util-perl
+RUN apt-get install -y wget unzip bzip2 sudo libfile-util-perl
 
 # Install USEARCH
 # Ref: http://www.drive5.com/usearch/manual/install.html
@@ -31,10 +31,16 @@ RUN unzip fasta-splitter-0.2.4.zip
 RUN chmod +x fasta-splitter.pl
 RUN mv fasta-splitter.pl /usr/local/bin/
 
+# Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
+
 # Install scripts
 RUN wget http://drive5.com/python/python_scripts.tar.gz \
     && tar zxvf python_scripts.tar.gz -C /usr/local/bin/
-RUN head -n 1 /usr/local/bin/uc2otutab.py | if grep -q "\#\!\/usr\/bin\/python"; then echo "found"; else echo "#"'!'"/usr/bin/python" | cat - /usr/local/bin/uc2otutab.py > /tmp/uc2otutab.py.tmp; chmod +x /tmp/uc2otutab.py.tmp; sudo mv /tmp/uc2otutab.py.tmp /usr/local/bin/uc2otutab.py; fi
 
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_global_search_workaround.sh
 RUN chmod +x uparse_global_search_workaround.sh
