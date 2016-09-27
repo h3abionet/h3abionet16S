@@ -16,8 +16,6 @@ inputs:
     inputBinding:
       prefix: "-minsize"
 
-#baseCommand: [ usearch8,  "-fastaout", sorted.fasta ]
-#baseCommand: [ "-fastaout", sorted.fasta ]
 baseCommand: [ usearch8,  "-fastaout", sorted.fasta ]
 
 outputs:

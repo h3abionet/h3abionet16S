@@ -16,8 +16,6 @@ inputs:
     inputBinding:
       prefix: "-otu_radius_pct"
 
-#baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
-#baseCommand: [ "-otus", otus_raw.fasta ]
 baseCommand: [ usearch8,  "-otus", otus_raw.fasta ]
 
 outputs:

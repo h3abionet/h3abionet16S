@@ -20,8 +20,6 @@ inputs:
     inputBinding:
       prefix: "-strand"
 
-#baseCommand: [ usearch8,  "-nonchimeras", no_chimera.fasta ]
-#baseCommand: [ "-nonchimeras", no_chimera.fasta ]
 baseCommand: [ usearch8,  "-nonchimeras", no_chimera.fasta ]
 
 outputs:
