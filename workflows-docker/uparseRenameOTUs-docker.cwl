@@ -4,7 +4,7 @@ class: CommandLineTool
 
 requirements:
   - class: DockerRequirement
-    dockerPull: longyee/house
+    dockerPull: longyee/usearch
 
 inputs:
   fastaFile:
@@ -12,7 +12,8 @@ inputs:
     inputBinding:
       position: 1
 
-baseCommand: [ fasta_number.py ]
+#baseCommand: [ fasta_number.py ]
+baseCommand: [ python, /usr/local/bin/fasta_number.py ]
 
 arguments:
   - valueFrom: "OTU_"
