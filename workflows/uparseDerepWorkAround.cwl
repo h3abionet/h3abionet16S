@@ -15,5 +15,3 @@ outputs:
     type: File
     outputBinding:
       glob: derep.fasta
-
-#uparse_derep_workaround.sh fastaFiles output oneFastaFile

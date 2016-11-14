@@ -12,7 +12,7 @@ inputs:
     inputBinding:
       prefix: "-minsize"
 
-baseCommand: [ usearch8,  "-fastaout", sorted.fasta ]
+baseCommand: [ usearch,  "-fastaout", sorted.fasta ]
 
 outputs:
   sortedFasta:
@@ -20,4 +20,3 @@ outputs:
     outputBinding:
       glob: sorted.fasta
 
-#usearch8 -sortbysize filtered_1.fasta -fastaout filtered_sorted.fasta -minsize 2

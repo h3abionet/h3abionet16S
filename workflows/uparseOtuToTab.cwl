@@ -8,12 +8,11 @@ inputs:
     inputBinding:
       position: 1
 
-baseCommand: [ uc2otutab.py ]
+#baseCommand: [ uc2otutab.py ]
+baseCommand: [ python, /usr/local/bin/uc2otutab.py ]
 
 stdout: otus.table
 
 outputs:
   otuTable:
     type: stdout
-
-#uc2otutab.py otus.mapped.uc > otu-table.txt

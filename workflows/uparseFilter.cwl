@@ -12,7 +12,7 @@ inputs:
     inputBinding:
       prefix: "-fastq_maxee"
 
-baseCommand: [ usearch8, "-fastaout", filtered.fasta ]
+baseCommand: [ usearch, "-fastaout", filtered.fasta ]
 
 outputs:
   filteredFasta:

@@ -32,4 +32,3 @@ outputs:
     outputBinding:
       glob: truncated.fasta
 
-#truncate_seq_lens.py sample.fasta 250 260 200 truncated.fasta

@@ -19,5 +19,3 @@ stdout: otus_renamed.fasta
 outputs:
   renamedFasta:
     type: stdout
-
-#fasta_number.py $outDir/otus_chimOUT.fa OTU_ > $outDir/otus_repsetOUT.fa

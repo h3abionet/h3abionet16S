@@ -27,11 +27,3 @@ outputs:
     type: File
     outputBinding:
       glob: otus.uc
-
-#cwltool uparseGlobalSearchWorkAround.cwl
-#--fastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta
-#--otuFastaFile /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/67_otus.fasta
-#--otuPercentageIdentity 0.97 --usearchGlobalStrand plus
-
-#uparse_global_search_workaround.sh /home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/61_otus.fasta
-#/home/shakun/CloudHackathon/h3abionet16S/test/sample_otus/rep_set/67_otus.fasta 0.97 plus
