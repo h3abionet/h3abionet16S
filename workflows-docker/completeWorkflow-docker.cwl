@@ -21,6 +21,7 @@ inputs:
   otuRadiusPct: float
   chimeraFastaDb: File
   strandInfo: string
+  chimeraCheckMode: string
   otuPercentageIdentity: float
   usearchGlobalStrand: string
   otuTableType: string
@@ -30,6 +31,7 @@ inputs:
   assignTaxonomyConfVal: float
   otuRepsetAlignmentTemplateFasta: File
   alignmentMethod: string
+  mappingFile: File
 
 outputs:
   reports:
@@ -111,6 +113,10 @@ outputs:
   otuSummaryQualitativeFile:
     type: File
     outputSource: createSummaryQualitative/otuSummary
+
+  rReports:
+    type: File[]
+    outputSource: generateRReports/reports
 
 steps:
   arrayOfFilePairsToFileArray:
@@ -206,6 +212,7 @@ steps:
       fastaFile: otuPick/otuFasta
       chimeraFastaDb: chimeraFastaDb
       strandInfo: strandInfo
+      chimeraCheckMode: chimeraCheckMode
     out: [ chimeraCleanFasta ]
 
   renameOTU:
@@ -289,3 +296,11 @@ steps:
     in:
       otuBiom: addTaxonomyToBiom/otuBiom
     out: [ otuSummary ]
+
+  generateRReports:
+    run: generateRReports-docker.cwl
+    in:
+     otuBiom: addTaxonomyToBiom/otuBiom
+     mappingFile: mappingFile
+     treeFile: makePhylogeny/otuTree
+    out: [ reports ]
