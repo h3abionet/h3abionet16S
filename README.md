@@ -12,7 +12,7 @@ Below is a desciption of what you would find in each folder of the repository
 
 **example** - Information and supporting files needed to run the workflow on a host OS or through docker containers.
 
-The project is still in development and needs work in various parts of the design, code, documentation and testing. The current status of our workflow is however shown in the diagram below:
+The project is still in development and needs work in various parts of the design, code, documentation and testing. The current status of our workflow is shown in the diagram below:
 
 ![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/h3abionet16S_CWL_workflow.png "CWL workflow")
 
