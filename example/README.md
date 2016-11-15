@@ -35,6 +35,11 @@ sudo apt-get install libpython-dev
 sudo pip install cwltool
 sudo apt-get install nodejs
 ```
+## Clone h3abionet16S repos
+```
+cd /home/user/
+git clone https://github.com/h3abionet/h3abionet16S.git
+```
 
 ## Build containers
 ### FastQC, QIIME, in-house and R with modules
@@ -54,16 +59,10 @@ wget http://link_in_email -O usearch
 docker build --tag longyee/usearch .
 ```
 
-## Pull the h3abionet16S code, get some test data and link it properly.
-
-### Clone repos
-
-```
-cd /home/user/
-git clone https://github.com/h3abionet/h3abionet16S.git
-```
+## Get some test data and link it properly.
 
 ### Get test and reference data
+
 #### Get test data
 ```
 cd /scratch/user
