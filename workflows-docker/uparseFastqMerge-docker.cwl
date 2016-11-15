@@ -21,7 +21,7 @@ inputs:
     inputBinding:
       prefix: "-fastq_maxdiffs"
 
-baseCommand: [ usearch8 ]
+baseCommand: [ usearch ]
 
 arguments:
   - valueFrom: $(inputs.sampleName)_merged.fastq
