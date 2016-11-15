@@ -45,4 +45,4 @@ sudo docker build --tag longyee/fastqc fastqc/
 sudo docker build --tag longyee/qiime
 sudo docker build --tag longyee/usearch usearch/
 sudo docker build --tag longyee/r r/
-sudo docker build --tag longyee/house house/
+sudo docker build --tag longyee/in-house in-house/

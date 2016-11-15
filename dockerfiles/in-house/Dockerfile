@@ -35,5 +35,10 @@ RUN mv uparse_derep_workaround.sh /usr/local/bin/
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
 RUN chmod +x concat_fasta.sh
 RUN mv concat_fasta.sh /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/generate_R_reports.R
+RUN chmod +x generate_R_reports.R
+RUN mv generate_R_reports.R /usr/local/bin/
+
 ##################### INSTALLATION END #####################
 
