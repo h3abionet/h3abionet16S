@@ -20,11 +20,10 @@ WORKDIR /root
 RUN apt-get install -y wget unzip bzip2 sudo libfile-util-perl
 
 # Install USEARCH
-# Ref: http://www.drive5.com/usearch/manual/install.html
-#ADD usearch8.1.1861_i86linux32 /usr/local/bin/
-COPY usearch8.1.1861_i86linux32 /usr/local/bin/
-RUN chmod +x /usr/local/bin/usearch8.1.1861_i86linux32
-RUN ln -s /usr/local/bin/usearch8.1.1861_i86linux32 /usr/local/bin/usearch8
+# Follow instructions to get usearch here: http://www.drive5.com/usearch/download.html and then download from the link send by an email to the directory in which this Docker file resides. This is important! 
+# E.g. cd /directory_where_this_docker_file_is; wget http://link_in_email -O usearch
+COPY usearch /usr/local/bin/
+RUN chmod +x /usr/local/bin/usearch
 
 RUN wget http://kirill-kryukov.com/study/tools/fasta-splitter/files/fasta-splitter-0.2.4.zip
 RUN unzip fasta-splitter-0.2.4.zip
@@ -46,6 +45,3 @@ RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers
 RUN chmod +x uparse_global_search_workaround.sh
 RUN mv uparse_global_search_workaround.sh /usr/local/bin/
 ##################### INSTALLATION END #####################
-
-#ENTRYPOINT ["/usr/local/bin/usearch8.1.1861_i86linux32"]
-#ENTRYPOINT ["/usr/local/bin/usearch8"]
