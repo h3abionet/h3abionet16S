@@ -10,7 +10,7 @@ inputs:
   fastaFile:
     type: File
     inputBinding:
-      prefix: "-uchime_ref"
+      prefix: "-uchime2_ref"
   chimeraFastaDb:
     type: File
     inputBinding:
@@ -19,13 +19,15 @@ inputs:
     type: string
     inputBinding:
       prefix: "-strand"
+  chimeraCheckMode:
+    type: string
+    inputBinding:
+      prefix: "-mode"
 
-baseCommand: [ usearch8,  "-nonchimeras", no_chimera.fasta ]
+baseCommand: [ usearch,  "-notmatched", no_chimera.fasta ]
 
 outputs:
   chimeraCleanFasta:
     type: File
     outputBinding:
       glob: no_chimera.fasta
-
-#usearch8 -uchime_ref $outDir/otus_raw.fa -db /scratch/DB/bio/qiime/uchime/gold.fa -nonchimeras otus_chimOUT.fa -strand plus
