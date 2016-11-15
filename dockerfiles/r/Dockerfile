@@ -36,6 +36,10 @@ RUN su - -c "R -e \"devtools::install_github('joey711/phyloseq')\""
 RUN su - -c "R -e \"install.packages('gridExtra', repos = 'http://cran.rstudio.com/')\""
 RUN su - -c "R -e \"install.packages('ggplot2', repos = 'http://cran.rstudio.com/')\""
 
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/generate_R_reports.R
+RUN chmod +x generate_R_reports.R
+RUN mv generate_R_reports.R /usr/local/bin/
+
 ##################### INSTALLATION END #####################
 
 CMD ["R"]

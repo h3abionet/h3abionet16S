@@ -10,14 +10,14 @@ FROM ubuntu:16.04
 MAINTAINER Long Yee "long@sanbi.ac.za"
 
 # Update the repository sources list
-RUN apt-get update
-RUN apt-get upgrade -y
+RUN apt-get update && apt-get install -y wget unzip bzip2 apt-utils imagemagick
+#RUN apt-get upgrade -y
 
 WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget unzip bzip2 apt-utils imagemagick
+#RUN apt-get install -y wget unzip bzip2 apt-utils imagemagick
 
 # Install house and helper scripts
 
@@ -35,10 +35,6 @@ RUN mv uparse_derep_workaround.sh /usr/local/bin/
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
 RUN chmod +x concat_fasta.sh
 RUN mv concat_fasta.sh /usr/local/bin/
-
-RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/generate_R_reports.R
-RUN chmod +x generate_R_reports.R
-RUN mv generate_R_reports.R /usr/local/bin/
 
 ##################### INSTALLATION END #####################
 
