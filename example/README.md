@@ -143,13 +143,19 @@ sudo apt-get update
 sudo apt-get -y upgrade
 ```
 
+## Prepare working directories
+```
+sudo mkdir -p /home/user
+sudo mkdir -p /scratch/user
+```
+
 ## Install FastQC
 ```
 cd /scratch/user
 sudo apt-get install wget unzip libfindbin-libs-perl -y
-sudo apt-get install  sudo apt-get install openjdk-8-jre -y
-wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
-unzip fastqc_v0.11.5.zip
+sudo apt-get install openjdk-8-jre -y
+sudo wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
+sudo unzip fastqc_v0.11.5.zip
 sudo mv FastQC/ /opt/
 sudo chmod +x /opt/FastQC/fastqc
 sudo ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
@@ -159,23 +165,23 @@ sudo ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
 ```
 sudo apt-get install wget unzip bzip2 apt-utils imagemagick -y
 #
-wget http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2
+sudo wget http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2
 sudo tar jxvf fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2  -C /usr/local/
 #
-wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/rename_fastq_headers.sh
-chmod +x rename_fastq_headers.sh
+sudo wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/rename_fastq_headers.sh
+sudo chmod +x rename_fastq_headers.sh
 sudo mv rename_fastq_headers.sh /usr/local/bin/
 #
-wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_derep_workaround.sh
-chmod +x uparse_derep_workaround.sh
+sudo wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_derep_workaround.sh
+sudo chmod +x uparse_derep_workaround.sh
 sudo mv uparse_derep_workaround.sh /usr/local/bin/
 #
-wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
-chmod +x concat_fasta.sh
+sudo wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/concat_fasta.sh
+sudo chmod +x concat_fasta.sh
 sudo mv concat_fasta.sh /usr/local/bin/
 #
-wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/generate_R_reports.R
-chmod +x generate_R_reports.R
+sudo wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/generate_R_reports.R
+sudo chmod +x generate_R_reports.R
 mv generate_R_reports.R /usr/local/bin/
 #
 sudo apt-get install -y wget unzip bzip2 sudo libfile-util-perl
@@ -196,9 +202,9 @@ sudo apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
 # Ref: http://qiime.org/install/install.html
 # Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
 sudo sh -c "echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh" && \
-wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+sudo wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
 sudo /bin/bash ~/miniconda.sh -b -p /opt/conda && \ 
-rm ~/miniconda.sh
+sudo rm ~/miniconda.sh
 export PATH=/opt/conda/bin:$PATH
 sudo /opt/conda/bin/conda create -y -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
 sudo /opt/conda/bin/conda install -y psutil
@@ -249,7 +255,7 @@ sudo apt-get install nodejs -y
 ## Get code
 ```
 cd /home/user
-git clone https://github.com/h3abionet/h3abionet16S.git
+sudo git clone https://github.com/h3abionet/h3abionet16S.git
 ```
 
 ## Get reference data and linking
