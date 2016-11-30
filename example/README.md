@@ -1,4 +1,6 @@
-# Setting up machine to run worklow on docker contatainers (tested on Ubuntu 16.04.1)
+# Setting up machine to run worklow on docker containers (tested on Ubuntu 16.04.1)
+
+In the setup it is assumed that the user name of the user you are setting things up is name `user`. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
 
 ## Update OS
 
@@ -77,11 +79,12 @@ wget http://h3data.cbio.uct.ac.za/assessments/16SrRNADiversityAnalysis/practice/
 ```
 #### Get reference data
 ```
-cd /scratch/user/h3abionet16S
+mkdir -p /scratch/user/h3abionet16S/greengenes/
+cd /scratch/user/h3abionet16S/greengenes/
 wget ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz
 tar -xzvf gg_13_8_otus.tar.gz
-mkdir chimera_checking_db
-cd chimera_checking_db
+mkdir /scratch/user/h3abionet16S/chimera_checking_db
+cd /scratch/user/h3abionet16S/chimera_checking_db
 wget http://drive5.com/uchime/gold.fa
 ```
 
@@ -135,6 +138,8 @@ On a successful run you would find the following files and directories in your o
 * ```ordination.jpg``` - NMDS plot. Need to work on this.
 
 # Setting up machine to run worklow on on Ubuntu 16.04.1
+
+In the setup it is assumed that the user name of the user you are setting things up is name `user`. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
 
 ## Update OS
 
@@ -255,7 +260,7 @@ sudo apt-get install nodejs -y
 ## Get code
 ```
 cd /home/user
-sudo git clone https://github.com/h3abionet/h3abionet16S.git
+git clone https://github.com/h3abionet/h3abionet16S.git
 ```
 
 ## Get reference data and linking
