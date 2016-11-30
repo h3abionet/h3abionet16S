@@ -1,6 +1,6 @@
 # Setting up machine to run worklow on docker containers (tested on Ubuntu 16.04.1)
 
-In the setup it is assumed that the user name of the user you are setting things up is name `user`. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
+In the setup it is assumed that the user name of the user you are setting things up is name `user` with sudo rights. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
 
 ## Update OS
 
@@ -26,9 +26,7 @@ sudo service docker start
 
 # Optional - Add your username to the docker group to be able to run containers. Do a small test to check if calling a container works.
 ```
-sudo adduser user
 sudo adduser user docker
-su user
 docker run hello-world
 ```
 
@@ -139,7 +137,7 @@ On a successful run you would find the following files and directories in your o
 
 # Setting up machine to run worklow on on Ubuntu 16.04.1
 
-In the setup it is assumed that the user name of the user you are setting things up is name `user`. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
+In the setup it is assumed that the user name of the user you are setting things up is name `user` with sudo rights. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
 
 ## Update OS
 
