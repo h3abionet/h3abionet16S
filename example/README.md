@@ -68,7 +68,7 @@ docker build --tag longyee/usearch .
 #### Get test data
 ```
 sudo mkdir -p /scratch/user
-sudo chown -R user /scratch/user/
+sudo chown user:user /scratch/user/
 cd /scratch/user
 mkdir h3abionet16S
 mkdir h3abionet16S/dog_stool_samples
@@ -148,8 +148,8 @@ sudo apt-get -y upgrade
 
 ## Prepare working directories
 ```
-sudo mkdir -p /home/user
 sudo mkdir -p /scratch/user
+sudo chown user:user /scratch/user/
 ```
 
 ## Install FastQC
