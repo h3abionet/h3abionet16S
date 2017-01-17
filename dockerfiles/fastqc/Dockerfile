@@ -1,23 +1,18 @@
 ############################################################
 # Dockerfile to build 16S rRNA diversity analysis
-# Based on Ubuntu 16.04
 ############################################################
 
 # Set the base image to Ubuntu
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 # File Author / Maintainer
 MAINTAINER Long Yee "long@sanbi.ac.za"
-
-# Update the repository sources list
-RUN apt-get update
-RUN apt-get upgrade -y
 
 WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget unzip libfindbin-libs-perl
+RUN apt-get update && apt-get install -y wget unzip libfindbin-libs-perl
 
 # Install Java 8
 # Ref: https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
