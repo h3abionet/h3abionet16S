@@ -9,15 +9,11 @@ FROM ubuntu:16.04
 # File Author / Maintainer
 MAINTAINER Long Yee "long@sanbi.ac.za"
 
-# Update the repository sources list
-RUN apt-get update
-RUN apt-get upgrade -y
-
 WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
+RUN apt-get update && apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
 
 # Install QIIME
 # Ref: http://qiime.org/install/install.html
