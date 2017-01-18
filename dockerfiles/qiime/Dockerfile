@@ -17,7 +17,7 @@ WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
+RUN apt-get install -y wget bzip2 libxext6 libsm6 libxrender1 libglib2.0-0
 
 # Install QIIME
 # Ref: http://qiime.org/install/install.html
