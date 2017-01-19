@@ -1,7 +1,7 @@
 cwlVersion: v1.0
 class: Workflow
 
-hints:
+requirements:
  - class: InlineJavascriptRequirement
  - class: StepInputExpressionRequirement
  - $import: readPair.yml
