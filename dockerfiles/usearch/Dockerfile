@@ -9,18 +9,14 @@ FROM ubuntu:16.04
 # File Author / Maintainer
 MAINTAINER Long Yee "long@sanbi.ac.za"
 
-# Update the repository sources list
-RUN apt-get update
-RUN apt-get upgrade -y
-
 WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-RUN apt-get install -y wget unzip bzip2 sudo libfile-util-perl
+RUN apt-get update && apt-get install -y wget unzip bzip2 sudo libfile-util-perl
 
 # Install USEARCH
-# Follow instructions to get usearch here: http://www.drive5.com/usearch/download.html and then download from the link send by an email to the directory in which this Docker file resides. This is important! 
+# Follow instructions to get usearch here: http://www.drive5.com/usearch/download.html and then download from the link send by an email to the directory in which this Docker file resides. This is important!
 # E.g. cd /directory_where_this_docker_file_is; wget http://link_in_email -O usearch
 COPY usearch /usr/local/bin/
 RUN chmod +x /usr/local/bin/usearch

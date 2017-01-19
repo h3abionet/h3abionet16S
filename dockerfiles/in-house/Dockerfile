@@ -9,15 +9,11 @@ FROM ubuntu:16.04
 # File Author / Maintainer
 MAINTAINER Long Yee "long@sanbi.ac.za"
 
-# Update the repository sources list
-RUN apt-get update && apt-get install -y wget unzip bzip2 apt-utils imagemagick
-#RUN apt-get upgrade -y
-
 WORKDIR /root
 
 ################## BEGIN INSTALLATION ######################
 # Install Basic tools
-#RUN apt-get install -y wget unzip bzip2 apt-utils imagemagick
+RUN apt-get update && apt-get install -y wget unzip bzip2 apt-utils imagemagick
 
 # Install house and helper scripts
 
@@ -37,4 +33,3 @@ RUN chmod +x concat_fasta.sh
 RUN mv concat_fasta.sh /usr/local/bin/
 
 ##################### INSTALLATION END #####################
-
