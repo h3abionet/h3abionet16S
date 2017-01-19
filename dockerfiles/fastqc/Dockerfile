@@ -1,9 +1,10 @@
 ############################################################
 # Dockerfile to build 16S rRNA diversity analysis
+# Based on Ubuntu 16.04
 ############################################################
 
 # Set the base image to Ubuntu
-FROM ubuntu:latest
+FROM ubuntu:16.04
 
 # File Author / Maintainer
 MAINTAINER Long Yee "long@sanbi.ac.za"
