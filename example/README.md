@@ -100,7 +100,7 @@ ln -s /scratch/user/h3abionet16S/chimera_checking_db/gold.fa .
 ```
 mkdir /scratch/user/h3abionet16S/workflow_output
 mkdir /scratch/user/h3abionet16S/cachedir
-cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows-docker/completeWorkflow-docker.cwl /home/user/h3abionet16S/example/input.yml 
+cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow-docker.cwl /home/user/h3abionet16S/example/input.yml 
 ```
 
 ## Input
@@ -268,5 +268,5 @@ Do the same setup as was done with setup running on docker containers.
 The QIIME environment needs to be activated and we are calling ```completeWorkflow.cwl``` instead of```completeWorkflow-docker.cwl```.
 ```
 source activate qiime1
-cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
+cwltool --no-container --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
 ```
