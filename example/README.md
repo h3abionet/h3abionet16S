@@ -24,7 +24,7 @@ sudo apt-get install docker-engine
 sudo service docker start
 ```
 
-# Optional - Add your username to the docker group to be able to run containers. Do a small test to check if calling a container works.
+### Optional - Add your username to the docker group to be able to run containers. Do a small test to check if calling a container works.
 ```
 sudo adduser user docker
 docker run hello-world
