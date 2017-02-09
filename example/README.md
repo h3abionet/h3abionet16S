@@ -52,7 +52,7 @@ docker pull quay.io/longyee/r
 docker pull quay.io/longyee/in-house
 ```
 ### Build the USEARCH container
-Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license you, Robert Edgar will send you an email with a link where you can download the binary from.
+Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license Robert Edgar will send you an email with a link where you can download the binary from.
 
 ```
 cd /home/user/h3abionet16S/dockerfiles/usearch
