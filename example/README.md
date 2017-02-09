@@ -43,16 +43,15 @@ cd /home/user/
 git clone https://github.com/h3abionet/h3abionet16S.git
 ```
 
-## Build containers
-### FastQC, QIIME, in-house and R with modules
+## Get containers
+### Pull FastQC, QIIME, R and in-house containers
 ```
-cd /home/user/h3abionet16S/dockerfiles/
-docker build --tag longyee/fastqc fastqc/
-docker build --tag longyee/qiime qiime/
-docker build --tag longyee/r r/
-docker build --tag longyee/in-house in-house/
+docker pull quay.io/longyee/fastqc
+docker pull quay.io/longyee/qiime
+docker pull quay.io/longyee/r
+docker pull quay.io/longyee/in-house
 ```
-### USEARCH
+### Build the USEARCH container
 Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license you, Robert Edgar will send you an email with a link where you can download the binary from.
 
 ```
@@ -100,7 +99,7 @@ ln -s /scratch/user/h3abionet16S/chimera_checking_db/gold.fa .
 ```
 mkdir /scratch/user/h3abionet16S/workflow_output
 mkdir /scratch/user/h3abionet16S/cachedir
-cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow-docker.cwl /home/user/h3abionet16S/example/input.yml 
+cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml 
 ```
 
 ## Input
