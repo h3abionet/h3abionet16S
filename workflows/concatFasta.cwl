@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: longyee/in-house
+    dockerPull: quay.io/longyee/in-house
 
 inputs:
   fastaFiles:

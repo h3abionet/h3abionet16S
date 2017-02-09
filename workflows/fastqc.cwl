@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: longyee/fastqc
+    dockerPull: quay.io/longyee/fastqc
 
 inputs:
   fastqFile:

@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: longyee/r
+    dockerPull: quay.io/longyee/r
 
 inputs:
   otuBiom:
