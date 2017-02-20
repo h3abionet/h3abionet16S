@@ -1,4 +1,0 @@
-fastaFile:
-  class: File
-  path: inputs/sorted.fasta
-otuRadiusPct: 3.0

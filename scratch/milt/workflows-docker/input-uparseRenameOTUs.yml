@@ -1,3 +1,0 @@
-fastaFile:
-  class: File
-  path: inputs/no_chimera.fasta

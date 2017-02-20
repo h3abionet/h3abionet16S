@@ -1,8 +1,0 @@
-fastaFile:
-  class: File
-  path: inputs/concat.fasta
-otuFastaFile:
-  class: File
-  path: inputs/otus_renamed.fasta
-otuPercentageIdentity: 0.97
-usearchGlobalStrand: both

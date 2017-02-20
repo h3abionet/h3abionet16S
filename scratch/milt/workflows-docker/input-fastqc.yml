@@ -1,3 +1,0 @@
-fastqFile:
-  class: File
-  path: dog_stool_samples/Dog10_R1.fastq

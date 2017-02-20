@@ -1,7 +1,0 @@
-fastqFileF:
-  class: File
-  path: dog_stool_samples/Dog10_R1.fastq
-fastqFileR:
-  class: File
-  path: dog_stool_samples/Dog10_R2.fastq
-sampleName: Dog10

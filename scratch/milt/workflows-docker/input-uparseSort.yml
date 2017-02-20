@@ -1,4 +1,0 @@
-fastaFile:
-  class: File
-  path: inputs/derep.fasta
-minSize: 2
