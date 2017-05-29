@@ -7,7 +7,7 @@
 FROM ubuntu:16.04
 
 # File Author / Maintainer
-MAINTAINER Long Yee "long@sanbi.ac.za"
+MAINTAINER Gerrit Botha "gerrit.botha@uct.ac.za"
 
 WORKDIR /root
 
