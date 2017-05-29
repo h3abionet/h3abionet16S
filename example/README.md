@@ -46,10 +46,10 @@ git clone https://github.com/h3abionet/h3abionet16S.git
 ## Get containers
 ### Pull FastQC, QIIME, R and in-house containers
 ```
-docker pull quay.io/longyee/fastqc
-docker pull quay.io/longyee/qiime
-docker pull quay.io/longyee/r
-docker pull quay.io/longyee/in-house
+docker pull quay.io/h3abionet_org/h3a16s-fastqc
+docker pull quay.io/h3abionet_org/h3a16s-qiime
+docker pull quay.io/h3abionet_org/h3a16s-r
+docker pull quay.io/h3abionet_org/h3a16s-in-house
 ```
 ### Build the USEARCH container
 Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license Robert Edgar will send you an email with a link where you can download the binary from.
@@ -57,7 +57,7 @@ Make a request here: http://www.drive5.com/usearch/download.html . Once you've a
 ```
 cd /home/user/h3abionet16S/dockerfiles/usearch
 wget http://link_in_email -O usearch
-docker build --tag longyee/usearch .
+docker build --tag h3abionet_org/h3a16s-usearch .
 ```
 
 ## Get some test data and link it properly.
