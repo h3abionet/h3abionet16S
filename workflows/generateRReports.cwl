@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: quay.io/longyee/r
+    dockerPull: quay.io/h3abionet_org/h3a16s-r
 
 inputs:
   otuBiom:

@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: quay.io/longyee/qiime
+    dockerPull: quay.io/h3abionet_org/h3a16s-qiime
 
 inputs:
   otuBiom:
@@ -19,5 +19,3 @@ outputs:
     type: File
     outputBinding:
       glob: otus.summary.qualitative
-
-# biom summarize-table -i otus_table.tax.biom -o otus_table.tax.biom.summary

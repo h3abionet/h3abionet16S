@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: quay.io/longyee/qiime
+    dockerPull: quay.io/h3abionet_org/h3a16s-qiime
 
 inputs:
   otuFasta:
@@ -18,6 +18,3 @@ outputs:
     type: File
     outputBinding:
       glob: otus.tre
-
-# make_phylogeny.py -i filtered_alignment/61_otus_aligned_pfiltered.fasta
-# -o filtered_alignment/otus_repsetOUT_aligned_pfiltered.tre

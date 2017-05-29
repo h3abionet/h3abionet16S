@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: longyee/usearch
+    dockerPull: h3abionet_org/h3a16s-usearch
 
 inputs:
   sampleName: string

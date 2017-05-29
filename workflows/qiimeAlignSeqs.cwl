@@ -4,7 +4,7 @@ class: CommandLineTool
 
 hints:
   - class: DockerRequirement
-    dockerPull: quay.io/longyee/qiime
+    dockerPull: quay.io/h3abionet_org/h3a16s-qiime
 
 inputs:
   otuFasta:
@@ -27,8 +27,3 @@ outputs:
     type: File
     outputBinding:
       glob: otus.align/otus_renamed_aligned.fasta
-
-
-
-#align_seqs.py -m muscle -i ../../test/sample_otus/rep_set/61_otus.fasta -o rep_set_align
-# -t ../../test/sample_otus/rep_set_aligned/61_otus.fasta
