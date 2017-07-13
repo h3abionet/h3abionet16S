@@ -8,7 +8,7 @@ Below is a desciption of what you would find in each folder of the repository
 
 **[example](https://github.com/h3abionet/h3abionet16S/tree/master/example)** - Information and supporting files needed to run the workflow on a host OS or through docker containers.
 
-**[workflows](https://github.com/h3abionet/h3abionet16S/tree/master/workflows)** - CWL workflows for running the 16S pipeline on a machine setup with the necessary software or a machine with the necessart docker containers.
+**[workflows](https://github.com/h3abionet/h3abionet16S/tree/master/workflows)** - CWL workflows for running the 16S pipeline on a machine setup with the necessary software or a machine with the necessary docker containers.
 
 **[helpers](https://github.com/h3abionet/h3abionet16S/tree/master/helpers)** - Helper scripts and code.
 
