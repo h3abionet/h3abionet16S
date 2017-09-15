@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 params.data = "/data/dog_stool_samples"
-params.out = "~/test"
+params.out = "/home/phele/test"
 //params.refs =
 
 data_path = params.data
@@ -18,7 +18,7 @@ process uparseRenameFastq {
     stageInMode 'symlink'
     stageOutMode 'rsync'
     container "quay.io/h3abionet_org/h3a16s-in-house"
-    publishDir '$out_path/${sample}', mode: 'copy', overwrite: false
+    publishDir '${out_path}/${sample}', mode: 'copy', overwrite: false
 
     input:
 	set sample, file(read) from read_pair
@@ -39,7 +39,7 @@ process uparseFastqMerge {
     tag { sample }
     stageInMode 'symlink'
     stageOutMode 'rsync'
-    publishDir '$out_path/${sample}', mode: 'copy', overwrite: false
+    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
 	set sample, file(read) from renamed_read_pair
@@ -48,6 +48,7 @@ process uparseFastqMerge {
 	set sample, file("*_merged.fastq") into merged_read_pair
 
     """
+    echo $out_path/${sample}
     usearch -fastq_mergepairs ${sample}_forward_renamed.fastq \
         -reverse ${sample}_reverse_renamed.fastq \
         -fastqout ${sample}_merged.fastq \
@@ -61,13 +62,13 @@ process uparseFilter {
     tag { sample }
     stageInMode 'symlink'
     stageOutMode 'rsync'
-    publishDir '$out_path/${sample}', mode: 'copy', overwrite: false
+    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
 	set sample, file(read) from merged_read_pair
 	
     output:
-	set sample, file("${sample}_filtered.fasta") into filtered_fastq
+	file("${sample}_filtered.fasta") into filtered_fasta
 
     """
     usearch -fastq_filter ${read} \
@@ -76,4 +77,30 @@ process uparseFilter {
     """
 }
 
-filtered_fastq.subscribe { println it }
+//filtered_fasta.subscribe { println it }
+
+filtered_fasta
+.collectFile () { item -> [ 'fastas.txt', "${item}" + ' ' ] }
+.set { fasta_files }
+
+
+process  uparseDerepWorkAround {
+    cache = true
+    tag { sample }
+    container "quay.io/h3abionet_org/h3a16s-in-house"
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+	file(fasta) from fasta_files
+	
+    output:
+        file('*') into derep_fasta
+
+    """
+    uparse_derep_workaround.sh `more ${fasta}`
+    """
+}
+
+derep_fasta.subscribe { println it }
