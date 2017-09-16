@@ -1,12 +1,12 @@
 #!/usr/bin/env nextflow
 
-params.data = "/data/dog_stool_samples"
-params.out = "/home/phele/test"
-//params.refs =
+params.data = "/home/phelelani/h3abionet/data/samples"
+params.out = "/home/phelelani/h3abionet/16s_output"
+params.refs = "/home/phelelani/h3abionet/data/refs"
 
 data_path = params.data
 out_path = file(params.out)
-//refs = params.ref
+refs_path = params.refs
 
 out_path.mkdir()
 
@@ -55,7 +55,6 @@ process uparseFastqMerge {
         -fastq_maxdiffs 3
     """
 }
-
 
 process uparseFilter {
     cache = true
