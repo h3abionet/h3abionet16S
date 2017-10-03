@@ -1,1 +1,1 @@
-# Nextflow workflows goes in here for now
+## The nextflow-hex branch contains the code to get the pipeline up and running on the Hex cluster using Nextflow and Singularity. The initial work will only focus on getting things running on the specific cluster. Things will later be adapted to other environments and setups. Some kind of continuous integration needs to be worked in as well.
