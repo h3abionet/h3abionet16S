@@ -8,11 +8,7 @@ out_path.mkdir()
 read_pair = Channel.fromFilePairs("${data_path}/*R[1,2].fastq", type: 'file')
 
 process uparseRenameFastq {
-    cache = true
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
-    container "quay.io/h3abionet_org/h3a16s-in-house"
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -30,7 +26,6 @@ process uparseRenameFastq {
 }
 
 process uparseFastqMerge {
-    cache = true
     tag { sample }
     stageInMode 'symlink'
     stageOutMode 'rsync'
@@ -52,7 +47,6 @@ process uparseFastqMerge {
 }
 
 process uparseFilter {
-    cache = true
     tag { sample }
     stageInMode 'symlink'
     stageOutMode 'rsync'
@@ -77,10 +71,6 @@ filtered_fasta
 
 
 process  uparseDerepWorkAround {
-    cache = true
-    container "quay.io/h3abionet_org/h3a16s-in-house"
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
