@@ -59,7 +59,7 @@ process uparseFilter {
 	file("${sample}_filtered.fasta") into filtered_fasta
 
     """
-    usearch -fastq_filter ${read} \
+    usearch -threads 1 -fastq_filter ${read} \
         -fastq_maxee ${params.fastqMaxEe} \
         -fastaout ${sample}_filtered.fasta
     """
