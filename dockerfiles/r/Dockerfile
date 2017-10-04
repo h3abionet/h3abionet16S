@@ -35,6 +35,9 @@ RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers
 RUN chmod +x generate_R_reports.R
 RUN mv generate_R_reports.R /usr/local/bin/
 
+################## Hex specific ###########################
+RUN mkdir -p /researchdata/fhgfs
+
 ##################### INSTALLATION END #####################
 
 CMD ["R"]

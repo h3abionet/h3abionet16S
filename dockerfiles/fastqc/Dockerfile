@@ -26,6 +26,10 @@ RUN unzip fastqc_v0.11.5.zip
 RUN mv FastQC/ /opt/
 RUN chmod +x /opt/FastQC/fastqc
 RUN ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
+
+################## Hex specific ###########################
+RUN mkdir -p /researchdata/fhgfs
+
 ##################### INSTALLATION END #####################
 
 #ENTRYPOINT ["/usr/local/bin/fastqc"]
