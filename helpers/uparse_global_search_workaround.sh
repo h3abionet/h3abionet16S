@@ -12,10 +12,10 @@ fi
 
 fasta-splitter.pl -n-parts-total 100 -out-dir split $1
 
-cd split
-
 # The nextline is just a hack for now to get Nextflow to be able to access the $db
 db=`readlink -f $2`
+
+cd split
 
 for i in $(ls *.fasta);
   do usearch -usearch_global $i -db $db -id $3 -strand $4 -uc $i.uc;
