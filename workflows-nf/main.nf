@@ -37,7 +37,7 @@ process uparseFastqMerge {
 
     """
     echo $out_path/${sample}
-    usearch -fastq_mergepairs ${sample}_forward_renamed.fastq \
+    usearch -threads 1 -fastq_mergepairs ${sample}_forward_renamed.fastq \
         -reverse ${sample}_reverse_renamed.fastq \
         -fastqout ${sample}_merged.fastq \
         -fastq_maxdiffs ${params.fastqMaxdiffs}
@@ -130,7 +130,7 @@ process uparseChimeraCheck {
         file('no_chimera.fasta') into no_chimera_fasta
 
     """
-    usearch -uchime2_ref ${in_fasta} \
+    usearch -threads 1 -uchime2_ref ${in_fasta} \
         -db ${params.chimeraFastaDb} \
         -strand ${params.strandInfo} \
         -mode ${params.chimeraCheckMode} \
