@@ -2,6 +2,8 @@
 
 This branch contains the code to get the pipeline up and running on the Hex cluster using nextflow and singularity. The initial work will only focus on getting things running on Hex, but things will later be adapted to other environments and setups. The plan is also to include some kind of continuous integration needs to be worked in as well.
 
+The pipeline is currently setup to run until FilterAlignment. Things are still in progress.
+
 ## Setup
 
 ### On your local system
@@ -26,5 +28,11 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/
 2) Run the pipeline
 
 ```bash
-nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config /home/gerrit/code/h3abionet16S/workflows-nf/main.nf -profile pbs
+nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.hex /home/gerrit/code/h3abionet16S/workflows-nf/main.nf -profile pbs
 ```
+
+### On your local system
+```bash
+nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.local /home/gerrit/code/h3abionet16S/workflows-nf/main.nf -profile local
+```
+
