@@ -27,8 +27,6 @@ process uparseRenameFastq {
 
 process uparseFastqMerge {
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -48,8 +46,6 @@ process uparseFastqMerge {
 
 process uparseFilter {
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -65,16 +61,21 @@ process uparseFilter {
     """
 }
 
-filtered_fasta
-.collectFile () { item -> [ 'filtered_fasta.list', "${item}" + ' ' ] }
-.set { filtered_fasta_list }
+filtered_fasta.into { filtered_fasta_p1; filtered_fasta_p2 }
 
+filtered_fasta_p1
+.collectFile () { item -> [ 'filtered_fasta_p1.list', "${item}" + ' ' ] }
+.set { filtered_fasta_list_p1 }
+
+filtered_fasta_p2
+.collectFile () { item -> [ 'filtered_fasta_p2.list', "${item}" + ' ' ] }
+.set { filtered_fasta_list_p2 }
 
 process  uparseDerepWorkAround {
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
-	   file(fasta_list) from filtered_fasta_list
+	   file(fasta_list) from filtered_fasta_list_p1
 
     output:
         file('*') into derep_fasta
@@ -84,7 +85,147 @@ process  uparseDerepWorkAround {
     """
 }
 
-derep_fasta.subscribe { println it }
+process uparseSort {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from derep_fasta
+
+    output:
+        file('sorted.fasta') into sorted_fasta
+
+    """
+    usearch -sortbysize ${in_fasta} \
+        -minsize ${params.minSize} \
+        -fastaout sorted.fasta
+    """
+}
+
+process uparseOTUPick {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from sorted_fasta
+
+    output:
+        file('otus_raw.fasta') into otus_raw_fasta
+
+    """
+    usearch -cluster_otus ${in_fasta} \
+        -otu_radius_pct ${params.otuRadiusPct} \
+        -otus otus_raw.fasta
+    """
+}
+
+process uparseChimeraCheck {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_raw_fasta
+
+    output:
+        file('no_chimera.fasta') into no_chimera_fasta
+
+    """
+    usearch -uchime2_ref ${in_fasta} \
+        -db ${params.chimeraFastaDb} \
+        -strand ${params.strandInfo} \
+        -mode ${params.chimeraCheckMode} \
+        -notmatched no_chimera.fasta
+    """
+}
+
+process uparseRenameOTUs {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from no_chimera_fasta
+
+    output:
+        file('otus_renamed.fasta') into otus_renamed_fasta
+
+    """
+    python /usr/local/bin/fasta_number.py ${in_fasta} \
+        "OTU_" > otus_renamed.fasta
+    """
+}
+
+otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2 }
+
+process  concatFasta {
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+	   file(fasta_list) from filtered_fasta_list_p2
+
+    output:
+        file('*') into concat_fasta
+
+    """
+    concat_fasta.sh `cat ${fasta_list}`
+    """
+}
+
+process uparseGlobalSearchWorkAround {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from concat_fasta
+        file(otu_fasta) from otus_renamed_fasta_p1
+
+    output:
+        file('otus.uc') into uc_tabbed_file
+
+    """
+    uparse_global_search_workaround.sh ${in_fasta} \
+        ${otu_fasta} \
+        ${params.otuPercentageIdentity} \
+        ${params.usearchGlobalStrand} \
+    """
+}
+
+
+process qiimeAlignSeqs {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_renamed_fasta_p2
+
+    output:
+        file('otus.align/otus_renamed_aligned.fasta') into otus_renamed_aligned_fasta
+
+    """
+    align_seqs.py -i ${in_fasta} \
+        -m ${params.alignmentMethod} \
+        -t ${params.otuRepsetAlignmentTemplateFasta} \
+        -o otus.align
+    """
+}
+
+process qiimeFilterAlign {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_renamed_aligned_fasta
+
+    output:
+        file('filtered_alignment/otus_renamed_aligned_pfiltered.fasta') into otus_renamed_aligned_pfiltered_fasta
+
+    """
+    filter_alignment.py -i ${in_fasta} \
+        -o filtered_alignment
+    """
+}
+
+uc_tabbed_file.subscribe { println it }
+otus_renamed_aligned_pfiltered_fasta.subscribe { println it }
 
 workflow.onComplete {
 
