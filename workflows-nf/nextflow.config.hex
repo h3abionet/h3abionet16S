@@ -1,0 +1,64 @@
+docker.enabled = false
+singularity.enabled = true
+singularity.cacheDir = "/scratch/DB/bio/singularity-containers"
+
+process {
+
+    cache = true
+
+    stageInMode='symlink'
+    stageOutMode='rsync'
+
+    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';    
+    $uparseFastqMerge.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseFilter.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseDerepWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
+    $uparseSort.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseOTUPick.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseChimeraCheck.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
+    $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    
+    $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+}
+
+params {
+    data = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
+    out = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
+
+    // usearch specific settings
+    // for usearch merge
+    fastqMaxdiffs = 3
+    // for usearch filter
+    fastqMaxEe = 0.1
+    // for usearch sortbysize
+    minSize = 0.1
+    // for usearch OTU picking
+    otuRadiusPct = 3.0
+    // for chimera detection
+    chimeraFastaDb = "/scratch/DB/bio/qiime/uchime/gold.fa.latest"
+    strandInfo = "plus"
+    chimeraCheckMode = "high_confidence"
+    // for usearch underep (global-search)
+    otuPercentageIdentity = 0.97
+    usearchGlobalStrand = "plus"
+
+    // for QIIME alignment
+    otuRepsetAlignmentTemplateFasta = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta"
+    alignmentMethod = "pynast"
+
+}
+
+profiles{
+    standard {
+        process.executor = 'local'
+    }
+  
+   pbs {
+        process.executor = 'pbs'
+        process.queue = 'UCTlong'
+	process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe'
+    }
+}

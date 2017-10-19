@@ -1,105 +1,245 @@
 #!/usr/bin/env nextflow
 
-params.data = "/home/phelelani/h3abionet/data/samples"
-params.out = "/home/phelelani/h3abionet/16s_output"
-params.refs = "/home/phelelani/h3abionet/data/refs"
-
 data_path = params.data
 out_path = file(params.out)
-refs_path = params.refs
 
 out_path.mkdir()
 
 read_pair = Channel.fromFilePairs("${data_path}/*R[1,2].fastq", type: 'file')
 
 process uparseRenameFastq {
-    cache = true
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
-    container "quay.io/h3abionet_org/h3a16s-in-house"
-    publishDir '${out_path}/${sample}', mode: 'copy', overwrite: false
+    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
-	set sample, file(read) from read_pair
-	
+	   set sample, file(read) from read_pair
+
     output:
-	set sample, file("*renamed.fastq") into renamed_read_pair
+	   set sample, file("*renamed.fastq") into renamed_read_pair
 
     """
     rename_fastq_headers.sh ${sample} \
         ${read.get(0)} ${read.get(1)} \
-	${sample}_forward_renamed.fastq \
-	${sample}_reverse_renamed.fastq
+	    ${sample}_forward_renamed.fastq \
+	    ${sample}_reverse_renamed.fastq
     """
 }
 
 process uparseFastqMerge {
-    cache = true
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
-	set sample, file(read) from renamed_read_pair
-	
+        set sample, file(read) from renamed_read_pair
+
     output:
-	set sample, file("*_merged.fastq") into merged_read_pair
+        set sample, file("*_merged.fastq") into merged_read_pair
 
     """
     echo $out_path/${sample}
-    usearch -fastq_mergepairs ${sample}_forward_renamed.fastq \
+    usearch -threads 1 -fastq_mergepairs ${sample}_forward_renamed.fastq \
         -reverse ${sample}_reverse_renamed.fastq \
         -fastqout ${sample}_merged.fastq \
-        -fastq_maxdiffs 3
+        -fastq_maxdiffs ${params.fastqMaxdiffs}
     """
 }
 
 process uparseFilter {
-    cache = true
     tag { sample }
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
 	set sample, file(read) from merged_read_pair
-	
+
     output:
 	file("${sample}_filtered.fasta") into filtered_fasta
 
     """
-    usearch -fastq_filter ${read} \
-        -fastq_maxee 0.1 \
+    usearch -threads 1 -fastq_filter ${read} \
+        -fastq_maxee ${params.fastqMaxEe} \
         -fastaout ${sample}_filtered.fasta
     """
 }
 
-//filtered_fasta.subscribe { println it }
+filtered_fasta.into { filtered_fasta_p1; filtered_fasta_p2 }
 
-filtered_fasta
-.collectFile () { item -> [ 'fastas.txt', "${item}" + ' ' ] }
-.set { fasta_files }
+filtered_fasta_p1
+.collectFile () { item -> [ 'filtered_fasta_p1.list', "${item}" + ' ' ] }
+.set { filtered_fasta_list_p1 }
 
+filtered_fasta_p2
+.collectFile () { item -> [ 'filtered_fasta_p2.list', "${item}" + ' ' ] }
+.set { filtered_fasta_list_p2 }
 
 process  uparseDerepWorkAround {
-    cache = true
-    tag { sample }
-    container "quay.io/h3abionet_org/h3a16s-in-house"
-    stageInMode 'symlink'
-    stageOutMode 'rsync'
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
-	file(fasta) from fasta_files
-	
+	   file(fasta_list) from filtered_fasta_list_p1
+
     output:
         file('*') into derep_fasta
 
     """
-    uparse_derep_workaround.sh `more ${fasta}`
+    uparse_derep_workaround.sh `cat ${fasta_list}`
     """
 }
 
-derep_fasta.subscribe { println it }
+process uparseSort {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from derep_fasta
+
+    output:
+        file('sorted.fasta') into sorted_fasta
+
+    """
+    usearch -sortbysize ${in_fasta} \
+        -minsize ${params.minSize} \
+        -fastaout sorted.fasta
+    """
+}
+
+process uparseOTUPick {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from sorted_fasta
+
+    output:
+        file('otus_raw.fasta') into otus_raw_fasta
+
+    """
+    usearch -cluster_otus ${in_fasta} \
+        -otu_radius_pct ${params.otuRadiusPct} \
+        -otus otus_raw.fasta
+    """
+}
+
+process uparseChimeraCheck {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_raw_fasta
+
+    output:
+        file('no_chimera.fasta') into no_chimera_fasta
+
+    """
+    usearch -threads 1 -uchime2_ref ${in_fasta} \
+        -db ${params.chimeraFastaDb} \
+        -strand ${params.strandInfo} \
+        -mode ${params.chimeraCheckMode} \
+        -notmatched no_chimera.fasta
+    """
+}
+
+process uparseRenameOTUs {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from no_chimera_fasta
+
+    output:
+        file('otus_renamed.fasta') into otus_renamed_fasta
+
+    """
+    python /usr/local/bin/fasta_number.py ${in_fasta} \
+        "OTU_" > otus_renamed.fasta
+    """
+}
+
+otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2 }
+
+process  concatFasta {
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+	   file(fasta_list) from filtered_fasta_list_p2
+
+    output:
+        file('*') into concat_fasta
+
+    """
+    concat_fasta.sh `cat ${fasta_list}`
+    """
+}
+
+process uparseGlobalSearchWorkAround {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from concat_fasta
+        file(otu_fasta) from otus_renamed_fasta_p1
+
+    output:
+        file('otus.uc') into uc_tabbed_file
+
+    """
+    uparse_global_search_workaround.sh ${in_fasta} \
+        ${otu_fasta} \
+        ${params.otuPercentageIdentity} \
+        ${params.usearchGlobalStrand} \
+    """
+}
+
+
+process qiimeAlignSeqs {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_renamed_fasta_p2
+
+    output:
+        file('otus.align/otus_renamed_aligned.fasta') into otus_renamed_aligned_fasta
+
+    """
+    align_seqs.py -i ${in_fasta} \
+        -m ${params.alignmentMethod} \
+        -t ${params.otuRepsetAlignmentTemplateFasta} \
+        -o otus.align
+    """
+}
+
+process qiimeFilterAlign {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_renamed_aligned_fasta
+
+    output:
+        file('filtered_alignment/otus_renamed_aligned_pfiltered.fasta') into otus_renamed_aligned_pfiltered_fasta
+
+    """
+    filter_alignment.py -i ${in_fasta} \
+        -o filtered_alignment
+    """
+}
+
+uc_tabbed_file.subscribe { println it }
+otus_renamed_aligned_pfiltered_fasta.subscribe { println it }
+
+workflow.onComplete {
+
+    println ( workflow.success ? """
+        Pipeline execution summary
+        ---------------------------
+        Completed at: ${workflow.complete}
+        Duration    : ${workflow.duration}
+        Success     : ${workflow.success}
+        workDir     : ${workflow.workDir}
+        exit status : ${workflow.exitStatus}
+        """ : """
+        Failed: ${workflow.errorReport}
+        exit status : ${workflow.exitStatus}
+        """
+    )
+}

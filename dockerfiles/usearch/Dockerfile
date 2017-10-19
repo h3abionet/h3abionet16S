@@ -40,4 +40,8 @@ RUN wget http://drive5.com/python/python_scripts.tar.gz \
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/uparse_global_search_workaround.sh
 RUN chmod +x uparse_global_search_workaround.sh
 RUN mv uparse_global_search_workaround.sh /usr/local/bin/
+
+################## Hex specific ###########################
+RUN mkdir -p /researchdata/fhgfs
+
 ##################### INSTALLATION END #####################
