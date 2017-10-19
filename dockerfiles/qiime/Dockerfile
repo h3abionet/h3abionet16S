@@ -23,7 +23,7 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
-RUN /opt/conda/bin/conda create -y -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
+RUN /opt/conda/bin/conda create -y -n qiime1 python=2.7 numpy=1.10.4 qiime matplotlib=1.4.3 mock nose -c bioconda
 RUN /opt/conda/bin/conda install psutil
 ENV PATH /opt/conda/envs/qiime1/bin:$PATH
 
