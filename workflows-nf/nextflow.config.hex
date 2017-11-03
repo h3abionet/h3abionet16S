@@ -9,7 +9,7 @@ process {
     stageInMode='symlink'
     stageOutMode='rsync'
 
-    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';    
+    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
     $uparseFastqMerge.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $uparseFilter.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $uparseDerepWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
@@ -19,9 +19,10 @@ process {
     $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
     $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    
+
     $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeMakePhylogeny.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 }
 
 params {
@@ -55,7 +56,7 @@ profiles{
     standard {
         process.executor = 'local'
     }
-  
+
    pbs {
         process.executor = 'pbs'
         process.queue = 'UCTlong'

@@ -224,8 +224,24 @@ process qiimeFilterAlign {
     """
 }
 
+process qiimeMakePhylogeny {
+
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_fasta) from otus_renamed_aligned_pfiltered_fasta
+
+    output:
+        file('otus.tre') into otus_tree_file
+
+    """
+    make_phylogeny.py -i ${in_fasta} \
+        -o otus.tre
+    """
+}
+
 uc_tabbed_file.subscribe { println it }
-otus_renamed_aligned_pfiltered_fasta.subscribe { println it }
+otus_tree_file.subscribe { println it }
 
 workflow.onComplete {
 

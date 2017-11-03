@@ -22,6 +22,7 @@ process {
 
     $qiimeAlignSeqs.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeFilterAlign.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeMakePhylogeny.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 
 }
 
