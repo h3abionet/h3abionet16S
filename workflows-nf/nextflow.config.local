@@ -19,6 +19,10 @@ process {
     $uparseRenameOTUs.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $concatFasta.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
     $uparseGlobalSearchWorkAround.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseOtuToTab.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $qiimeOtuTextToBiom.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeAssignTaxonomy.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeAddMetadata.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 
     $qiimeAlignSeqs.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeFilterAlign.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
@@ -27,6 +31,9 @@ process {
 }
 
 params {
+
+    project_name = "tl"
+
     data = "/home/gerrit/scratch/h3abionet16S/dog_stool_two_samples_only"
     out = "/home/gerrit/scratch/h3abionet16S/nextflow-output"
 
@@ -51,7 +58,11 @@ params {
     otuRepsetAlignmentTemplateFasta = "/home/gerrit/scratch/h3abionet16S/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta"
     alignmentMethod = "pynast"
 
-
+    // for QIIME classification assignment
+    otuRepsetFasta = "/home/gerrit/scratch/h3abionet16S/greengenes/gg_13_8_otus/rep_set/97_otus.fasta"
+    otuRepsetTax = "/home/gerrit/scratch/h3abionet16S/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt"
+    asignTaxonomyMethod = "uclust"
+    assignTaxonomyConfVal = 0.5
 
 }
 

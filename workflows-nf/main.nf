@@ -8,7 +8,7 @@ out_path.mkdir()
 read_pair = Channel.fromFilePairs("${data_path}/*R[1,2].fastq", type: 'file')
 
 process uparseRenameFastq {
-    tag { sample }
+    tag { "${params.project_name}.uRF.${sample}" }
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -26,7 +26,7 @@ process uparseRenameFastq {
 }
 
 process uparseFastqMerge {
-    tag { sample }
+    tag { "${params.project_name}.uFM.${sample}" }
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -45,7 +45,7 @@ process uparseFastqMerge {
 }
 
 process uparseFilter {
-    tag { sample }
+    tag { "${params.project_name}.uF.${sample}" }
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -72,6 +72,7 @@ filtered_fasta_p2
 .set { filtered_fasta_list_p2 }
 
 process  uparseDerepWorkAround {
+    tag { "${params.project_name}.uDWA" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -86,7 +87,7 @@ process  uparseDerepWorkAround {
 }
 
 process uparseSort {
-
+    tag { "${params.project_name}.uS" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -103,7 +104,7 @@ process uparseSort {
 }
 
 process uparseOTUPick {
-
+    tag { "${params.project_name}.uOP" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -120,7 +121,7 @@ process uparseOTUPick {
 }
 
 process uparseChimeraCheck {
-
+    tag { "${params.project_name}.uCC" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -139,7 +140,7 @@ process uparseChimeraCheck {
 }
 
 process uparseRenameOTUs {
-
+    tag { "${params.project_name}.RO" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -154,9 +155,10 @@ process uparseRenameOTUs {
     """
 }
 
-otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2 }
+otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2; otus_renamed_fasta_p3 }
 
 process  concatFasta {
+    tag { "${params.project_name}.cF" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -171,7 +173,7 @@ process  concatFasta {
 }
 
 process uparseGlobalSearchWorkAround {
-
+    tag { "${params.project_name}.uGSWA" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -189,9 +191,86 @@ process uparseGlobalSearchWorkAround {
     """
 }
 
+process uparseOtuToTab {
+    tag { "${params.project_name}.uOTT" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_file) from uc_tabbed_file
+
+    output:
+        file('otu-table.txt') into otu_table_file
+
+    """
+    python /usr/local/bin/uc2otutab.py ${in_file} > otu-table.txt
+    """
+}
+
+process qiimeOtuTextToBiom {
+    tag { "${params.project_name}.qOTTB" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_file) from otu_table_file
+
+    output:
+        file('otus_table.biom') into otu_biom_file
+
+    """
+    biom convert -i ${in_file} \
+    -o otus_table.biom \
+    --table-type="OTU table" \
+    --to-json
+    """
+}
+
+otu_biom_file.into { otu_biom_file_p1; otu_biom_file_p2 }
+
+process qiimeAssignTaxonomy {
+    tag { "${params.project_name}.qAT" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_file) from otu_biom_file_p1
+        file(in_fasta) from otus_renamed_fasta_p3
+
+    output:
+        file('tax/otus_renamed_tax_assignments.txt') into otu_tax_file
+
+    """
+    assign_taxonomy.py -i ${in_fasta} \
+    -o tax \
+    -r ${params.otuRepsetFasta} \
+    -t ${params.otuRepsetTax} \
+    -m ${params.asignTaxonomyMethod} \
+    -c ${params.assignTaxonomyConfVal}
+    """
+}
+
+process qiimeAddMetadata {
+    tag { "${params.project_name}.qAM" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_biom_file) from otu_biom_file_p2
+        file(in_tax_file) from otu_tax_file
+
+    output:
+        file('otus_table.tax.biom') into otu_tax_biom_file
+
+    """
+    biom add-metadata -i ${in_biom_file} \
+   -o otus_table.tax.biom \
+   --observation-metadata-fp ${in_tax_file} \
+   --observation-header OTUID,taxonomy,confidence \
+   --sc-separated taxonomy \
+   --float-fields confidence \
+    --output-as-json
+    """
+}
 
 process qiimeAlignSeqs {
-
+    tag { "${params.project_name}.qAS" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -209,7 +288,7 @@ process qiimeAlignSeqs {
 }
 
 process qiimeFilterAlign {
-
+    tag { "${params.project_name}.qFA" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -225,7 +304,7 @@ process qiimeFilterAlign {
 }
 
 process qiimeMakePhylogeny {
-
+    tag { "${params.project_name}.uMP" }
     publishDir "$out_path", mode: 'copy', overwrite: false
 
     input:
@@ -240,8 +319,8 @@ process qiimeMakePhylogeny {
     """
 }
 
-uc_tabbed_file.subscribe { println it }
 otus_tree_file.subscribe { println it }
+otu_tax_biom_file.subscribe { println it }
 
 workflow.onComplete {
 
