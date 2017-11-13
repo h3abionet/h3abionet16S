@@ -23,6 +23,8 @@ process {
     $qiimeOtuTextToBiom.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeAssignTaxonomy.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeAddMetadata.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeSummaryQualitative.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeSummaryObservations.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 
     $qiimeAlignSeqs.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeFilterAlign.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';

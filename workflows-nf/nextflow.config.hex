@@ -19,6 +19,12 @@ process {
     $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
     $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $uparseOtuToTab.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
+    $qiimeOtuTextToBiom.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeAssignTaxonomy.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeAddMetadata.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeSummaryQualitative.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeSummaryObservations.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 
     $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
     $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
@@ -49,6 +55,12 @@ params {
     // for QIIME alignment
     otuRepsetAlignmentTemplateFasta = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta"
     alignmentMethod = "pynast"
+
+    // for QIIME classification assignment
+    otuRepsetFasta = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/rep_set/97_otus.fasta"
+    otuRepsetTax = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt"
+    asignTaxonomyMethod = "uclust"
+    assignTaxonomyConfVal = 0.5
 
 }
 

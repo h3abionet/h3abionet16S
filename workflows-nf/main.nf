@@ -269,6 +269,42 @@ process qiimeAddMetadata {
     """
 }
 
+otu_tax_biom_file.into { otu_tax_biom_file_p1; otu_tax_biom_file_p2 }
+
+process qiimeSummaryQualitative  {
+    tag { "${params.project_name}.qSQ" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_biom_file) from otu_tax_biom_file_p1
+
+    output:
+        file('otus.summary.qualitative') into otu_summary_qualitative_file
+
+    """
+    biom summarize-table -i ${in_biom_file} \
+    --qualitative \
+   -o otus.summary.qualitative \
+    """
+}
+
+process qiimeSummaryObservations  {
+    tag { "${params.project_name}.qSO" }
+    publishDir "$out_path", mode: 'copy', overwrite: false
+
+    input:
+        file(in_biom_file) from otu_tax_biom_file_p2
+
+    output:
+        file('otus.summary.observations') into otu_summary_observations_file
+
+    """
+    biom summarize-table -i ${in_biom_file} \
+    --observations \
+   -o otus.summary.observations \
+    """
+}
+
 process qiimeAlignSeqs {
     tag { "${params.project_name}.qAS" }
     publishDir "$out_path", mode: 'copy', overwrite: false
@@ -320,7 +356,8 @@ process qiimeMakePhylogeny {
 }
 
 otus_tree_file.subscribe { println it }
-otu_tax_biom_file.subscribe { println it }
+otu_summary_qualitative_file.subscribe { println it }
+otu_summary_observations_file.subscribe { println it }
 
 workflow.onComplete {
 
