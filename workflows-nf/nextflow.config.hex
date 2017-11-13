@@ -32,6 +32,9 @@ process {
 }
 
 params {
+
+    project_name = "tl"    
+
     data = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
     out = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
 
