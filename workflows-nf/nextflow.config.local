@@ -32,6 +32,10 @@ process {
 
 }
 
+executor{
+    jobName = { "$task.tag" }
+}
+
 params {
 
     project_name = "tl"
