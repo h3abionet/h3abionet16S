@@ -34,7 +34,14 @@ process {
     $qiimeMakePhylogeny.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
 }
 
+executor{
+    jobName = { "$task.tag" }
+}
+
 params {
+
+    project_name = "tl"    
+
     data = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
     out = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
 
