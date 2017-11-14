@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # This piece of code was developed by Bryan Brown and he gave us permission to include it in the package.
 
 # USAGE: strip_primers.py Mapping_file input_fasta output_fasta log_filename
 
 from sys import argv
-#from string import upper
+from string import upper
 from re import compile
 
 from cogent.parse.fasta import MinimalFastaParser

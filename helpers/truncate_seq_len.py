@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # This piece of code was developed by Bryan Brown and he gave us permission to include it in the package.
 
