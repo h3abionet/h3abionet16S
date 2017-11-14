@@ -7,12 +7,47 @@ out_path.mkdir()
 
 read_pair = Channel.fromFilePairs("${data_path}/*R[1,2].fastq", type: 'file')
 
+read_pair.into { read_pair_p1; read_pair_p2 }
+
+process runFastQC{
+    tag { "${params.project_name}.rFQC.${sample}" }
+    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
+
+    input:
+        set sample, file(read) from read_pair_p1
+
+    output:
+        file("${sample}_fastqc/*.zip") into fastqc_files
+
+    """
+    mkdir ${sample}_fastqc
+    fastqc --outdir ${sample}_fastqc \
+    ${read.get(0)} \
+    ${read.get(1)}
+    """
+}
+
+process runMultiQC{
+    tag { "${params.project_name}.rMQC" }
+    publishDir "${out_path}", mode: 'copy', overwrite: false
+
+    input:
+        file('*') from fastqc_files.collect()
+
+    output:
+        file('multiqc_report.html')
+
+    """
+    multiqc .
+    """
+}
+
 process uparseRenameFastq {
     tag { "${params.project_name}.uRF.${sample}" }
     publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
 
     input:
-	   set sample, file(read) from read_pair
+	   set sample, file(read) from read_pair_p2
 
     output:
 	   set sample, file("*renamed.fastq") into renamed_read_pair

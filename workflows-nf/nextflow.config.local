@@ -9,6 +9,9 @@ process {
     stageInMode='symlink'
     stageOutMode='rsync'
 
+    $runFastQC.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-fastqc-2017-11-13-9bde7373284c.img';
+    $runMultiQC.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-fastqc-2017-11-13-9bde7373284c.img';
+
     $uparseRenameFastq.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
     $uparseFastqMerge.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
     $uparseFilter.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
