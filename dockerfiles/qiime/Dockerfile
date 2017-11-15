@@ -23,9 +23,20 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
-RUN /opt/conda/bin/conda create -y -n qiime1 python=2.7 numpy=1.10.4 qiime matplotlib=1.4.3 mock nose -c bioconda
+RUN /opt/conda/bin/conda create -y -n qiime1 python=2.7 numpy=1.10.4 qiime matplotlib=1.4.3 mock nose scikit-bio cogent -c bioconda
+# Not sure why we had psutil install system wide
 RUN /opt/conda/bin/conda install psutil
+# Need to downgrade h5py otherwise we get Unicode incompatibility issues
+RUN /opt/conda/bin/conda install -n qiime1 h5py=2.6.0
 ENV PATH /opt/conda/envs/qiime1/bin:$PATH
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/nextflow/helpers/strip_primers.py
+RUN chmod +x strip_primers.py
+RUN mv strip_primers.py /usr/local/bin/
+
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/truncate_seq_len.py
+RUN chmod +x truncate_seq_len.py
+RUN mv truncate_seq_len.py /usr/local/
 
 ################## Hex specific ###########################
 RUN mkdir -p /researchdata/fhgfs
