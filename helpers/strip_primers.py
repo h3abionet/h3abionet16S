@@ -42,7 +42,6 @@ def get_primers(header,
 
     raw_reverse_primers = set([])
 
-
     for line in mapping_data:
         # Split on commas to handle pool of primers
         raw_forward_primers.update([upper(primer).strip() for
@@ -50,12 +49,10 @@ def get_primers(header,
         raw_reverse_primers.update([upper(str(DNA(primer).reverse_complement())) for
                                     primer in line[rev_primer_ix].split(',')])
 
-
     if not raw_forward_primers:
         raise ValueError(("No forward primers detected in mapping file."))
     if not raw_reverse_primers:
         raise ValueError(("No reverse primers detected in mapping file."))
-
 
     forward_primers = []
     reverse_primers = []
@@ -67,9 +64,6 @@ def get_primers(header,
                                                 symbol in curr_primer])))
 
     return forward_primers, reverse_primers
-
-
-
 
 map_fp = open(argv[1], "U")
 
@@ -104,4 +98,4 @@ for label,seq in MinimalFastaParser(seqs):
 
 log_out.write("Forward primer hits: %d\n" % f_count)
 log_out.write("Reverse primer hits: %d\n" % r_count)
-log_out.write("No seq left after truncation: %d" % no_seq_left)
+log_out.write("No seq left after truncation: %d\n" % no_seq_left)
