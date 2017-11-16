@@ -176,7 +176,7 @@ process uparseTruncateReads{
         file("${sample}_filtered_stripped_primers_truncated.fasta") into filtered_stripped_primers_truncated_fasta
 
     """
-    python /usr/local/truncate_seq_len.py ${in_fasta} \
+    truncate_seq_len.py ${in_fasta} \
         ${params.minLen} \
         ${params.maxLen} \
         ${params.targetLen} \
