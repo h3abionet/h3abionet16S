@@ -4,8 +4,8 @@ A package that takes raw 16S rRNA reads QC them, create OTUs and classifies that
 
 Two workflow languages were investigated for running this pipeline CWL and Nextflow.
 
-To access the CWL workflow go [here[](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl)
+To access the CWL workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl)
 
-To access the Nexftlow  workflow go [here[](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-nxf)
+To access the Nexftlow  workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-nxf)
 
-The Nexflow workflow is the most updated version of the pipeline.
+**The Nexflow workflow is the most updated version of the pipeline and for now the recommended to use.**
