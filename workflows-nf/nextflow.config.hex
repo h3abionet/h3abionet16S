@@ -1,0 +1,98 @@
+docker.enabled = false
+singularity.enabled = true
+singularity.cacheDir = "/scratch/DB/bio/singularity-containers"
+
+process {
+
+    cache = true
+
+    stageInMode='symlink'
+    stageOutMode='rsync'
+
+    $runFastQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
+    $runMultiQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
+
+    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseFastqMerge.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseFilter.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $runFastQCOnFiltered.container='/scratch/DB/bio/singularity-containers//h3abionet_org_h3a16s-fastqc.img';
+    $runMultiQCOnFiltered.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
+    $uparseFastqToFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseStripPrimers.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $uparseTruncateReads.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $uparseDerepWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseSort.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseOTUPick.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseChimeraCheck.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseOtuToTab.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $qiimeOtuTextToBiom.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeAssignTaxonomy.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeAddMetadata.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryQualitative.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryObservations.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+
+    $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeMakePhylogeny.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+}
+
+executor{
+    jobName = { "$task.tag" }
+}
+
+params {
+
+    projectName = "tl"
+
+    rawReads = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
+    qiimeMappingFile = "/home/gerrit/code/h3abionet16S/example/dog_stool_samples_metadata.tsv"
+
+    outDir = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
+
+    // usearch specific settings
+    // for usearch merge
+    fastqMaxdiffs = 3
+    // for usearch filter
+    fastqMaxEe = 0.1
+    // for read truncation
+    minLen=250 // is the minimum sequence length (discards reads shorter than this)
+    maxLen=260 // is the maximum sequence length (discards reads longer than this)
+    targetLen=250 // is target length truncation
+    // for usearch sortbysize
+    minSize = 0.1
+    // for usearch OTU picking
+    otuRadiusPct = 3.0
+    // for chimera detection
+    chimeraFastaDb = "/scratch/DB/bio/qiime/uchime/gold.fa.latest"
+    strandInfo = "plus"
+    chimeraCheckMode = "high_confidence"
+    // for usearch underep (global-search)
+    otuPercentageIdentity = 0.97
+    usearchGlobalStrand = "plus"
+
+    // for QIIME alignment
+    otuRepsetAlignmentTemplateFasta = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta"
+    alignmentMethod = "pynast"
+
+    // for QIIME classification assignment
+    otuRepsetFasta = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/rep_set/97_otus.fasta"
+    otuRepsetTax = "/scratch/DB/bio/qiime/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt"
+    asignTaxonomyMethod = "uclust"
+    assignTaxonomyConfVal = 0.5
+
+}
+
+profiles{
+    standard {
+        process.executor = 'local'
+    }
+
+   hex {
+        process.executor = 'pbs'
+        process.queue = 'UCTlong'
+	    process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe -l nodes=1:series600:ppn=6'
+    }
+}

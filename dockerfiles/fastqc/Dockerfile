@@ -26,6 +26,15 @@ RUN unzip fastqc_v0.11.5.zip
 RUN mv FastQC/ /opt/
 RUN chmod +x /opt/FastQC/fastqc
 RUN ln -s /opt/FastQC/fastqc /usr/local/bin/fastqc
+
+# Install MultQC
+RUN apt-get install -y python-pip
+RUN pip install --upgrade pip
+RUN pip install multiqc
+
+################## Hex specific ###########################
+RUN mkdir -p /researchdata/fhgfs
+
 ##################### INSTALLATION END #####################
 
 #ENTRYPOINT ["/usr/local/bin/fastqc"]

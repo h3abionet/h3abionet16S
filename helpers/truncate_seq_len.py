@@ -11,18 +11,18 @@ Z is the maximum sequence length (discards reads longer than this)
 A is target truncation length
 B is output fasta file
 """
- 
+
 from sys import argv
 
 from cogent.parse.fasta import MinimalFastaParser
- 
+
 f = open(argv[1], "U")
 min_trunc_len = int(argv[2])
 max_trunc_len = int(argv[3])
 trunc_len = int(argv[4])
 out_f = open(argv[5], "w")
 
- 
+
 for label,seq in MinimalFastaParser(f):
     if len(seq) < min_trunc_len or len(seq) > max_trunc_len:
         continue

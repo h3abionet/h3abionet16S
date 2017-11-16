@@ -32,4 +32,13 @@ RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers
 RUN chmod +x concat_fasta.sh
 RUN mv concat_fasta.sh /usr/local/bin/
 
+# Get seqtk installed
+RUN apt-get install -y git make gcc libz-dev
+RUN git clone https://github.com/lh3/seqtk && cd seqtk && make
+RUN mv seqtk/seqtk /usr/local/bin/
+
+################## Hex specific ###########################
+
+RUN mkdir -p /researchdata/fhgfs
+
 ##################### INSTALLATION END #####################
