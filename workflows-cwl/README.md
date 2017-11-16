@@ -99,11 +99,11 @@ ln -s /scratch/user/h3abionet16S/chimera_checking_db/gold.fa .
 ```
 mkdir /scratch/user/h3abionet16S/workflow_output
 mkdir /scratch/user/h3abionet16S/cachedir
-cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml 
+cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
 ```
 
 ## Input
-* ```input.yml``` - Example input file containing tool configuration options, paths to references databases and sample info of the dog stool samples. ```../helpers/metadata_to_cwl_yml.sh``` was used to generate the sample info in ```input.yml``` from ```dog_stool_samples_metadata.tsv```. 
+* ```input.yml``` - Example input file containing tool configuration options, paths to references databases and sample info of the dog stool samples. ```../helpers/metadata_to_cwl_yml.sh``` was used to generate the sample info in ```input.yml``` from ```dog_stool_samples_metadata.tsv```.
 * ```dog_stool_samples_metadata.tsv``` - Metadata/mapping file. Used for generating R reports. At some point this needs to be passed directly from ```input.yml```.
 
 
@@ -125,11 +125,11 @@ On a successful run you would find the following files and directories in your o
 * ```otus.tax.biom``` - OTU table in BIOM format.
 * ```otus.summary.qualitative``` - number of OTUs per sample.
 * ```otus.summary.observations``` - number of merged reads per OTU.
-* ```otus.shared_phylotypes``` - to be added.   
+* ```otus.shared_phylotypes``` - to be added.
 * ```otus_renamed_aligned.fasta``` - Aligned OTU sequences against a pre-aligned database.
 * ```otus_renamed_aligned_pfiltered.fasta``` - Removes gaps in ```otus_renamed_aligned.fasta```
 * ```otus.tre``` - Phylogenetic tree build from the filtered alignment.
-* ```barplot.jpg``` - Composition breakdown for each sample. 
+* ```barplot.jpg``` - Composition breakdown for each sample.
 * ```heatmap.jpg``` - OTU abundance per sample.
 * ```richness.jpg``` - Richness plots for several metrics.
 * ```ordination.jpg``` - NMDS plot. Need to work on this.
@@ -205,7 +205,7 @@ sudo apt-get install -y wget bzip2 libxext6 libsm6 libxrender1
 # Based on https://hub.docker.com/r/continuumio/miniconda/~/dockerfile/
 sudo sh -c "echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh" && \
 sudo wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-sudo /bin/bash ~/miniconda.sh -b -p /opt/conda && \ 
+sudo /bin/bash ~/miniconda.sh -b -p /opt/conda && \
 sudo rm ~/miniconda.sh
 export PATH=/opt/conda/bin:$PATH
 sudo /opt/conda/bin/conda create -y -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
@@ -269,3 +269,7 @@ The QIIME environment needs to be activated and we are calling ```completeWorkfl
 source activate qiime1
 cwltool --no-container --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
 ```
+
+### Workflow diagram
+
+![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/worklows-cwl/h3abionet16S_CWL_workflow.png "CWL workflow")
