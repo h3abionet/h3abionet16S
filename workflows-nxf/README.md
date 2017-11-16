@@ -6,25 +6,25 @@
 
 1) Build the docker containers fastqc, in-house, qiime and usearch:
 
-####fastqc####
+#### fastqc
 ```bash
 cd dockerfiles/fastqc/
 docker build --tag h3abionet_org/h3a16s-fastqc .
 ```
 
-####in-house####
+#### in-house
 ```bash
 cd dockerfiles/in-house/
 docker build --tag h3abionet_org/h3a16s-in-house .
 ```
 
-####qiime####
+#### qiime
 ```bash
 cd dockerfiles/qiime/
 docker build --tag h3abionet_org/h3a16s-qiime .
 ```
 
-####usearch####
+#### usearch
 Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license Robert Edgar will send you an email with a link where you can download the binary from.
 
 ```
@@ -35,22 +35,22 @@ docker build --tag h3abionet_org/h3a16s-usearch .
 
 2) Then build the singularity containter from there (see how it is done [here](https://github.com/singularityware/docker2singularity))
 
-####fastqc####
+#### fastqc
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/h3abionet16S/singularity-containers/:/output --privileged -t --rm singularityware/docker2singularity h3abionet_org/h3a16s-fastqc
 ```
 
-####in-hosue####
+#### in-house
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/h3abionet16S/singularity-containers/:/output --privileged -t --rm singularityware/docker2singularity h3abionet_org/h3a16s-in-house
 ```
 
-####qiime####
+#### qiime
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/h3abionet16S/singularity-containers/:/output --privileged -t --rm singularityware/docker2singularity h3abionet_org/h3a16s-qiime
 ```
 
-####usearch####
+#### usearch
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/h3abionet16S/singularity-containers/:/output --privileged -t --rm singularityware/docker2singularity h3abionet_org/h3a16s-usearch
 ```
