@@ -30,7 +30,7 @@ RUN /opt/conda/bin/conda install psutil
 RUN /opt/conda/bin/conda install -n qiime1 h5py=2.6.0
 ENV PATH /opt/conda/envs/qiime1/bin:$PATH
 
-RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/nextflow/helpers/strip_primers.py
+RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/strip_primers.py
 RUN chmod +x strip_primers.py
 RUN mv strip_primers.py /usr/local/bin/
 
