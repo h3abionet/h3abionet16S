@@ -1,4 +1,4 @@
-# nextflow branch
+# Running with Nextflow
 
 ## Setup
 
@@ -75,3 +75,78 @@ nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextfl
 ### Workflow diagram
 
 ![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/workflows-nxf/h3abionet16S_NXF_workflow.png "Nextflow workflow")
+
+### Run output
+
+See the example of output files on a run of two samples.
+
+```bash
+nextflow-output/otu_picking
+├── no_chimera.fasta
+├── otus_raw.fasta
+├── otus_renamed.fasta
+├── otus_table.biom
+├── otus.uc
+└── otu-table.txt
+nextflow-output/otu_processing
+├── filtered_alignment
+│   └── otus_renamed_aligned_pfiltered.fasta
+├── otus.align
+│   └── otus_renamed_aligned.fasta
+├── otus_table.tax.biom
+├── otus.tre
+└── tax
+    └── otus_renamed_tax_assignments.txt
+nextflow-output/qc
+├── filtered
+│   ├── Dog1
+│   │   └── Dog1_fastqc
+│   │       └── Dog1_filtered_fastqc.zip
+│   ├── Dog10
+│   │   └── Dog10_fastqc
+│   │       └── Dog10_filtered_fastqc.zip
+│   └── multiqc_report.html
+└── raw
+    ├── Dog1
+    │   └── Dog1_fastqc
+    │       ├── Dog1_R1_fastqc.zip
+    │       └── Dog1_R2_fastqc.zip
+    ├── Dog10
+    │   └── Dog10_fastqc
+    │       ├── Dog10_R1_fastqc.zip
+    │       └── Dog10_R2_fastqc.zip
+    └── multiqc_report.html
+nextflow-output/raw
+└── qc
+    └── multiqc_report.html
+nextflow-output/read_processing
+├── concat.fasta
+├── derep.fasta
+├── Dog1
+│   ├── Dog1_filtered.fasta
+│   ├── Dog1_filtered.fastq
+│   ├── Dog1_filtered_stripped_primers.fasta
+│   ├── Dog1_filtered_stripped_primers.log
+│   ├── Dog1_filtered_stripped_primers_truncated.fasta
+│   ├── Dog1_forward_renamed.fastq
+│   ├── Dog1_merged.fastq
+│   └── Dog1_reverse_renamed.fastq
+├── Dog10
+│   ├── Dog10_filtered.fasta
+│   ├── Dog10_filtered.fastq
+│   ├── Dog10_filtered_stripped_primers.fasta
+│   ├── Dog10_filtered_stripped_primers.log
+│   ├── Dog10_filtered_stripped_primers_truncated.fasta
+│   ├── Dog10_forward_renamed.fastq
+│   ├── Dog10_merged.fastq
+│   └── Dog10_reverse_renamed.fastq
+└── sorted.fasta
+nextflow-output/summaries
+├── otus.summary.observations
+└── otus.summary.qualitative
+```
+
+* The output folders are divided in `qc`, `read_processing`, `otu_picking`, `otu_processing` and `summaries`
+* The MultiQC reports would be of interest before and after filtering
+* The `otus_table.tax.biom` and `otus.tre` can be pulled into R for further analysis.
+* The files in `summaries` gives overall sample/OTU abundances.
