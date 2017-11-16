@@ -9,29 +9,34 @@ process {
     stageInMode='symlink'
     stageOutMode='rsync'
 
-    $runFastQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc-2017-11-13-9bde7373284c.img';
-    $runMultiQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc-2017-11-13-9bde7373284c.img';
+    $runFastQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
+    $runMultiQC.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
 
-    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
-    $uparseFastqMerge.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseFilter.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseDerepWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
-    $uparseSort.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseOTUPick.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseChimeraCheck.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house-2017-10-04-06655c26a94b.img';
-    $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $uparseOtuToTab.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch-2017-10-10-0a85ba41b524.img';
-    $qiimeOtuTextToBiom.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeAssignTaxonomy.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeAddMetadata.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeSummaryQualitative.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeSummaryObservations.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $uparseRenameFastq.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseFastqMerge.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseFilter.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $runFastQCOnFiltered.container='/scratch/DB/bio/singularity-containers//h3abionet_org_h3a16s-fastqc.img';
+    $runMultiQCOnFiltered.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-fastqc.img';
+    $uparseFastqToFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseStripPrimers.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $uparseTruncateReads.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $uparseDerepWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseSort.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseOTUPick.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseChimeraCheck.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseRenameOTUs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $concatFasta.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-in-house.img';
+    $uparseGlobalSearchWorkAround.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $uparseOtuToTab.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-usearch.img';
+    $qiimeOtuTextToBiom.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeAssignTaxonomy.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeAddMetadata.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryQualitative.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryObservations.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
 
-    $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
-    $qiimeMakePhylogeny.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime-2017-10-11-d38f19d4c3d9.img';
+    $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeMakePhylogeny.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
 }
 
 executor{
@@ -40,16 +45,22 @@ executor{
 
 params {
 
-    project_name = "tl"    
+    projectName = "tl"
 
-    data = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
-    out = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
+    rawReads = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"
+    qiimeMappingFile = "/home/gerrit/code/h3abionet16S/example/dog_stool_samples_metadata.tsv"
+
+    outDir = "/researchdata/fhgfs/gerrit/h3abionet16S/nextflow-output"
 
     // usearch specific settings
     // for usearch merge
     fastqMaxdiffs = 3
     // for usearch filter
     fastqMaxEe = 0.1
+    // for read truncation
+    minLen=250 // is the minimum sequence length (discards reads shorter than this)
+    maxLen=260 // is the maximum sequence length (discards reads longer than this)
+    targetLen=250 // is target length truncation
     // for usearch sortbysize
     minSize = 0.1
     // for usearch OTU picking
@@ -79,9 +90,9 @@ profiles{
         process.executor = 'local'
     }
 
-   pbs {
+   hex {
         process.executor = 'pbs'
         process.queue = 'UCTlong'
-	process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe'
+	    process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe -l nodes=1:series600:ppn=6'
     }
 }

@@ -1,20 +1,20 @@
 #!/usr/bin/env nextflow
 
-data_path = params.data
-out_path = file(params.out)
+raw_reads = params.rawReads
+out_dir = file(params.outDir)
 
-out_path.mkdir()
+out_dir.mkdir()
 
-read_pair = Channel.fromFilePairs("${data_path}/*R[1,2].fastq", type: 'file')
+read_pair = Channel.fromFilePairs("${raw_reads}/*R[1,2].fastq", type: 'file')
 
 read_pair.into { read_pair_p1; read_pair_p2 }
 
 process runFastQC{
-    tag { "${params.project_name}.rFQC.${sample}" }
-    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.rFQC.${sample}" }
+    publishDir "${out_dir}/qc/raw/${sample}", mode: 'copy', overwrite: false
 
     input:
-        set sample, file(read) from read_pair_p1
+        set sample, file(in_fastq) from read_pair_p1
 
     output:
         file("${sample}_fastqc/*.zip") into fastqc_files
@@ -22,14 +22,14 @@ process runFastQC{
     """
     mkdir ${sample}_fastqc
     fastqc --outdir ${sample}_fastqc \
-    ${read.get(0)} \
-    ${read.get(1)}
+    ${in_fastq.get(0)} \
+    ${in_fastq.get(1)}
     """
 }
 
 process runMultiQC{
-    tag { "${params.project_name}.rMQC" }
-    publishDir "${out_path}", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.rMQC" }
+    publishDir "${out_dir}/qc/raw", mode: 'copy', overwrite: false
 
     input:
         file('*') from fastqc_files.collect()
@@ -43,35 +43,35 @@ process runMultiQC{
 }
 
 process uparseRenameFastq {
-    tag { "${params.project_name}.uRF.${sample}" }
-    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uRF.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
-	   set sample, file(read) from read_pair_p2
+	   set sample, file(in_fastq) from read_pair_p2
 
     output:
 	   set sample, file("*renamed.fastq") into renamed_read_pair
 
     """
     rename_fastq_headers.sh ${sample} \
-        ${read.get(0)} ${read.get(1)} \
+        ${in_fastq.get(0)} ${in_fastq.get(1)} \
 	    ${sample}_forward_renamed.fastq \
 	    ${sample}_reverse_renamed.fastq
     """
 }
 
 process uparseFastqMerge {
-    tag { "${params.project_name}.uFM.${sample}" }
-    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uFM.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
-        set sample, file(read) from renamed_read_pair
+        set sample, file(in_fastq) from renamed_read_pair
 
     output:
         set sample, file("*_merged.fastq") into merged_read_pair
 
     """
-    echo $out_path/${sample}
+    echo $out_dir/${sample}
     usearch -threads 1 -fastq_mergepairs ${sample}_forward_renamed.fastq \
         -reverse ${sample}_reverse_renamed.fastq \
         -fastqout ${sample}_merged.fastq \
@@ -80,38 +80,126 @@ process uparseFastqMerge {
 }
 
 process uparseFilter {
-    tag { "${params.project_name}.uF.${sample}" }
-    publishDir "${out_path}/${sample}", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uF.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
-	set sample, file(read) from merged_read_pair
+	set sample, file(in_fastq) from merged_read_pair
 
     output:
-	file("${sample}_filtered.fasta") into filtered_fasta
+	set sample, file("${sample}_filtered.fastq") into filtered_fastq
 
     """
-    usearch -threads 1 -fastq_filter ${read} \
+    usearch -threads 1 -fastq_filter ${in_fastq} \
         -fastq_maxee ${params.fastqMaxEe} \
-        -fastaout ${sample}_filtered.fasta
+        -fastqout ${sample}_filtered.fastq
     """
 }
 
-filtered_fasta.into { filtered_fasta_p1; filtered_fasta_p2 }
+filtered_fastq.into { filtered_fastq_p1; filtered_fastq_p2 }
 
-filtered_fasta_p1
-.collectFile () { item -> [ 'filtered_fasta_p1.list', "${item}" + ' ' ] }
-.set { filtered_fasta_list_p1 }
-
-filtered_fasta_p2
-.collectFile () { item -> [ 'filtered_fasta_p2.list', "${item}" + ' ' ] }
-.set { filtered_fasta_list_p2 }
-
-process  uparseDerepWorkAround {
-    tag { "${params.project_name}.uDWA" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+process uparseFastqToFasta {
+    tag { "${params.projectName}.uF.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
-	   file(fasta_list) from filtered_fasta_list_p1
+    set sample, file(in_fastq) from filtered_fastq_p1
+
+    output:
+    set sample, file("${sample}_filtered.fasta") into filtered_fasta
+
+    """
+    seqtk seq -A ${in_fastq} \
+        > ${sample}_filtered.fasta
+    """
+}
+
+process runFastQCOnFiltered{
+    tag { "${params.projectName}.rFQCOF.${sample}" }
+    publishDir "${out_dir}/qc/filtered/${sample}", mode: 'copy', overwrite: false
+
+    input:
+        set sample, file(in_fastq) from filtered_fastq_p2
+
+    output:
+        file("${sample}_fastqc/*.zip") into fastqc_filtered_files
+
+    """
+    mkdir ${sample}_fastqc
+    fastqc --outdir ${sample}_fastqc \
+    ${in_fastq} \
+    """
+}
+
+process runMultiQCOnFiltered{
+    tag { "${params.projectName}.rMQCOF" }
+    publishDir "${out_dir}/qc/filtered", mode: 'copy', overwrite: false
+
+    input:
+        file('*') from fastqc_filtered_files.collect()
+
+    output:
+        file('multiqc_report.html')
+
+    """
+    multiqc .
+    """
+}
+
+process uparseStripPrimers{
+    tag { "${params.projectName}.uSP.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
+
+    input:
+        set sample, file(in_fasta) from filtered_fasta
+
+    output:
+        set sample, file("${sample}_filtered_stripped_primers.fasta") into filtered_stripped_primers_fasta
+        file("${sample}_filtered_stripped_primers.log")
+
+    """
+    strip_primers.py ${params.qiimeMappingFile} \
+        ${in_fasta} \
+        ${sample}_filtered_stripped_primers.fasta  \
+        ${sample}_filtered_stripped_primers.log
+    """
+}
+
+process uparseTruncateReads{
+    tag { "${params.projectName}.uTR.${sample}" }
+    publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
+
+    input:
+        set sample, file(in_fasta) from filtered_stripped_primers_fasta
+
+    output:
+        file("${sample}_filtered_stripped_primers_truncated.fasta") into filtered_stripped_primers_truncated_fasta
+
+    """
+    python /usr/local/truncate_seq_len.py ${in_fasta} \
+        ${params.minLen} \
+        ${params.maxLen} \
+        ${params.targetLen} \
+        ${sample}_filtered_stripped_primers_truncated.fasta
+    """
+}
+
+filtered_stripped_primers_truncated_fasta.into { filtered_stripped_primers_truncated_fasta_p1; filtered_stripped_primers_truncated_fasta_p2 }
+
+filtered_stripped_primers_truncated_fasta_p1
+.collectFile () { item -> [ 'ffiltered_stripped_primers_truncated_fasta_p1.list', "${item}" + ' ' ] }
+.set { filtered_stripped_primers_truncated_fasta_list_p1 }
+
+filtered_stripped_primers_truncated_fasta_p2
+.collectFile () { item -> [ 'filtered_stripped_primers_truncated_fasta_p2.list', "${item}" + ' ' ] }
+.set { filtered_stripped_primers_truncated_fasta_list_p2 }
+
+process  uparseDerepWorkAround {
+    tag { "${params.projectName}.uDWA" }
+    publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
+
+    input:
+	   file(fasta_list) from filtered_stripped_primers_truncated_fasta_list_p1
 
     output:
         file('*') into derep_fasta
@@ -122,8 +210,8 @@ process  uparseDerepWorkAround {
 }
 
 process uparseSort {
-    tag { "${params.project_name}.uS" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uS" }
+    publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from derep_fasta
@@ -139,8 +227,8 @@ process uparseSort {
 }
 
 process uparseOTUPick {
-    tag { "${params.project_name}.uOP" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uOP" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from sorted_fasta
@@ -156,8 +244,8 @@ process uparseOTUPick {
 }
 
 process uparseChimeraCheck {
-    tag { "${params.project_name}.uCC" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uCC" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from otus_raw_fasta
@@ -175,8 +263,8 @@ process uparseChimeraCheck {
 }
 
 process uparseRenameOTUs {
-    tag { "${params.project_name}.RO" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.RO" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from no_chimera_fasta
@@ -193,11 +281,11 @@ process uparseRenameOTUs {
 otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2; otus_renamed_fasta_p3 }
 
 process  concatFasta {
-    tag { "${params.project_name}.cF" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.cF" }
+    publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
 
     input:
-	   file(fasta_list) from filtered_fasta_list_p2
+	   file(fasta_list) from filtered_stripped_primers_truncated_fasta_list_p2
 
     output:
         file('*') into concat_fasta
@@ -208,8 +296,8 @@ process  concatFasta {
 }
 
 process uparseGlobalSearchWorkAround {
-    tag { "${params.project_name}.uGSWA" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uGSWA" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from concat_fasta
@@ -227,8 +315,8 @@ process uparseGlobalSearchWorkAround {
 }
 
 process uparseOtuToTab {
-    tag { "${params.project_name}.uOTT" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uOTT" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_file) from uc_tabbed_file
@@ -242,8 +330,8 @@ process uparseOtuToTab {
 }
 
 process qiimeOtuTextToBiom {
-    tag { "${params.project_name}.qOTTB" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qOTTB" }
+    publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
         file(in_file) from otu_table_file
@@ -262,8 +350,8 @@ process qiimeOtuTextToBiom {
 otu_biom_file.into { otu_biom_file_p1; otu_biom_file_p2 }
 
 process qiimeAssignTaxonomy {
-    tag { "${params.project_name}.qAT" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qAT" }
+    publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_file) from otu_biom_file_p1
@@ -283,8 +371,8 @@ process qiimeAssignTaxonomy {
 }
 
 process qiimeAddMetadata {
-    tag { "${params.project_name}.qAM" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qAM" }
+    publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_biom_file) from otu_biom_file_p2
@@ -307,8 +395,8 @@ process qiimeAddMetadata {
 otu_tax_biom_file.into { otu_tax_biom_file_p1; otu_tax_biom_file_p2 }
 
 process qiimeSummaryQualitative  {
-    tag { "${params.project_name}.qSQ" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qSQ" }
+    publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
         file(in_biom_file) from otu_tax_biom_file_p1
@@ -324,8 +412,8 @@ process qiimeSummaryQualitative  {
 }
 
 process qiimeSummaryObservations  {
-    tag { "${params.project_name}.qSO" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qSO" }
+    publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
         file(in_biom_file) from otu_tax_biom_file_p2
@@ -341,8 +429,8 @@ process qiimeSummaryObservations  {
 }
 
 process qiimeAlignSeqs {
-    tag { "${params.project_name}.qAS" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qAS" }
+    publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from otus_renamed_fasta_p2
@@ -359,8 +447,8 @@ process qiimeAlignSeqs {
 }
 
 process qiimeFilterAlign {
-    tag { "${params.project_name}.qFA" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.qFA" }
+    publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from otus_renamed_aligned_fasta
@@ -375,8 +463,8 @@ process qiimeFilterAlign {
 }
 
 process qiimeMakePhylogeny {
-    tag { "${params.project_name}.uMP" }
-    publishDir "$out_path", mode: 'copy', overwrite: false
+    tag { "${params.projectName}.uMP" }
+    publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
         file(in_fasta) from otus_renamed_aligned_pfiltered_fasta
@@ -389,10 +477,6 @@ process qiimeMakePhylogeny {
         -o otus.tre
     """
 }
-
-otus_tree_file.subscribe { println it }
-otu_summary_qualitative_file.subscribe { println it }
-otu_summary_observations_file.subscribe { println it }
 
 workflow.onComplete {
 
