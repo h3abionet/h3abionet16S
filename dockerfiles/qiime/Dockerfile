@@ -36,7 +36,7 @@ RUN mv strip_primers.py /usr/local/bin/
 
 RUN wget https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/helpers/truncate_seq_len.py
 RUN chmod +x truncate_seq_len.py
-RUN mv truncate_seq_len.py /usr/local/
+RUN mv truncate_seq_len.py /usr/local/bin
 
 ################## Hex specific ###########################
 RUN mkdir -p /researchdata/fhgfs
