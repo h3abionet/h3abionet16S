@@ -34,4 +34,4 @@ nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextfl
 
 ### Workflow diagram
 
-![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/workflows-nf/h3abionet16S_NXF_workflow.png "Nextflow workflow")
+![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/workflows-nxf/h3abionet16S_NXF_workflow.png "Nextflow workflow")
