@@ -31,8 +31,9 @@ process {
     $qiimeOtuTextToBiom.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeAssignTaxonomy.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeAddMetadata.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
-    $qiimeSummaryQualitative.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
-    $qiimeSummaryObservations.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummarySampleOTUCount.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryOTUReadCount.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummarySampleReadCount.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
 
     $qiimeAlignSeqs.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeFilterAlign.container='/home/gerrit/scratch/h3abionet16S/singularity-containers/h3abionet_org_h3a16s-qiime.img';
@@ -62,7 +63,7 @@ params {
     maxLen=260 // is the maximum sequence length (discards reads longer than this)
     targetLen=250 // is target length truncation
     // for usearch sortbysize
-    minSize = 0.1
+    minSize = 2
     // for usearch OTU picking
     otuRadiusPct = 3.0
     // for chimera detection

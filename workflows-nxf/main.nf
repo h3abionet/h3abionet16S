@@ -392,41 +392,58 @@ process qiimeAddMetadata {
     """
 }
 
-otu_tax_biom_file.into { otu_tax_biom_file_p1; otu_tax_biom_file_p2 }
+otu_tax_biom_file.into { otu_tax_biom_file_p1; otu_tax_biom_file_p2; otu_tax_biom_file_p3 }
 
-process qiimeSummaryQualitative  {
-    tag { "${params.projectName}.qSQ" }
+process qiimeSummarySampleOTUCount  {
+    tag { "${params.projectName}.qSSOC" }
     publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
         file(in_biom_file) from otu_tax_biom_file_p1
 
     output:
-        file('otus.summary.qualitative') into otu_summary_qualitative_file
+        file('summary.sample_otu_count.txt') into summary_sample_otu_count_file
 
     """
     biom summarize-table -i ${in_biom_file} \
     --qualitative \
-   -o otus.summary.qualitative \
+   -o summary.sample_otu_count.txt \
     """
 }
 
-process qiimeSummaryObservations  {
-    tag { "${params.projectName}.qSO" }
+process qiimeSummaryOTUReadCount  {
+    tag { "${params.projectName}.qSORC" }
     publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
         file(in_biom_file) from otu_tax_biom_file_p2
 
     output:
-        file('otus.summary.observations') into otu_summary_observations_file
+        file('summary.otu_read_count.txt') into summary_otu_read_count_file
 
     """
     biom summarize-table -i ${in_biom_file} \
     --observations \
-   -o otus.summary.observations \
+   -o summary.otu_read_count.txt \
     """
 }
+
+process qiimeSummarySampleReadCount  {
+    tag { "${params.projectName}.qSSRC" }
+    publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
+
+    input:
+        file(in_biom_file) from otu_tax_biom_file_p3
+
+    output:
+        file('summary.sample_read_count.txt') into summary_sample_read_count_file
+
+    """
+    biom summarize-table -i ${in_biom_file} \
+   -o summary.sample_read_count.txt \
+    """
+}
+
 
 process qiimeAlignSeqs {
     tag { "${params.projectName}.qAS" }

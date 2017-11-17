@@ -31,8 +31,9 @@ process {
     $qiimeOtuTextToBiom.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeAssignTaxonomy.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeAddMetadata.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
-    $qiimeSummaryQualitative.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
-    $qiimeSummaryObservations.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummarySampleOTUCount.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummaryOTUReadCount.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
+    $qiimeSummarySampleReadCount.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
 
     $qiimeAlignSeqs.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
     $qiimeFilterAlign.container='/scratch/DB/bio/singularity-containers/h3abionet_org_h3a16s-qiime.img';
@@ -56,7 +57,7 @@ params {
     // for usearch merge
     fastqMaxdiffs = 3
     // for usearch filter
-    fastqMaxEe = 0.1
+    fastqMaxEe = 2
     // for read truncation
     minLen=250 // is the minimum sequence length (discards reads shorter than this)
     maxLen=260 // is the maximum sequence length (discards reads longer than this)
@@ -93,6 +94,6 @@ profiles{
    hex {
         process.executor = 'pbs'
         process.queue = 'UCTlong'
-	    process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe -l nodes=1:series600:ppn=6'
+	    process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe -l nodes=1:ppn=1:series600'
     }
 }
