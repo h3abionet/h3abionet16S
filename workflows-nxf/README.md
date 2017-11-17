@@ -91,7 +91,7 @@ nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextfl
 
 #### Input files
 
-1. Raw reads need to be of the format `S1_R1.fastq.gz` and `S1_R2.fastq.gz` and all reads needs to be in one directory e.g.
+1. Raw reads need to be of the format `S1_R1.fastq` and `S1_R2.fastq` and all reads needs to be in one directory e.g.
 
 ```bash
 ls -1 dog_stool_samples
