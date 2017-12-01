@@ -71,7 +71,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /home/gerrit/scratch/
 #### 2. Run the pipeline
 
 ```bash
-nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.hex /home/gerrit/code/h3abionet16S/workflows-nf/main.nf -profile hex
+nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.hex /home/gerrit/code/h3abionet16S/workflows-nxf/main.nf -profile hex
 ```
 ## Setup to run on Hex/PBS cluster
 
@@ -79,7 +79,7 @@ Use the same procedure to build the singularity conaineters for a local machine.
 
 ### On your local system
 ```bash
-nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.local /home/gerrit/code/h3abionet16S/workflows-nf/main.nf -profile local
+nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.local /home/gerrit/code/h3abionet16S/workflows-nxf/main.nf -profile local
 ```
 
 ### Workflow diagram
@@ -220,3 +220,54 @@ nextflow-output/
 
 An example out of a run on 15 samples can be viewed [here](http://web.cbio.uct.ac.za/~gerrit/examples/nextflow/dog_stool_samples) 
 
+### Suggested setup process for users running projects on Hex
+
+1. create a project directory e.g. `/researchdata/fhgfs/gerrit/test-project`
+
+2. `cd /researchdata/fhgfs/gerrit/test-project`
+
+3. clone repos 
+
+`git clone https://github.com/h3abionet/h3abionet16S.git`
+
+4. Now there should be an extra directory in your project dir
+```bash
+pwd
+/researchdata/fhgfs/gerrit/test-project
+ls
+h3abionet16S
+```
+5. Copy hex exmple to base of your root directory
+```bash
+cp h3abionet16S/workflows-nxf/nextflow.config.hex nextflow.config
+ls
+h3abionet16S  nextflow.config
+```
+
+6. Edit `nextflow.config`
+
+Change
+
+`rawReads` to were your raw data is
+`rawReads = "/researchdata/fhgfs/gerrit/h3abionet16S/dog_stool_two_samples_only"`
+
+`qiimeMappingFile`. For the dogstool samples there is a mapping file in the github repos under example/
+ `qiimeMappingFile = "/researchdata/fhgfs/gerrit/test-project/h3abionet16S/example"`
+
+`outDir` change to where your project dir is e.g
+ `outDir = "/researchdata/fhgfs/gerrit/test-project/nextflow-output"`
+
+Then look at the per tool flag settings and see if you are happy with them or if they need to change.
+
+Also look at the Hex profile settings at the end. Change the email address to yours.
+
+7. To run. Rrun in base of project dir. All nextflow cache and logs are created in there. 
+
+```nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/test-project/nextflow-workdir -c nextflow.config /researchdata/fhgfs/gerrit/test-project/h3abionet16S/workflows-nxf/main.nf -profile hex```
+
+8. When you want resume if some downstream step has failed but you do not want to rerun the upstream steps. You need need to be in the project directory and add the `-resume` flag. 
+
+`nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/test-project/nextflow-workdir -c nextflow.config /researchdata/fhgfs/gerrit/test-project/h3abionet16S/workflows-nxf/main.nf -profile hex -resume`
+
+9. Once your run is done archive the output data, `nextflow.config`, github code and ideally the singularity containers. Also note the version of Nextflow used for the run.
+ 
