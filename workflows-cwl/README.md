@@ -272,4 +272,4 @@ cwltool --no-container --cachedir /scratch/user/h3abionet16S/cachedir/cache --ou
 
 ### Workflow diagram
 
-![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/worklows-cwl/h3abionet16S_CWL_workflow.png "CWL workflow")
+![workflow](https://raw.githubusercontent.com/h3abionet/h3abionet16S/master/workflows-cwl/h3abionet16S_CWL_workflow.png "CWL workflow")
