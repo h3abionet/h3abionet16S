@@ -4,8 +4,8 @@ We have developed an integrated software package that combines together all the 
 
 Two workflow languages were investigated  for running this pipeline. CWL and Nextflow.
 
-To access the CWL workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl) (Runs on Docker containers or a locally installed setup.)
+To access the CWL workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl) (runs on Docker containers or a locally software installed setup)
 
-To access the Nexftlow  workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-nxf) (Runs on Singularity containters)
+To access the Nexftlow  workflow go [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-nxf) (runs on Singularity containers)
 
 **The Nexflow workflow is the most updated version of the pipeline and for now the recommended to use.**
