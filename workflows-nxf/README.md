@@ -79,7 +79,7 @@ Use the same procedure to build the singularity conaineters for a local machine.
 
 ### On your local system
 ```bash
-nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.local /home/gerrit/code/h3abionet16S/workflows-nxf/main.nf -profile local
+nextflow -log nextflow.log run -w /researchdata/fhgfs/gerrit/h3abionet16S/nextflow-workdir -c /home/gerrit/code/h3abionet16S/workflows-nf/nextflow.config.local /home/gerrit/code/h3abionet16S/workflows-nxf/main.nf -profile standard
 ```
 
 ### Workflow diagram
@@ -128,7 +128,11 @@ Dog9_R2.fastq
 
 ```
 
+To get some test data follow the instructions [here](https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl#get-test-data)
+
 2. QIIME metadata file (at the moment this is only used to trim primers). See an example [here]( https://github.com/h3abionet/h3abionet16S/blob/master/example/dog_stool_samples_metadata.tsv)
+
+3. To get the reference data (`gold.fa`, `97_otus.fasta` and `97_otu_taxonomy.txt`), follow the instructions [here](  https://github.com/h3abionet/h3abionet16S/tree/master/workflows-cwl#get-reference-data)
 
 #### To change in nextflow.config
 
