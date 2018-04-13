@@ -35,6 +35,11 @@ RUN pip install multiqc
 ################## Hex specific ###########################
 RUN mkdir -p /researchdata/fhgfs
 
+################## Tromso specific ###########################
+RUN mkdir -p /mnt/data
+RUN mkdir -p /mnt/data2
+RUN mkdir -p /mnt/nas2
+
 ##################### INSTALLATION END #####################
 
 #ENTRYPOINT ["/usr/local/bin/fastqc"]

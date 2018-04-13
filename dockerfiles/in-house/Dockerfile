@@ -38,7 +38,12 @@ RUN git clone https://github.com/lh3/seqtk && cd seqtk && make
 RUN mv seqtk/seqtk /usr/local/bin/
 
 ################## Hex specific ###########################
-
 RUN mkdir -p /researchdata/fhgfs
+
+################## Tromso specific ###########################
+RUN mkdir -p /mnt/data
+RUN mkdir -p /mnt/data2
+RUN mkdir -p /mnt/nas2
+
 
 ##################### INSTALLATION END #####################

@@ -44,4 +44,9 @@ RUN mv uparse_global_search_workaround.sh /usr/local/bin/
 ################## Hex specific ###########################
 RUN mkdir -p /researchdata/fhgfs
 
+################## Tromso specific ###########################
+RUN mkdir -p /mnt/data
+RUN mkdir -p /mnt/data2
+RUN mkdir -p /mnt/nas2
+
 ##################### INSTALLATION END #####################
