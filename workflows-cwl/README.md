@@ -1,6 +1,11 @@
-# Setting up machine to run worklow on docker containers (tested on Ubuntu 16.04.1)
+# Setting up machine to run worklow on docker containers (tested on Ubuntu 16.04.1).
 
-In the setup it is assumed that the user name of the user you are setting things up is name `user` with sudo rights. If the user name you are using to do the setup are different please make sure you make the correct changes in the setup.
+The machine can be a physical machine or a VM on AWS or Azure. It needs at least 8GB RAM to run the example.
+
+## Please set the user name of the user with sudo rigths
+```
+user=yourname
+```
 
 ## Update OS
 
@@ -31,15 +36,11 @@ docker run hello-world
 ```
 
 ## Setup CWL
-```
-sudo apt-get install python-pip
-sudo apt-get install libpython-dev
-sudo pip install cwltool
-sudo apt-get install nodejs
-```
+Follow instructions [here](https://github.com/common-workflow-language/cwltool)
+
 ## Clone h3abionet16S repos
 ```
-cd /home/user/
+cd /home/$user/
 git clone https://github.com/h3abionet/h3abionet16S.git
 ```
 
@@ -55,7 +56,7 @@ docker pull quay.io/h3abionet_org/h3a16s-in-house
 Make a request here: http://www.drive5.com/usearch/download.html . Once you've agreed to the license Robert Edgar will send you an email with a link where you can download the binary from.
 
 ```
-cd /home/user/h3abionet16S/dockerfiles/usearch
+cd /home/$user/h3abionet16S/dockerfiles/usearch
 wget http://link_in_email -O usearch
 docker build --tag h3abionet_org/h3a16s-usearch .
 ```
@@ -66,9 +67,9 @@ docker build --tag h3abionet_org/h3a16s-usearch .
 
 #### Get test data
 ```
-sudo mkdir -p /scratch/user
-sudo chown user:user /scratch/user/
-cd /scratch/user
+sudo mkdir -p /scratch/$user
+sudo chown user:user /scratch/$user/
+cd /scratch/$user
 mkdir h3abionet16S
 mkdir h3abionet16S/dog_stool_samples
 cd h3abionet16S/dog_stool_samples
@@ -76,30 +77,31 @@ wget http://h3data.cbio.uct.ac.za/assessments/16SrRNADiversityAnalysis/practice/
 ```
 #### Get reference data
 ```
-mkdir -p /scratch/user/h3abionet16S/greengenes/
-cd /scratch/user/h3abionet16S/greengenes/
+mkdir -p /scratch/$user/h3abionet16S/greengenes/
+cd /scratch/$user/h3abionet16S/greengenes/
 wget ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz
 tar -xzvf gg_13_8_otus.tar.gz
-mkdir /scratch/user/h3abionet16S/chimera_checking_db
-cd /scratch/user/h3abionet16S/chimera_checking_db
+mkdir /scratch/$user/h3abionet16S/chimera_checking_db
+cd /scratch/$user/h3abionet16S/chimera_checking_db
 wget http://drive5.com/uchime/gold.fa
 ```
 
 ### Do linking
 ```
-cd /home/user/h3abionet16S/example
-ln -s /scratch/user/h3abionet16S/dog_stool_samples/ .
-ln -s /scratch/user/h3abionet16S/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt .
-ln -s /scratch/user/h3abionet16S/greengenes/gg_13_8_otus/rep_set/97_otus.fasta .
-ln -s /scratch/user/h3abionet16S/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta 97_otus.pynast.fasta
-ln -s /scratch/user/h3abionet16S/chimera_checking_db/gold.fa .
+cd /home/$user/h3abionet16S/example
+ln -s /scratch/$user/h3abionet16S/dog_stool_samples/ .
+ln -s /scratch/$user/h3abionet16S/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt .
+ln -s /scratch/$user/h3abionet16S/greengenes/gg_13_8_otus/rep_set/97_otus.fasta .
+ln -s /scratch/$user/h3abionet16S/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta 97_otus.pynast.fasta
+ln -s /scratch/$user/h3abionet16S/chimera_checking_db/gold.fa .
+ln -s /home/$user/h3abionet16S/workflows-cwl/input.yml /home/$user/h3abionet16S/example/input.yml
 ```
 
 ## Now run the example data through the complete workflow
 ```
-mkdir /scratch/user/h3abionet16S/workflow_output
-mkdir /scratch/user/h3abionet16S/cachedir
-cwltool --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
+mkdir /scratch/$user/h3abionet16S/workflow_output
+mkdir /scratch/$user/h3abionet16S/cachedir
+cwltool --cachedir /scratch/$user/h3abionet16S/cachedir/cache --outdir /scratch/$user/h3abionet16S/workflow_output /home/$user/h3abionet16S/workflows-cwl/completeWorkflow.cwl /home/$user/h3abionet16S/example/input.yml
 ```
 
 ## Input
@@ -132,7 +134,6 @@ On a successful run you would find the following files and directories in your o
 * ```barplot.jpg``` - Composition breakdown for each sample.
 * ```heatmap.jpg``` - OTU abundance per sample.
 * ```richness.jpg``` - Richness plots for several metrics.
-* ```ordination.jpg``` - NMDS plot. Need to work on this.
 
 # Setting up machine to run worklow on on Ubuntu 16.04.1
 
@@ -147,13 +148,13 @@ sudo apt-get -y upgrade
 
 ## Prepare working directories
 ```
-sudo mkdir -p /scratch/user
-sudo chown user:user /scratch/user/
+sudo mkdir -p /scratch/$user
+sudo chown user:user /scratch/$user/
 ```
 
 ## Install FastQC
 ```
-cd /scratch/user
+cd /scratch/$user
 sudo apt-get install wget unzip libfindbin-libs-perl -y
 sudo apt-get install openjdk-8-jre -y
 sudo wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip
@@ -256,7 +257,7 @@ sudo apt-get install nodejs -y
 
 ## Get code
 ```
-cd /home/user
+cd /home/$user
 git clone https://github.com/h3abionet/h3abionet16S.git
 ```
 
@@ -267,7 +268,7 @@ Do the same setup as was done with setup running on docker containers.
 The QIIME environment needs to be activated and we are calling ```completeWorkflow.cwl``` instead of```completeWorkflow-docker.cwl```.
 ```
 source activate qiime1
-cwltool --no-container --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows/completeWorkflow.cwl /home/user/h3abionet16S/example/input.yml
+cwltool --no-container --cachedir /scratch/user/h3abionet16S/cachedir/cache --outdir /scratch/user/h3abionet16S/workflow_output /home/user/h3abionet16S/workflows-cwl/completeWorkflow.cwl /home/user/h3abionet16S/workflows-cwl/input.yml
 ```
 
 ### Workflow diagram
