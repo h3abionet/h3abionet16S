@@ -18,7 +18,6 @@ inputs:
   fastqMaxdiffs: int
   fastqMaxEe: float
   minSize: int
-  otuRadiusPct: float
   chimeraFastaDb: File
   strandInfo: string
   chimeraCheckMode: string
@@ -92,7 +91,7 @@ outputs:
 
   otuBiomTaxonomyFile:
     type: File
-    outputSource: addTaxonomyToBiom/otuBiom
+    outputSource: addTaxonomyToBiom/otuTaxBiom
 
   otuAlignedFastaFile:
     type: File
@@ -203,7 +202,6 @@ steps:
     run: uparseOTUPick.cwl
     in:
       fastaFile: sort/sortedFasta
-      otuRadiusPct: otuRadiusPct
     out: [ otuFasta ]
 
   chimeraCheck:
@@ -263,7 +261,7 @@ steps:
     in:
       otuBiom: otuTableToBiom/otuBiom
       otuTaxonomy: assignTaxonomy/otuTaxonomy
-    out: [ otuBiom ]
+    out: [ otuTaxBiom ]
 
   align:
     run: qiimeAlignSeqs.cwl
@@ -288,19 +286,19 @@ steps:
   createSummaryObservations:
     run: qiimeSummaryObservations.cwl
     in:
-      otuBiom: addTaxonomyToBiom/otuBiom
+      otuBiom: addTaxonomyToBiom/otuTaxBiom
     out: [ otuSummary ]
 
   createSummaryQualitative:
     run: qiimeSummaryQualitative.cwl
     in:
-      otuBiom: addTaxonomyToBiom/otuBiom
+      otuBiom: addTaxonomyToBiom/otuTaxBiom
     out: [ otuSummary ]
 
   generateRReports:
     run: generateRReports.cwl
     in:
-     otuBiom: addTaxonomyToBiom/otuBiom
+     otuBiom: addTaxonomyToBiom/otuTaxBiom
      mappingFile: mappingFile
      treeFile: makePhylogeny/otuTree
     out: [ reports ]

@@ -20,7 +20,7 @@ baseCommand: [ biom, add-metadata,  "-o", otus.tax.biom, "--observation-header",
               "--sc-separated", "taxonomy", "--float-fields", "confidence", "--output-as-json" ]
 
 outputs:
-  otuBiom:
+  otuTaxBiom:
     type: File
     outputBinding:
       glob: otus.tax.biom

@@ -7,9 +7,6 @@ fastqMaxEe: 0.1
 # For UPARSE sort
 minSize: 2
 
-# For UPARSE OTU picking
-otuRadiusPct: 3.0
-
 # For UPARSE chimera detection
 chimeraFastaDb:
   class: File

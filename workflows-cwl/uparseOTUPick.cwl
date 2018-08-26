@@ -11,10 +11,6 @@ inputs:
     type: File
     inputBinding:
       prefix: "-cluster_otus"
-  otuRadiusPct:
-    type: float
-    inputBinding:
-      prefix: "-otu_radius_pct"
 
 baseCommand: [ usearch,  "-otus", otus_raw.fasta ]
 
