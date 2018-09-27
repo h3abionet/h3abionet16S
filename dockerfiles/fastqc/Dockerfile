@@ -35,6 +35,9 @@ RUN pip install multiqc
 ################## Hex specific ###########################
 RUN mkdir -p /researchdata/fhgfs
 
+################## CBIO workshop specific ###########################
+RUN mkdir -p /data
+
 ##################### INSTALLATION END #####################
 
 #ENTRYPOINT ["/usr/local/bin/fastqc"]
