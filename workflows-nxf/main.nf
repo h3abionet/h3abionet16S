@@ -497,6 +497,7 @@ process qiimeAlignSeqs {
     tag { "${params.projectName}.qAS" }
     label 'qiime'
     memory { 4.GB * task.attempt }
+    cpus { 20 }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:

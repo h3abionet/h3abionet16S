@@ -94,6 +94,8 @@ profiles{
    hex {
         process.executor = 'pbs'
         process.queue = 'UCTlong'
-	    process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe -l nodes=1:ppn=1:series600'
+        process.clusterOptions = '-M gerrit.botha@uct.ac.za -m abe'
+        process.memory =  4.GB
+        process.cpus = 1
     }
 }
