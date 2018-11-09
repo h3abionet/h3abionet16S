@@ -11,6 +11,8 @@ read_pair.into { read_pair_p1; read_pair_p2 }
 
 process runFastQC{
     tag { "${params.projectName}.rFQC.${sample}" }
+    label 'fastqc'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/qc/raw/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -29,6 +31,8 @@ process runFastQC{
 
 process runMultiQC{
     tag { "${params.projectName}.rMQC" }
+    label 'fastqc'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/qc/raw", mode: 'copy', overwrite: false
 
     input:
@@ -44,6 +48,8 @@ process runMultiQC{
 
 process uparseRenameFastq {
     tag { "${params.projectName}.uRF.${sample}" }
+    label 'in_house'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -62,6 +68,8 @@ process uparseRenameFastq {
 
 process uparseFastqMerge {
     tag { "${params.projectName}.uFM.${sample}" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -81,6 +89,8 @@ process uparseFastqMerge {
 
 process uparseFilter {
     tag { "${params.projectName}.uF.${sample}" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -100,6 +110,8 @@ filtered_fastq.into { filtered_fastq_p1; filtered_fastq_p2 }
 
 process uparseFastqToFasta {
     tag { "${params.projectName}.uF.${sample}" }
+    label 'in_house'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -116,6 +128,8 @@ process uparseFastqToFasta {
 
 process runFastQCOnFiltered{
     tag { "${params.projectName}.rFQCOF.${sample}" }
+    label 'fastqc'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/qc/filtered/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -133,6 +147,8 @@ process runFastQCOnFiltered{
 
 process runMultiQCOnFiltered{
     tag { "${params.projectName}.rMQCOF" }
+    label 'fastqc'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/qc/filtered", mode: 'copy', overwrite: false
 
     input:
@@ -148,6 +164,8 @@ process runMultiQCOnFiltered{
 
 process uparseStripPrimers{
     tag { "${params.projectName}.uSP.${sample}" }
+    label 'qiime' 
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -167,6 +185,8 @@ process uparseStripPrimers{
 
 process uparseTruncateReads{
     tag { "${params.projectName}.uTR.${sample}" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "${out_dir}/read_processing/${sample}", mode: 'copy', overwrite: false
 
     input:
@@ -196,6 +216,8 @@ filtered_stripped_primers_truncated_fasta_p2
 
 process  uparseDerepWorkAround {
     tag { "${params.projectName}.uDWA" }
+    label 'in_house'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
 
     input:
@@ -211,6 +233,8 @@ process  uparseDerepWorkAround {
 
 process uparseSort {
     tag { "${params.projectName}.uS" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
 
     input:
@@ -228,6 +252,8 @@ process uparseSort {
 
 process uparseOTUPick {
     tag { "${params.projectName}.uOP" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -245,6 +271,8 @@ process uparseOTUPick {
 
 process uparseChimeraCheck {
     tag { "${params.projectName}.uCC" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -264,6 +292,8 @@ process uparseChimeraCheck {
 
 process uparseRenameOTUs {
     tag { "${params.projectName}.RO" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -282,6 +312,8 @@ otus_renamed_fasta.into { otus_renamed_fasta_p1; otus_renamed_fasta_p2; otus_ren
 
 process  concatFasta {
     tag { "${params.projectName}.cF" }
+    label 'in_house'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/read_processing", mode: 'copy', overwrite: false
 
     input:
@@ -297,6 +329,8 @@ process  concatFasta {
 
 process uparseGlobalSearchWorkAround {
     tag { "${params.projectName}.uGSWA" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -316,6 +350,8 @@ process uparseGlobalSearchWorkAround {
 
 process uparseOtuToTab {
     tag { "${params.projectName}.uOTT" }
+    label 'usearch'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -331,6 +367,8 @@ process uparseOtuToTab {
 
 process qiimeOtuTextToBiom {
     tag { "${params.projectName}.qOTTB" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_picking", mode: 'copy', overwrite: false
 
     input:
@@ -351,6 +389,8 @@ otu_biom_file.into { otu_biom_file_p1; otu_biom_file_p2 }
 
 process qiimeAssignTaxonomy {
     tag { "${params.projectName}.qAT" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
@@ -372,6 +412,8 @@ process qiimeAssignTaxonomy {
 
 process qiimeAddMetadata {
     tag { "${params.projectName}.qAM" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
@@ -396,6 +438,8 @@ otu_tax_biom_file.into { otu_tax_biom_file_p1; otu_tax_biom_file_p2; otu_tax_bio
 
 process qiimeSummarySampleOTUCount  {
     tag { "${params.projectName}.qSSOC" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
@@ -413,6 +457,8 @@ process qiimeSummarySampleOTUCount  {
 
 process qiimeSummaryOTUReadCount  {
     tag { "${params.projectName}.qSORC" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
@@ -430,6 +476,8 @@ process qiimeSummaryOTUReadCount  {
 
 process qiimeSummarySampleReadCount  {
     tag { "${params.projectName}.qSSRC" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/summaries", mode: 'copy', overwrite: false
 
     input:
@@ -447,6 +495,8 @@ process qiimeSummarySampleReadCount  {
 
 process qiimeAlignSeqs {
     tag { "${params.projectName}.qAS" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
@@ -465,6 +515,8 @@ process qiimeAlignSeqs {
 
 process qiimeFilterAlign {
     tag { "${params.projectName}.qFA" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
@@ -481,6 +533,8 @@ process qiimeFilterAlign {
 
 process qiimeMakePhylogeny {
     tag { "${params.projectName}.uMP" }
+    label 'qiime'
+    memory { 4.GB * task.attempt }
     publishDir "$out_dir/otu_processing", mode: 'copy', overwrite: false
 
     input:
