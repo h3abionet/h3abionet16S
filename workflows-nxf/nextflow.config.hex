@@ -63,7 +63,7 @@ params {
     maxLen=260 // is the maximum sequence length (discards reads longer than this)
     targetLen=250 // is target length truncation
     // for usearch sortbysize
-    minSize = 0.1
+    minSize = 2
     // for usearch OTU picking
     otuRadiusPct = 3.0
     // for chimera detection
