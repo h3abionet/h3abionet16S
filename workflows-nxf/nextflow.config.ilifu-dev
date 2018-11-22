@@ -1,0 +1,88 @@
+singularity.enabled = true
+
+process {
+    
+    cache = true
+
+    stageInMode='symlink'
+    stageOutMode='rsync'
+
+    withLabel: fastqc {
+        container = '/data/users/cbio-ws-u24/containers/h3abionet_org_h3a16s-fastqc.img'
+    }
+
+    withLabel: in_house {
+        container = '/data/users/cbio-ws-u24/containers/h3abionet_org_h3a16s-in-house.img'
+    }
+
+    withLabel: usearch {
+        container = '/data/users/cbio-ws-u24/containers/h3abionet_org_h3a16s-usearch.img'
+    }
+
+    withLabel: qiime {
+        container = '/data/users/cbio-ws-u24/containers/h3abionet_org_h3a16s-qiime.img'
+    }
+
+}
+
+executor{
+    jobName = { "$task.tag" }
+}
+
+params {
+
+    projectName = "16Sts5"
+
+    rawReads = "/data/users/cbio-ws-u24/test-16S-rDNA-assessment-datasets/set5"
+    qiimeMappingFile = "/data/users/cbio-ws-u24/test-16S-rDNA-assessment-datasets/set5_primers.txt""
+
+    outDir = "/data/users/cbio-ws-u24/test-16S-rDNA-assessment-datasets/set5_primers.txt"
+
+    // usearch specific settings
+    // for usearch merge
+    fastqMaxdiffs = 3
+    // for usearch filter
+    fastqMaxEe = 2
+    // for read truncation
+    minLen=250 // is the minimum sequence length (discards reads shorter than this)
+    maxLen=260 // is the maximum sequence length (discards reads longer than this)
+    targetLen=250 // is target length truncation
+    // for usearch sortbysize
+    minSize = 2 
+    // for usearch OTU picking
+    otuRadiusPct = 3.0
+    // for chimera detection
+    chimeraFastaDb = "/data/users/cbio-ws-u24/gold/gold.fa.latest"
+    strandInfo = "plus"
+    chimeraCheckMode = "high_confidence"
+    // for usearch underep (global-search)
+    otuPercentageIdentity = 0.97
+    usearchGlobalStrand = "plus"
+
+    // for QIIME alignment
+    otuRepsetAlignmentTemplateFasta = "/data/users/cbio-ws-u24/greengenes/gg_13_8_otus/rep_set_aligned/97_otus.fasta"
+    alignmentMethod = "pynast"
+
+    // for QIIME classification assignment
+    otuRepsetFasta = "/data/users/cbio-ws-u24/greengenes/gg_13_8_otus/rep_set/97_otus.fasta"
+    otuRepsetTax = "/data/users/cbio-ws-u24/greengenes/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt"
+    asignTaxonomyMethod = "uclust"
+    assignTaxonomyConfVal = 0.5
+
+}
+
+profiles{
+
+   ilifu_dev {
+        process.executor = 'slurm'
+        process.queue = 'main'
+        process.time = 24.h
+	      process.errorStrategy = 'retry'
+        process.maxRetries = 5
+        process.maxErrors = 1000
+        process.clusterOptions = '--mail-user=gerrit.botha@uct.ac.za --mail-type=BEGIN,END,FAIL'
+        process.memory =  4.GB
+        process.cpus = 1
+   }   
+   
+}
