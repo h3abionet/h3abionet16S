@@ -1,5 +1,3 @@
-singularity.enabled = true
-
 process {
     
     cache = true
@@ -77,12 +75,14 @@ profiles{
         process.executor = 'slurm'
         process.queue = 'main'
         process.time = 24.h
-	      process.errorStrategy = 'retry'
+	process.errorStrategy = 'retry'
         process.maxRetries = 5
         process.maxErrors = 1000
         process.clusterOptions = '--mail-user=gerrit.botha@uct.ac.za --mail-type=BEGIN,END,FAIL'
         process.memory =  4.GB
         process.cpus = 1
+	singularity.enabled = true
+        singularity.runOptions = "-B /data:/data"
    }   
    
 }
