@@ -18,3 +18,7 @@ To access the Nexftlow  workflow go [here](https://github.com/h3abionet/h3abione
 * Get the CWL pipeline at the same stage as the current Nextflow pipeline. Get it running with Toil so that we can parallelise jobs. Once the CWL version is updated we can do not think it would be much work to get the pipeline setup in Galaxy.
 
 
+### References
+
+To cite this pipeline, please use:
+Baichoo, S., Souilmi, Y., Panji, S., Botha, G., Meintjes, A., Hazelhurst, S., Bendou, H., Beste, E. de, et al. 2018. Developing reproducible bioinformatics analysis workflows for heterogeneous computing environments to support African genomics. BMC Bioinformatics. 19(1):457. DOI: [10.1186/s12859-018-2446-1](https://doi.org/10.1186/s12859-018-2446-1).
